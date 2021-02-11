@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Supervisor</string>
+    <string name="login">Login</string>
+    <string name="user_name">User name</string>
+    <string name="create_account">create Account</string>
+    <string name="full_name">Full Name</string>
+    <string name="user">User</string>
+    <string name="admin">Admin</string>
+    <string name="uploading">Uploading build...</string>
+    <string name="saved">Saved</string>
+    <string name="notSaved">Not Saved!!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="apartment">apartment</string>
+    <string name="add">add</string>
+    <string name="service">service</string>
+    <string name="repair">repair</string>
+    <string name="well">well</string>
+    <string name="title_activity_build_detail">BuildDetailActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="buildName">BuildName</string>
+    <string name="address">Address</string>
+    <string name="cost">Cost</string>
+    <string name="manager_name">Manager Name</string>
+    <string name="manager_name_number">Manager Name Number</string>
+    <string name="manager_address">Manager Address</string>
+    <string name="employee_name">Employee Name</string>
+    <string name="employee_number">Employee Number</string>
+    <string name="date_of_contract">Date of Contract</string>
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="successfully_delete">Successfully Deleted</string>
+    <string name="failure_delete">Deleting Failure!!</string>
+    <string-array name="month">
+        <item>---</item>
+        <item >January</item>
+        <item >February</item>
+        <item >March</item>
+        <item >April</item>
+        <item >May</item>
+        <item >June</item>
+        <item >July</item>
+        <item >August</item>
+        <item >September</item>
+        <item >October</item>
+        <item >November</item>
+        <item >December</item>
+    </string-array>
+</resources>

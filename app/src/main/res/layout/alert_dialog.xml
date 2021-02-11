@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    >
+        <TextView
+            android:id="@+id/textViewDialogEmployee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewDialogElevatorUp"
+            android:layout_toEndOf="@+id/checkboxDialogElevatorMachine"
+            android:text="example Employee"
+            android:layout_marginTop="8dp"
+            />
+        <TextView
+            android:id="@+id/textViewDialogDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Month"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:padding="4dp"
+            />
+
+        <TextView
+            android:id="@+id/textViewDialogWell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kuyu"
+            android:textSize="15sp"
+            android:layout_below="@+id/textViewDialogDate"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+
+            />
+
+        <CheckBox
+            android:id="@+id/checkboxDialogWell"
+            android:layout_width="34dp"
+            android:layout_height="21dp"
+            android:layout_toEndOf="@+id/textViewDialogWell"
+            android:layout_marginStart="1dp"
+            android:layout_below="@id/textViewDialogDate"
+            android:layout_marginTop="8dp"
+            android:clickable="false"
+            />
+        <TextView
+            android:id="@+id/textViewDialogElevatorUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kabin Üstü"
+            android:layout_below="@+id/textViewDialogWell"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="5dp"
+
+
+            />
+        <CheckBox
+            android:id="@+id/checkboxDialogElevatorTop"
+            android:layout_width="34dp"
+            android:layout_height="21dp"
+            android:layout_below="@+id/textViewDialogWell"
+            android:layout_toEndOf="@+id/textViewDialogElevatorUp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:clickable="false"
+            />
+        <TextView
+            android:id="@+id/textViewDialogMachineRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Makina Dairesi"
+            android:layout_below="@+id/textViewDialogElevatorUp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+
+
+            />
+        <CheckBox
+            android:id="@+id/checkboxDialogElevatorMachine"
+            android:layout_width="34dp"
+            android:layout_height="21dp"
+            android:layout_toEndOf="@+id/textViewDialogMachineRoom"
+            android:layout_below="@+id/textViewDialogElevatorUp"
+            android:clickable="false"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="8dp"
+            />
+       <androidx.appcompat.widget.AppCompatButton
+           android:id="@+id/buttonDialogCancel"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:background="@drawable/button_background"
+           android:text="cancel"
+           android:layout_marginTop="10dp"
+           android:layout_below="@+id/textViewDialogMachineRoom"
+           android:layout_marginBottom="20dp"
+           android:layout_centerHorizontal="true"
+           />
+</RelativeLayout>

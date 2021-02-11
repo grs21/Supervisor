@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item android:id="@+id/menuItemAdd"
+        android:icon="@drawable/ic_add"
+        android:title="@string/add"
+        />
+    <item android:id="@+id/menuItemApartmentList"
+        android:icon="@drawable/ic_apartment"
+        android:title="@string/apartment"
+        />
+    <item android:id="@+id/menuItemService"
+        android:icon="@drawable/ic_service"
+        android:title="@string/service"
+        />
+    <item
+        android:id="@+id/menuItemRepair"
+        android:icon="@drawable/ic_repair"
+        android:title="@string/repair"
+        />
+
+
+
+</menu>

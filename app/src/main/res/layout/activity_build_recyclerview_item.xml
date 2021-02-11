@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="15dp"
+    android:layout_marginTop="3dp"
+    >
+   <RelativeLayout
+       android:id="@+id/relativeLayout"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:background="#2196F3"
+       android:padding="5dp"
+       >
+       <TextView
+           android:id="@+id/textViewRecyclerViewBuildName"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="20sp"
+           android:text="Build Name"
+           android:layout_marginEnd="155dp"
+           android:padding="4dp"
+           />
+       <TextView
+           android:id="@+id/textViewRecyclerViewContractName"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/textViewRecyclerViewBuildName"
+           android:text="En Son yapılan bakım tarihi"
+           android:padding="8dp"
+           />
+       <TextView
+           android:id="@+id/textViewRecyclerViewWell"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Kuyu"
+           android:textSize="15sp"
+
+           android:layout_marginStart="244dp"
+           />
+
+       <CheckBox
+           android:id="@+id/checkboxRecyclerViewWell"
+           android:layout_width="34dp"
+           android:layout_height="21dp"
+           android:layout_toEndOf="@+id/textViewRecyclerViewWell"
+           android:layout_marginStart="7dp"
+
+           android:clickable="false"
+           />
+       <TextView
+           android:id="@+id/textViewRecyclerViewElevatorUp"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Kabin"
+           android:layout_below="@+id/textViewRecyclerViewWell"
+           android:layout_marginStart="244dp"
+
+           />
+       <CheckBox
+           android:id="@+id/checkboxRecyclerViewElevatorTop"
+           android:layout_width="34dp"
+           android:layout_height="21dp"
+           android:layout_toEndOf="@+id/textViewRecyclerViewElevatorUp"
+           android:layout_below="@+id/checkboxRecyclerViewWell"
+           android:layout_marginStart="5dp"
+           android:clickable="false"
+           />
+       <TextView
+           android:id="@+id/textViewRecyclerViewMachineRoom"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Makina Dairesi"
+           android:layout_below="@+id/textViewRecyclerViewElevatorUp"
+           android:layout_marginStart="244dp"
+           />
+       <CheckBox
+           android:id="@+id/checkboxRecyclerViewElevatorMachine"
+           android:layout_width="34dp"
+           android:layout_height="21dp"
+           android:layout_toEndOf="@+id/textViewRecyclerViewMachineRoom"
+           android:layout_below="@+id/textViewRecyclerViewElevatorUp"
+           android:clickable="false"
+           android:layout_marginStart="5dp"
+           />
+
+
+   </RelativeLayout>
+
+
+
+</androidx.cardview.widget.CardView>
+
+

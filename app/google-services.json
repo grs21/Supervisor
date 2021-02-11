@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "785645478204",
+    "project_id": "supervisor-694dd",
+    "storage_bucket": "supervisor-694dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:785645478204:android:0ff3456b57a616509c7e39",
+        "android_client_info": {
+          "package_name": "com.grs21.supervisor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "785645478204-im5ca8605bhbf0lmruq57857quhg1ljv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9ye6z5zVmbPVxkwYW_gygN3sduOQ25Pk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "785645478204-im5ca8605bhbf0lmruq57857quhg1ljv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

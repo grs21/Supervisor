@@ -1,0 +1,136 @@
+package com.grs21.supervisor.adminFragment;
+
+import android.app.SearchManager;
+import android.content.Context;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.grs21.supervisor.R;
+import com.grs21.supervisor.adapter.AdapterApartmentRecyclerView;
+import com.grs21.supervisor.databinding.FragmentApartmentBinding;
+import com.grs21.supervisor.model.Apartment;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+import es.dmoral.toasty.Toasty;
+
+public class ApartmentFragment extends Fragment {
+    private static final String TAG = "ApartmentFragment";
+
+    private FragmentApartmentBinding binding;
+    private ArrayList<String> apartmentName=new ArrayList<>();
+    private ArrayList<String> apartmentContract=new ArrayList<>();
+    private ArrayList<Apartment> apartments=new ArrayList<>();
+    private FirebaseFirestore fireStore;
+    private AdapterApartmentRecyclerView adapter;
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding=FragmentApartmentBinding.inflate(inflater,container,false);
+        fireStore=FirebaseFirestore.getInstance();
+        getDataFromFireStore();
+
+
+
+
+
+        /*SearchView searchView= binding.searchView;
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });*/
+        return binding.getRoot();
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+
+
+
+
+        inflater.inflate(R.menu.search_menu, menu);
+        MenuItem menuItem=menu.findItem(R.menu.search_menu);
+        SearchManager searchManager=(SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView=(SearchView)menuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void getDataFromFireStore() {
+        CollectionReference collectionReference=fireStore.collection("Builds");
+        collectionReference.orderBy("dateOfContract", Query.Direction.ASCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error!=null){
+                    Toast toastSuccess= Toasty.success(getActivity(), R.string.saved
+                            ,Toast.LENGTH_SHORT,true);
+                    toastSuccess.setGravity(Gravity.CENTER, 0, 0);
+                    toastSuccess.show();
+                }
+                if (value!=null){
+                    for (DocumentSnapshot snapshot:value.getDocuments()){
+                        Map<String,Object> getData=snapshot.getData();
+                        Apartment apartment=new Apartment((String) snapshot.getId(),(String)getData.get("buildName")
+                                ,(String)getData.get("address"),(String)getData.get("Cost"),(String)getData.get("managerName")
+                                ,(String)getData.get("managerNumber"),(String)getData.get("managerAddress")
+                                ,(String)getData.get("employeeName"),(String)getData.get("employeeNumber")
+                                ,(String)getData.get("dateOfContract"));
+                        apartments.add(apartment);
+                    }
+                    LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
+                    adapter=new AdapterApartmentRecyclerView(apartments);
+                    binding.recyclerView.setLayoutManager(linearLayoutManager);
+                    binding.recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+
+}
