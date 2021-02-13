@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +34,7 @@ import com.grs21.supervisor.R;
 import com.grs21.supervisor.adapter.AdapterApartmentRecyclerView;
 import com.grs21.supervisor.databinding.FragmentApartmentBinding;
 import com.grs21.supervisor.model.Apartment;
+import com.grs21.supervisor.util.ItemViewModel;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -81,6 +83,11 @@ public class ApartmentFragment extends Fragment implements SearchView.OnQueryTex
                                 ,(String)getData.get("employeeName"),(String)getData.get("employeeNumber")
                                 ,(String)getData.get("dateOfContract"));
                         apartments.add(apartment);
+
+                    }
+                    if (!apartments.isEmpty()) {
+                        ItemViewModel viewModel = new ViewModelProvider(getActivity()).get(ItemViewModel.class);
+                        viewModel.selectItem(apartments);
                     }
                     LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
                     adapter=new AdapterApartmentRecyclerView(apartments);

@@ -36,6 +36,8 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
     FirebaseUser user;
     TextView textViewAccessLwl;
     TextView textViewUserName;
+    private Fragment repairFragment=new RepairFragment();
+    private Fragment apartmentFragment=new ApartmentFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +93,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                     selectedFragment=new ServiceFragment();
                     break;
                 case R.id.menuItemRepair:
-                    selectedFragment=new RepairFragment();
+                    selectedFragment=repairFragment;
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.admin_fragmentContainer, selectedFragment).commit();

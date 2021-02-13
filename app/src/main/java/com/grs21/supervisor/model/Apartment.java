@@ -114,6 +114,6 @@ public class Apartment implements Serializable {
 
     @Override
     public String toString() {
-        return "apartmentName='" + apartmentName ;
+        return apartmentName ;
     }
 }
