@@ -39,7 +39,7 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        getSupportActionBar().setTitle(apartment.getApartmentName());
         initializeData(apartment);
     }
 
@@ -79,24 +79,17 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
         if (position>0){
             String text=parent.getItemAtPosition(position).toString();
-            Log.d(TAG, "onItemSelected: "+text);
             dialog=new Dialog(BuildDetailActivity.this);
             dialog.setContentView(R.layout.alert_dialog);
             textViewName =dialog.findViewById(R.id.textViewDialogDate);
             textViewName.setText(text);
             dialog.findViewById(R.id.buttonDialogCancel).setOnClickListener(this);
             dialog.show();
-
         }
-
     }
-
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
-
     }
 }

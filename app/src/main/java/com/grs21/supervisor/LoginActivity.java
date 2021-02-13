@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         View view=binding.getRoot();
         setContentView(view);
         binding.buttonLogin.setOnClickListener(this);
-        binding.buttonCreateAccount.setOnClickListener(this);
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseFirestore=FirebaseFirestore.getInstance();
 
@@ -54,9 +53,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 });
             }
             break;
-            case R.id.buttonCreateAccount:
-                startActivity(new Intent(getApplicationContext(),RegistrationActivity.class));
-                break;
         }
     }
 

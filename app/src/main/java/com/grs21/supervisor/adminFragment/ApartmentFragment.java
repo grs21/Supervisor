@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -36,7 +39,7 @@ import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
 
-public class ApartmentFragment extends Fragment {
+public class ApartmentFragment extends Fragment implements SearchView.OnQueryTextListener {
     private static final String TAG = "ApartmentFragment";
 
     private FragmentApartmentBinding binding;
@@ -51,53 +54,10 @@ public class ApartmentFragment extends Fragment {
         binding=FragmentApartmentBinding.inflate(inflater,container,false);
         fireStore=FirebaseFirestore.getInstance();
         getDataFromFireStore();
+        SearchView searchView= binding.searchView;
+        searchView.setOnQueryTextListener(this);
 
-
-
-
-
-        /*SearchView searchView= binding.searchView;
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                return false;
-            }
-        });*/
         return binding.getRoot();
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-
-
-
-
-        inflater.inflate(R.menu.search_menu, menu);
-        MenuItem menuItem=menu.findItem(R.menu.search_menu);
-        SearchManager searchManager=(SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView=(SearchView)menuItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-
-
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
     private void getDataFromFireStore() {
@@ -116,7 +76,7 @@ public class ApartmentFragment extends Fragment {
                     for (DocumentSnapshot snapshot:value.getDocuments()){
                         Map<String,Object> getData=snapshot.getData();
                         Apartment apartment=new Apartment((String) snapshot.getId(),(String)getData.get("buildName")
-                                ,(String)getData.get("address"),(String)getData.get("Cost"),(String)getData.get("managerName")
+                                ,(String)getData.get("address"),(String)getData.get("cost"),(String)getData.get("managerName")
                                 ,(String)getData.get("managerNumber"),(String)getData.get("managerAddress")
                                 ,(String)getData.get("employeeName"),(String)getData.get("employeeNumber")
                                 ,(String)getData.get("dateOfContract"));
@@ -133,4 +93,14 @@ public class ApartmentFragment extends Fragment {
     }
 
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapter.getFilter().filter(newText);
+        return false;
+    }
 }

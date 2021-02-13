@@ -6,31 +6,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.se.omapi.SEService;
-import android.util.Log;
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.internal.OnConnectionFailedListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.grs21.supervisor.adminFragment.ApartmentFragment;
 import com.grs21.supervisor.databinding.ActivityAppartmentEditBinding;
 import com.grs21.supervisor.model.Apartment;
-
 import java.util.HashMap;
-import java.util.Map;
-
 import es.dmoral.toasty.Toasty;
 
 public class ApartmentEditActivity extends AppCompatActivity implements View.OnClickListener {
@@ -39,17 +33,34 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
     private Apartment apartment;
     private FirebaseFirestore fireStore;
     private static final String TAG = "ApartmentEditActivity";
+    private  String toastMessageFailureDelete;
+    private  String toastMessageSuccessfullyDelete;
+    private  String alertDialogDoYouWantDelete;
+    private  String toastMessageNotSaved;
+    private  String toastMessageSaved;
+    private  String alertDialogCancel;
+    private  String alertDialogConnect;
+    private  String alertDialogDelete;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding=ActivityAppartmentEditBinding.inflate(getLayoutInflater());
         View view=binding.getRoot();
         setContentView(view);
-
+        Toolbar toolbar=binding.toolBarEditActivity;
         fireStore = FirebaseFirestore.getInstance();
         Intent intent=getIntent();
         apartment=(Apartment) intent.getSerializableExtra("apartment");
 
+        toastMessageFailureDelete=getResources().getString(R.string.failure_delete);
+        toastMessageSuccessfullyDelete=getResources().getString(R.string.successfully_delete);
+        alertDialogDoYouWantDelete=getResources().getString(R.string.do_you_want_delete);
+        toastMessageNotSaved=getResources().getString(R.string.notSaved);
+        toastMessageSaved=getResources().getString(R.string.saved);
+        alertDialogCancel=getResources().getString(R.string.cancel);
+        alertDialogConnect=getResources().getString(R.string.connect);
+        alertDialogDelete=getResources().getString(R.string.delete);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(apartment.getApartmentName());
         binding.buttonDetailEditApartmentSave.setOnClickListener(this);
@@ -91,7 +102,7 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
                 @Override
                 public void onSuccess(Void aVoid) {
                     progressDialog.dismiss();
-                    Toast toastSuccess = Toasty.success(v.getContext(), R.string.saved
+                    Toast toastSuccess = Toasty.success(v.getContext(), toastMessageSaved
                             , Toast.LENGTH_SHORT, true);
                     toastSuccess.setGravity(Gravity.CENTER, 0, 0);
                     toastSuccess.show();
@@ -101,7 +112,7 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     progressDialog.dismiss();
-                    Toast toastFailure = Toasty.warning(v.getContext(), R.string.notSaved + e.getMessage()
+                    Toast toastFailure = Toasty.warning(v.getContext(), toastMessageNotSaved+ e.getMessage()
                             , Toast.LENGTH_SHORT, true);
                     toastFailure.setGravity(Gravity.CENTER, 0, 0);
                     toastFailure.show();
@@ -110,57 +121,77 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
 
             break;
             case R.id.buttonDetailEditDelete:
-
-                AlertDialog.Builder alertDialog= new AlertDialog.Builder(ApartmentEditActivity.this);
-                alertDialog.setTitle(apartment.getApartmentName()+" Do you want delete !!");
-
-                alertDialog.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        DocumentReference documentReference=fireStore.collection("Builds")
-                                .document(apartment.getUuid());
-                        documentReference.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Log.d(TAG, "onComplete: "+task.getException().getLocalizedMessage());
-                                if (task.isSuccessful()){
-                                    Toast toastSuccess= Toasty.success(v.getContext(),R.string.successfully_delete
-                                            ,Toast.LENGTH_SHORT,true);
-                                    toastSuccess.setGravity(Gravity.CENTER, 0, 0);
-                                    toastSuccess.show();
-                                    startActivity(new Intent(ApartmentEditActivity.this, AdminActivity.class));
-                                }else {
-                                    Log.w(TAG, "HATAAAAA: ",task.getException() );
-                                    Toast toastSuccess= Toasty.warning(v.getContext(),R.string.failure_delete
-                                            ,Toast.LENGTH_LONG,true);
-                                    toastSuccess.setGravity(Gravity.CENTER, 0, 0);
-                                    toastSuccess.show();
-                                    startActivity(new Intent(ApartmentEditActivity.this, AdminActivity.class));
+                if (!isConnected()){
+                    customDialog();
+                }
+                if (isConnected()) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(ApartmentEditActivity.this);
+                    alertDialog.setTitle(apartment.getApartmentName() + alertDialogDoYouWantDelete);
+                    alertDialog.setPositiveButton(alertDialogDelete, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            DocumentReference documentReference = fireStore.collection("Builds")
+                                    .document(apartment.getUuid());
+                            documentReference.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast toastSuccess = Toasty.success(v.getContext(), toastMessageSuccessfullyDelete
+                                                , Toast.LENGTH_SHORT, true);
+                                        toastSuccess.setGravity(Gravity.CENTER, 0, 0);
+                                        toastSuccess.show();
+                                        startActivity(new Intent(ApartmentEditActivity.this, AdminActivity.class));
+                                    } else {
+                                        Toast toastSuccess = Toasty.warning(v.getContext(), toastMessageFailureDelete
+                                                , Toast.LENGTH_LONG, true);
+                                        toastSuccess.setGravity(Gravity.CENTER, 0, 0);
+                                        toastSuccess.show();
+                                        startActivity(new Intent(ApartmentEditActivity.this, AdminActivity.class));
+                                    }
                                 }
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "onFailure: ",e.fillInStackTrace() );
-                                Toast toastSuccess= Toasty.warning(v.getContext(),R.string.failure_delete
-                                        ,Toast.LENGTH_LONG,true);
-                                toastSuccess.setGravity(Gravity.CENTER, 0, 0);
-                                toastSuccess.show();
-                            }
-                        });
-                    }
-                });
-               alertDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                   @Override
-                   public void onClick(DialogInterface dialog, int which) {
-
-                   }
-               });
-                alertDialog.create().show();
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast toastSuccess = Toasty.warning(v.getContext(), toastMessageFailureDelete
+                                            , Toast.LENGTH_LONG, true);
+                                    toastSuccess.setGravity(Gravity.CENTER, 0, 0);
+                                    toastSuccess.show();
+                                }
+                            });
+                        }
+                    });
+                    alertDialog.setNegativeButton(alertDialogCancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    alertDialog.create().show();
+                }
                break;
         }
     }
-
+    private boolean isConnected() {
+        ConnectivityManager connectivityManager=(ConnectivityManager)getApplicationContext().
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiConn  =connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConn=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected());
+    }
+    private void customDialog() {
+        AlertDialog.Builder alertDialog=new AlertDialog.Builder(ApartmentEditActivity.this);
+        alertDialog.setMessage("Please connect to internet to proceed further").setCancelable(true)
+                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        alertDialog.create().show();
+    }
 
 
 }

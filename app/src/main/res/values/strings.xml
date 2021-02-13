@@ -39,6 +39,12 @@
     <string name="cancel">Cancel</string>
     <string name="successfully_delete">Successfully Deleted</string>
     <string name="failure_delete">Deleting Failure!!</string>
+    <string name="logout">Logout</string>
+    <string name="new_account">New Account</string>
+    <string name="do_you_want_delete">Do you want delete !!</string>
+    <string name="connect">connect</string>
+
+
     <string-array name="month">
         <item>---</item>
         <item >January</item>
