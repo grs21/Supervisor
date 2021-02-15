@@ -15,12 +15,16 @@ public class Apartment implements Serializable {
     private String employeeName;
     private String employeeNumber;
     private String contractDate;
+    private String well;
+    private String elevatorUp;
+    private String machineRoom;
     private ArrayList<Service> serviceArrayList;
 
-    public Apartment(String uuid,String apartmentName, String apartmentAddress, String cost
-            , String managerName, String managerNumber, String managerAddress
-            , String employeeName, String employeeNumber, String contractDate) {
-        this.uuid=uuid;
+    public Apartment(String uuid, String apartmentName, String apartmentAddress, String cost
+            , String managerName, String managerNumber, String managerAddress, String employeeName
+            , String employeeNumber, String contractDate, String well, String elevatorUp
+            , String machineRoom) {
+        this.uuid = uuid;
         this.apartmentName = apartmentName;
         this.apartmentAddress = apartmentAddress;
         this.cost = cost;
@@ -30,6 +34,10 @@ public class Apartment implements Serializable {
         this.employeeName = employeeName;
         this.employeeNumber = employeeNumber;
         this.contractDate = contractDate;
+        this.well = well;
+        this.elevatorUp = elevatorUp;
+        this.machineRoom = machineRoom;
+
     }
 
     public String getUuid() {
@@ -110,6 +118,30 @@ public class Apartment implements Serializable {
 
     public void setContractDate(String contractDate) {
         this.contractDate = contractDate;
+    }
+
+    public String getElevatorUp() {
+        return elevatorUp;
+    }
+
+    public void setElevatorUp(String elevatorUp) {
+        this.elevatorUp = elevatorUp;
+    }
+
+    public String getWell() {
+        return well;
+    }
+
+    public void setWell(String well) {
+        this.well = well;
+    }
+
+    public String getMachineRoom() {
+        return machineRoom;
+    }
+
+    public void setMachineRoom(String machineRoom) {
+        this.machineRoom = machineRoom;
     }
 
     @Override
