@@ -131,11 +131,47 @@
         android:checked="false"
         android:buttonTint="@color/white"
         />
+    <TextView
+        android:id="@+id/textViewServiceDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:text="@string/date"
+        android:layout_below="@+id/buttonServiceMachineRoom"
+        />
+    <EditText
+        android:id="@+id/EditTextServiceCurrentDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="49dp"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:text="00/00/0000"
+        android:layout_below="@+id/buttonServiceMachineRoom"
+        android:layout_toEndOf="@+id/textViewServiceDate"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonServiceGetDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date"
+        android:background="@drawable/button_background"
+        android:layout_below="@+id/buttonServiceMachineRoom"
+        android:layout_marginTop="49dp"
+        android:layout_toEndOf="@+id/textViewServiceDate"
+        android:layout_marginStart="150dp"
+
+        />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonServiceSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonServiceMachineRoom"
+        android:layout_below="@+id/textViewServiceDate"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:text="@string/service_save"
