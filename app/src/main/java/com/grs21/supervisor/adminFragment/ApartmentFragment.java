@@ -81,7 +81,8 @@ public class ApartmentFragment extends Fragment implements SearchView.OnQueryTex
                                 ,(String)getData.get("address"),(String)getData.get("cost"),(String)getData.get("managerName")
                                 ,(String)getData.get("managerNumber"),(String)getData.get("managerAddress")
                                 ,(String)getData.get("employeeName"),(String)getData.get("employeeNumber")
-                                ,(String)getData.get("dateOfContract"));
+                                ,(String)getData.get("dateOfContract"),(String) getData.get("wellQRCOdeInfo")
+                                ,(String) getData.get("elevatorUpQRCOdeInfo"),(String) getData.get("machineQRCOdeInfo"));
                         apartments.add(apartment);
 
                     }

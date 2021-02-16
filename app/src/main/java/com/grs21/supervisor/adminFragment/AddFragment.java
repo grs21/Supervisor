@@ -68,6 +68,9 @@ public class AddFragment extends Fragment implements View.OnClickListener {
                         buildData.put("employeeName", binding.editTextEmployeeName.getText().toString());
                         buildData.put("employeeNumber", binding.editTextEmployeeNumber.getText().toString());
                         buildData.put("dateOfContract", binding.editTextContractDate.getText().toString());
+                        buildData.put("wellQRCOdeInfo", binding.editTextBuildName.getText().toString()+"Well");
+                        buildData.put("elevatorUpQRCOdeInfo", binding.editTextBuildName.getText().toString()+"ElevatorUp");
+                        buildData.put("machineQRCOdeInfo", binding.editTextBuildName.getText().toString()+"Machine");
                         fireStore.collection("Builds").add(buildData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {

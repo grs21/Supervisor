@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -83,7 +82,7 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
             String text=parent.getItemAtPosition(position).toString();
             dialog=new Dialog(BuildDetailActivity.this);
             dialog.setContentView(R.layout.alert_dialog);
-            textViewName =dialog.findViewById(R.id.textViewDialogDate);
+            textViewName =dialog.findViewById(R.id.textViewServiceDialogName);
             textViewName.setText(text);
             dialog.findViewById(R.id.buttonDialogCancel).setOnClickListener(this);
             dialog.show();

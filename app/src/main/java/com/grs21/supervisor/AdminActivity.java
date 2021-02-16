@@ -1,6 +1,7 @@
 package com.grs21.supervisor;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,6 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.zxing.integration.android.IntentIntegrator;
 import com.grs21.supervisor.databinding.ActivityAdminBinding;
 import com.grs21.supervisor.adminFragment.AddFragment;
 import com.grs21.supervisor.adminFragment.ApartmentFragment;
@@ -38,6 +40,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
     TextView textViewUserName;
     private Fragment repairFragment=new RepairFragment();
     private Fragment apartmentFragment=new ApartmentFragment();
+    private Fragment serviceFragment=new ServiceFragment();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +49,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         setContentView(view);
         firebaseAuth=FirebaseAuth.getInstance();
         user=firebaseAuth.getCurrentUser();
-        DrawerLayout drawerLayout=binding.drawerLayout;
+        drawerLayout=binding.drawerLayout;
         Toolbar toolbar=binding.toolBarAdmin;
         setSupportActionBar(toolbar);
 
@@ -90,7 +93,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                     selectedFragment=new ApartmentFragment();
                     break;
                 case R.id.menuItemService:
-                    selectedFragment=new ServiceFragment();
+                    selectedFragment=serviceFragment;
                     break;
                 case R.id.menuItemRepair:
                     selectedFragment=repairFragment;
@@ -100,6 +103,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
             return true;
         }
     };
+
 
 
     @Override
