@@ -37,6 +37,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 import es.dmoral.toasty.Toasty;
 
@@ -59,9 +60,6 @@ public class ServiceFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding= FragmentServiceBinding.inflate(inflater,container,false);
         autoComplete=binding.autoComplete;
-        binding.buttonServiceWell.setOnClickListener(this);
-        binding.buttonServiceElevatorUp.setOnClickListener(this);
-        binding.buttonServiceMachineRoom.setOnClickListener(this);
         binding.buttonServiceSave.setOnClickListener(this);
         binding.buttonServiceGetDate.setOnClickListener(this);
         currentUserEmail=FirebaseAuth.getInstance().getCurrentUser().getEmail();
@@ -120,7 +118,7 @@ public class ServiceFragment extends Fragment implements View.OnClickListener {
                     buttonCancel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            dialog.dismiss();
                         }
                     });
                     buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -129,28 +127,18 @@ public class ServiceFragment extends Fragment implements View.OnClickListener {
 
                         }
                     });
-
-
-
+                    dialog.show();
                     //Todo: Saying in AlertDialog error message not check checkBox
                     //todo: Show the which checkbox if not check
                     //todo: kaydedip kaydeticeğini sor
                     //todo: FirebaseFireStore da Service Arrayinin içine Service oluşturup kaydet
 
                 }else{
-
+                    Toast toastSuccess = Toasty.error(getActivity(), R.string.please_select_apartment
+                            , Toast.LENGTH_LONG, true);
+                    toastSuccess.setGravity(Gravity.CENTER, 0, 0);
+                    toastSuccess.show();
                 }
-
-
-                break;
-            case R.id.buttonServiceWell:
-                scanCode();
-                break;
-            case R.id.buttonServiceElevatorUp:
-                scanCode();
-                break;
-            case R.id.buttonServiceMachineRoom:
-                scanCode();
                 break;
             case R.id.buttonServiceGetDate:
                 Date date= Calendar.getInstance().getTime();
@@ -189,15 +177,13 @@ public class ServiceFragment extends Fragment implements View.OnClickListener {
                         service.setMachineRoom(machineRoom);
                         binding.checkBoxServiceMachineRoom.setChecked(true);
                     } else {
-                        //Todo:toast message scan failure
-                        Toast toastSuccess = Toasty.warning(getActivity(), R.string.failure
+                        Toast toastSuccess = Toasty.warning(requireActivity(),R.string.not_match
                                 , Toast.LENGTH_LONG, true);
                         toastSuccess.setGravity(Gravity.CENTER, 0, 0);
                         toastSuccess.show();
                     }
                 } catch (Exception e) {
-                    //Todo: Toast message error e
-                    Toast toastSuccess = Toasty.error(getActivity(), R.string.please_select_apartment
+                    Toast toastSuccess = Toasty.error(requireActivity(), R.string.please_select_apartment
                             , Toast.LENGTH_LONG, true);
                     toastSuccess.setGravity(Gravity.CENTER, 0, 0);
                     toastSuccess.show();
