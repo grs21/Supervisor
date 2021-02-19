@@ -2,6 +2,8 @@
     <string name="app_name">Supervisor</string>
     <string name="login">Login</string>
     <string name="user_name">User name</string>
+    <string name="password">Password</string>
+    <string name="not_match">Attention wrong building selection</string>
     <string name="create_account">create Account</string>
     <string name="full_name">Full Name</string>
     <string name="user">User</string>
@@ -46,11 +48,14 @@
     <string name="do_you_want_delete">Do you want delete !!</string>
     <string name="connect">connect</string>
     <string name="search_build">Search Build</string>
-    <string name="scanner">Scanner</string>
-    <string name="kuyu">KUYU:</string>
-    <string name="m_dairesi">M.Dairesi:</string>
+    <string name="scan">Scan</string>
+    <string name="wel">Kuyu:</string>
+    <string name="machine_room">M.Dairesi:</string>
     <string name="service_save">Service Save</string>
     <string name="date">Date:</string>
+    <string name="write_build_Name">Please enter the build Name</string>
+    <string name="check_connecting">Please connect to internet to proceed further</string>
+
 
 
     <string-array name="month">

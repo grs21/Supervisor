@@ -6,7 +6,7 @@
     android:background="@color/white"
     >
     <TextView
-        android:id="@+id/textViewServiceDialogEmployee"
+        android:id="@+id/textViewServiceDialogDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewServiceDialogElevatorUp"
@@ -98,7 +98,7 @@
         android:layout_marginTop="10dp"
         android:layout_below="@+id/textViewServiceDialogMachineRoom"
         android:layout_marginBottom="20dp"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="40dp"
 
         />
     <androidx.appcompat.widget.AppCompatButton
@@ -108,8 +108,10 @@
         android:layout_marginTop="10dp"
         android:text="@string/save"
         android:layout_below="@+id/textViewServiceDialogMachineRoom"
+        android:layout_toEndOf="@+id/buttonServiceDialogCancel"
         android:layout_marginBottom="20dp"
-        android:layout_marginStart="230dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/button_background"
         />
 </RelativeLayout>

@@ -1,151 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green"
+    android:orientation="vertical"
     >
-    <EditText
-        android:id="@+id/editTextBuildName"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/text_background"
-        android:hint="Building Name"
-        android:textSize="22sp"
-        android:layout_marginStart="33dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:padding="4dp"
-        />
-    <EditText
-        android:id="@+id/editTextBuildAddress"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@drawable/text_background"
-        android:hint="Address"
-        android:textSize="22sp"
-        android:layout_marginStart="33dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginTop="10dp"
-        android:padding="4dp"
-        android:layout_below="@+id/editTextBuildName"
-        />
-    <EditText
-        android:id="@+id/editTextCost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/text_background"
-        android:hint="Cost"
-        android:textSize="22sp"
-        android:layout_marginStart="33dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginTop="10dp"
-        android:padding="4dp"
-        android:layout_below="@+id/editTextBuildAddress"
-        />
-    <EditText
-        android:id="@+id/editTextManagerName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/text_background"
-        android:hint="Manager Name"
-        android:textSize="22sp"
-        android:layout_marginStart="33dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginTop="10dp"
-        android:padding="4dp"
-        android:layout_below="@+id/editTextCost"
-        />
-    <EditText
-        android:id="@+id/editTextManagerNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/text_background"
-        android:hint="Manager Name Number"
-        android:textSize="22sp"
-        android:layout_marginStart="33dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginTop="10dp"
-        android:padding="4dp"
-        android:layout_below="@+id/editTextManagerName"
-        />
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#07DD0F"
+            >
+            <EditText
+                android:id="@+id/editTextBuildName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:hint="Building Name"
+                android:textSize="22sp"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:padding="4dp"
+                android:backgroundTint="@color/lightOrange"
+                />
+            <EditText
+                android:id="@+id/editTextBuildAddress"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/text_background"
+                android:hint="Address"
+                android:textSize="22sp"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:layout_marginTop="10dp"
+                android:padding="4dp"
+                android:layout_below="@+id/editTextBuildName"
+                android:backgroundTint="@color/lightOrange"
+                />
+            <EditText
+                android:id="@+id/editTextCost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:hint="Cost"
+                android:textSize="22sp"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:layout_marginTop="10dp"
+                android:padding="4dp"
+                android:layout_below="@+id/editTextBuildAddress"
+                android:backgroundTint="@color/lightOrange"
+                />
+            <EditText
+                android:id="@+id/editTextManagerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:hint="Manager Name"
+                android:textSize="22sp"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:layout_marginTop="10dp"
+                android:padding="4dp"
+                android:layout_below="@+id/editTextCost"
+                android:backgroundTint="@color/lightOrange"
+                />
+            <EditText
+                android:id="@+id/editTextManagerNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:hint="Manager Name Number"
+                android:textSize="22sp"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:layout_marginTop="10dp"
+                android:padding="4dp"
+                android:layout_below="@+id/editTextManagerName"
+                android:backgroundTint="@color/lightOrange"
+                />
 
-    <EditText
-        android:id="@+id/editTextManagerAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/text_background"
-        android:hint="Manager Address"
-        android:textSize="22sp"
-        android:layout_marginStart="33dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginTop="10dp"
-        android:padding="4dp"
-        android:layout_below="@+id/editTextManagerNumber"
-        />
-    <EditText
-        android:id="@+id/editTextEmployeeName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/text_background"
-        android:hint="Employee Name"
-        android:textSize="22sp"
-        android:layout_marginStart="33dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginTop="10dp"
-        android:padding="4dp"
-        android:layout_below="@+id/editTextManagerAddress"
-        />
-    <EditText
-        android:id="@+id/editTextEmployeeNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/text_background"
-        android:hint="Employee Number"
-        android:textSize="22sp"
-        android:layout_marginStart="33dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginTop="10dp"
-        android:padding="4dp"
-        android:layout_below="@+id/editTextEmployeeName"
-        />
+            <EditText
+                android:id="@+id/editTextManagerAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:hint="Manager Address"
+                android:textSize="22sp"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:layout_marginTop="10dp"
+                android:padding="4dp"
+                android:layout_below="@+id/editTextManagerNumber"
+                android:backgroundTint="@color/lightOrange"
+                />
+            <EditText
+                android:id="@+id/editTextEmployeeName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:hint="Employee Name"
+                android:textSize="22sp"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:layout_marginTop="10dp"
+                android:padding="4dp"
+                android:layout_below="@+id/editTextManagerAddress"
+                android:backgroundTint="@color/lightOrange"
+                />
+            <EditText
+                android:id="@+id/editTextEmployeeNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_background"
+                android:hint="Employee Number"
+                android:textSize="22sp"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:layout_marginTop="10dp"
+                android:padding="4dp"
+                android:layout_below="@+id/editTextEmployeeName"
+                android:backgroundTint="@color/lightOrange"
+                />
 
-    <EditText
-        android:id="@+id/editTextContractDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="9"
-        android:background="@drawable/text_background"
-        android:layout_below="@+id/editTextEmployeeNumber"
-        android:hint="Date of Contract"
-        android:textSize="22sp"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="20dp"
-        android:padding="4dp"
-        />
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonBuildSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextContractDate"
-        android:text="Save"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="33dp"
+            <EditText
+                android:id="@+id/editTextContractDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="7"
+                android:background="@drawable/text_background"
+                android:layout_below="@+id/editTextEmployeeNumber"
+                android:hint="Date of Contract"
+                android:textSize="22sp"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="20dp"
+                android:padding="4dp"
+                android:backgroundTint="@color/lightOrange"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonBuildSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editTextContractDate"
+                android:text="Save"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="33dp"
 
-        />
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editTextEmployeeNumber"
+                android:layout_toRightOf="@+id/editTextContractDate"
+                android:text="date"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="2dp"
 
+                />
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextEmployeeNumber"
-        android:layout_toRightOf="@+id/editTextContractDate"
-        android:text="date"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="2dp"
-
-        />
-
-</RelativeLayout>
