@@ -51,46 +51,53 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.buttonBuildSave:
-                if (!isConnected()){
-                    customDialog();
-                }
+
                     if (isConnected()) {
-                        final ProgressDialog progressDialog = new ProgressDialog(v.getContext());
-                        progressDialog.setTitle(R.string.uploading);
-                        progressDialog.show();
-                        HashMap<String, Object> buildData = new HashMap<>();
-                        buildData.put("cost", binding.editTextCost.getText().toString());
-                        buildData.put("buildName", binding.editTextBuildName.getText().toString());
-                        buildData.put("address", binding.editTextBuildAddress.getText().toString());
-                        buildData.put("managerName", binding.editTextManagerName.getText().toString());
-                        buildData.put("managerNumber", binding.editTextManagerNumber.getText().toString());
-                        buildData.put("managerAddress", binding.editTextManagerAddress.getText().toString());
-                        buildData.put("employeeName", binding.editTextEmployeeName.getText().toString());
-                        buildData.put("employeeNumber", binding.editTextEmployeeNumber.getText().toString());
-                        buildData.put("dateOfContract", binding.editTextContractDate.getText().toString());
-                        buildData.put("wellQRCOdeInfo", binding.editTextBuildName.getText().toString()+"Well");
-                        buildData.put("elevatorUpQRCOdeInfo", binding.editTextBuildName.getText().toString()+"ElevatorUp");
-                        buildData.put("machineQRCOdeInfo", binding.editTextBuildName.getText().toString()+"Machine");
-                        fireStore.collection("Builds").add(buildData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                progressDialog.dismiss();
-                                Toast toastSuccess = Toasty.success(v.getContext(), R.string.saved
-                                        , Toast.LENGTH_SHORT, true);
-                                toastSuccess.setGravity(Gravity.CENTER, 0, 0);
-                                toastSuccess.show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                progressDialog.dismiss();
-                                Toast toastFailure = Toasty.warning(v.getContext(), R.string.notSaved + e.getMessage()
-                                        , Toast.LENGTH_SHORT, true);
-                                toastFailure.setGravity(Gravity.CENTER, 0, 0);
-                                toastFailure.show();
-                            }
-                        });
-                        itemReset();
+                        if (!binding.editTextBuildName.getText().toString().isEmpty()) {
+                            final ProgressDialog progressDialog = new ProgressDialog(v.getContext());
+                            progressDialog.setTitle(R.string.uploading);
+                            progressDialog.show();
+                            HashMap<String, Object> buildData = new HashMap<>();
+                            buildData.put("cost", binding.editTextCost.getText().toString());
+                            buildData.put("buildName", binding.editTextBuildName.getText().toString());
+                            buildData.put("address", binding.editTextBuildAddress.getText().toString());
+                            buildData.put("managerName", binding.editTextManagerName.getText().toString());
+                            buildData.put("managerNumber", binding.editTextManagerNumber.getText().toString());
+                            buildData.put("managerAddress", binding.editTextManagerAddress.getText().toString());
+                            buildData.put("employeeName", binding.editTextEmployeeName.getText().toString());
+                            buildData.put("employeeNumber", binding.editTextEmployeeNumber.getText().toString());
+                            buildData.put("dateOfContract", binding.editTextContractDate.getText().toString());
+                            buildData.put("wellQRCOdeInfo", binding.editTextBuildName.getText().toString() + "Well");
+                            buildData.put("elevatorUpQRCOdeInfo", binding.editTextBuildName.getText().toString() + "ElevatorUp");
+                            buildData.put("machineQRCOdeInfo", binding.editTextBuildName.getText().toString() + "Machine");
+                            fireStore.collection("Builds").add(buildData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    progressDialog.dismiss();
+                                    Toast toastSuccess = Toasty.success(v.getContext(), R.string.saved
+                                            , Toast.LENGTH_SHORT, true);
+                                    toastSuccess.setGravity(Gravity.CENTER, 0, 0);
+                                    toastSuccess.show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.dismiss();
+                                    Toast toastFailure = Toasty.warning(v.getContext(), R.string.notSaved + e.getMessage()
+                                            , Toast.LENGTH_SHORT, true);
+                                    toastFailure.setGravity(Gravity.CENTER, 0, 0);
+                                    toastFailure.show();
+                                }
+                            });
+                            itemReset();
+                        } else{
+                            Toast toast=Toasty.warning(getContext(), R.string.write_build_Name
+                                    ,Toasty.LENGTH_LONG,true);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        }
+                    }else{
+                        customDialog();
                     }
                 break;
             case R.id.buttonDate:
@@ -103,13 +110,13 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     }
     private void customDialog() {
         AlertDialog.Builder alertDialog=new AlertDialog.Builder(getContext());
-        alertDialog.setMessage("Please connect to internet to proceed further").setCancelable(true)
-                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
+        alertDialog.setMessage(R.string.check_connecting).setCancelable(true)
+                .setPositiveButton(R.string.connect, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
                     }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }

@@ -54,6 +54,7 @@ public class ApartmentFragment extends Fragment implements SearchView.OnQueryTex
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding=FragmentApartmentBinding.inflate(inflater,container,false);
+
         fireStore=FirebaseFirestore.getInstance();
         getDataFromFireStore();
         SearchView searchView= binding.searchView;

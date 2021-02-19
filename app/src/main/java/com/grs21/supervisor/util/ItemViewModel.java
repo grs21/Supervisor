@@ -13,6 +13,7 @@ public class ItemViewModel extends ViewModel {
     public void selectItem(ArrayList<Apartment> item) {
         selectedItem.setValue(item);
     }
+
     public LiveData<ArrayList<Apartment>> getSelectedItem() {
         return selectedItem;
     }

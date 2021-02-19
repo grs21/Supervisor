@@ -1,7 +1,6 @@
 package com.grs21.supervisor.adapter;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.grs21.supervisor.BuildDetailActivity;
 import com.grs21.supervisor.R;
 import com.grs21.supervisor.model.Apartment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class AdapterApartmentRecyclerView extends RecyclerView.Adapter<AdapterAp
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(v.getContext(), BuildDetailActivity.class);
-                intent.putExtra("apartment", apartments.get(position));
+                intent.putExtra("apartment",apartments.get(position));
                 v.getContext().startActivity(intent);
             }
         });

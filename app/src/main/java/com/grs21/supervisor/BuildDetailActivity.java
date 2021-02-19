@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.grs21.supervisor.databinding.ActivityBuildDetailBinding;
 import com.grs21.supervisor.model.Apartment;
 
+import java.io.Serializable;
+
 public class BuildDetailActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener{
     private ActivityBuildDetailBinding binding;
     private Intent intent;
@@ -66,7 +68,7 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
 
             case R.id.buttonDetailToEdit:
                 Intent intent=new Intent(BuildDetailActivity.this,ApartmentEditActivity.class);
-                intent.putExtra("apartment", apartment);
+                intent.putExtra("apartment", (Serializable) apartment);
                 startActivity(intent);
                 break;
             case R.id.buttonDialogCancel  :
