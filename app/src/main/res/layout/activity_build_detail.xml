@@ -5,6 +5,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
+ <androidx.appcompat.widget.Toolbar
+     android:id="@+id/toolbarBuildDetail"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"/>
+
+ <androidx.appcompat.widget.AppCompatButton
+     android:id="@+id/buttonMakeService"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginStart="15dp"
+     android:layout_marginTop="10dp"
+     android:layout_marginEnd="15dp"
+     android:text="@string/make_service"
+     android:background="@drawable/button_background"/>
 
  <ScrollView
      android:layout_width="match_parent"
@@ -16,10 +30,7 @@
       android:layout_height="wrap_content"
       >
 
-   <androidx.appcompat.widget.Toolbar
-       android:id="@+id/toolbarBuildDetail"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"/>
+
    <TextView
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
@@ -27,7 +38,6 @@
        android:textSize="19sp"
        android:layout_marginTop="23dp"
        android:layout_marginStart="8dp"
-       android:layout_below="@+id/toolbarBuildDetail"
        />
    <TextView
        android:id="@+id/textViewBuildDetailBuildName"
@@ -40,8 +50,6 @@
        android:layout_marginEnd="33dp"
        android:layout_marginTop="20dp"
        android:padding="4dp"
-       android:layout_below="@+id/toolbarBuildDetail"
-
        />
    <TextView
        android:layout_width="wrap_content"

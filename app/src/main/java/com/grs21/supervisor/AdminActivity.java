@@ -36,8 +36,6 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
     private DrawerLayout drawerLayout;
     private FirebaseAuth firebaseAuth;
     FirebaseUser user;
-    TextView textViewAccessLwl;
-    TextView textViewUserName;
     private Fragment repairFragment=new RepairFragment();
     private Fragment apartmentFragment=new ApartmentFragment();
     private Fragment serviceFragment=new ServiceFragment();
@@ -91,9 +89,6 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                     break;
                 case R.id.menuItemApartmentList:
                     selectedFragment=new ApartmentFragment();
-                    break;
-                case R.id.menuItemService:
-                    selectedFragment=serviceFragment;
                     break;
                 case R.id.menuItemRepair:
                     selectedFragment=repairFragment;

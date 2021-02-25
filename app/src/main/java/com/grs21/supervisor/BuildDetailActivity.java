@@ -6,22 +6,30 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.grs21.supervisor.activity.ServiceActivity;
 import com.grs21.supervisor.databinding.ActivityBuildDetailBinding;
 import com.grs21.supervisor.model.Apartment;
+import com.grs21.supervisor.model.Service;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BuildDetailActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener{
     private ActivityBuildDetailBinding binding;
     private Intent intent;
     private Apartment apartment;
+    private ArrayList<Service> serviceArrayList=new ArrayList<>();
     private Dialog dialog;
-    private TextView textViewName;
+    private TextView textViewDialogDate,textViewDialogEmployee;
+    private CheckBox checkBoxWell,checkBoxUp,checkBoxMachineRoom;
     private static final String TAG = "BuildDetailActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +39,8 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
         setContentView(view);
         binding.buttonDetailToEdit.setOnClickListener(this);
         binding.spinnerDate.setOnItemSelectedListener(this);
+        binding.buttonMakeService.setOnClickListener(this);
+
 
         intent=getIntent();
         apartment=(Apartment) intent.getSerializableExtra("apartment");
@@ -42,13 +52,22 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(apartment.getApartmentName());
         initializeData(apartment);
+
+        for (HashMap service:apartment.getServiceArrayList()) {
+            Service generateService=new Service((boolean)service.get("well"),(boolean)service.get("elevatorUp")
+                    ,(boolean)service.get("machineRoom"),(String) service.get("date")
+                    ,(String) service.get("employee"));
+            serviceArrayList.add(generateService);
+        }
+
     }
 
     private void initializeData(Apartment apartment) {
-        ArrayAdapter spinnerAdapter=ArrayAdapter.createFromResource(BuildDetailActivity.this
-                ,R.array.month,android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<Service> spinnerAdapter=new ArrayAdapter<Service>(getApplicationContext()
+                , android.R.layout.simple_spinner_item,serviceArrayList);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerDate.setAdapter(spinnerAdapter);
-        binding.spinnerDate.setSelected(false);
+
 
         binding.textViewBuildDetailBuildName.setText(apartment.getApartmentName());
         binding.textViewBuildDetailBuildAddress.setText(apartment.getApartmentAddress());
@@ -71,8 +90,13 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
                 intent.putExtra("apartment", (Serializable) apartment);
                 startActivity(intent);
                 break;
-            case R.id.buttonDialogCancel  :
+            case R.id.buttonDetailDialogCancel:
                 dialog.dismiss();
+                break;
+            case R.id.buttonMakeService:
+                Intent intent1=new Intent(BuildDetailActivity.this, ServiceActivity.class);
+                intent1.putExtra("apartment", apartment);
+                startActivity(intent1);
                 break;
         }
 
@@ -80,15 +104,27 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (position>0){
-            String text=parent.getItemAtPosition(position).toString();
+
+            Service spinnerService=(Service) parent.getSelectedItem();
+            Log.d(TAG, "onItemSelected: "+spinnerService);
+            Log.d(TAG, "onItemSelected: IN_SPINNER");
             dialog=new Dialog(BuildDetailActivity.this);
-            dialog.setContentView(R.layout.alert_dialog);
-            textViewName =dialog.findViewById(R.id.textViewServiceDialogName);
-            textViewName.setText(text);
-            dialog.findViewById(R.id.buttonDialogCancel).setOnClickListener(this);
+            dialog.setContentView(R.layout.alert_dialog_detail);
+            textViewDialogDate =dialog.findViewById(R.id.textViewDetailDialogDate);
+            textViewDialogEmployee=dialog.findViewById(R.id.textViewDetailDialogEmployee);
+            checkBoxMachineRoom=dialog.findViewById(R.id.checkboxDetailDialogElevatorMachine);
+            checkBoxUp=dialog.findViewById(R.id.checkboxDetailDialogElevatorTop);
+            checkBoxWell=dialog.findViewById(R.id.checkboxDetailDialogWell);
+
+            checkBoxWell.setChecked(spinnerService.getWell());
+            checkBoxUp.setChecked(spinnerService.getElevatorUp());
+            checkBoxMachineRoom.setChecked(spinnerService.getMachineRoom());
+
+            textViewDialogEmployee.setText(spinnerService.getEmployee());
+            textViewDialogDate.setText(spinnerService.getDate());
+            dialog.findViewById(R.id.buttonDetailDialogCancel).setOnClickListener(this);
             dialog.show();
-        }
+
     }
     @Override
     public void onNothingSelected(AdapterView<?> parent) {

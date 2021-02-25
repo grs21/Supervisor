@@ -1,14 +1,16 @@
 package com.grs21.supervisor.model;
 
+import java.util.function.BinaryOperator;
+
 public class Service {
 
-    private String well;
-    private String elevatorUp;
-    private String machineRoom;
+    private boolean well;
+    private boolean elevatorUp;
+    private boolean machineRoom;
     private String date;
     private String employee;
 
-    public Service(String well, String elevatorUp, String machineRoom, String date, String employee) {
+    public Service(boolean well, boolean elevatorUp, boolean machineRoom, String date, String employee) {
         this.well = well;
         this.elevatorUp = elevatorUp;
         this.machineRoom = machineRoom;
@@ -19,27 +21,27 @@ public class Service {
     public Service() {
     }
 
-    public String getWell() {
+    public boolean getWell() {
         return well;
     }
 
-    public void setWell(String well) {
+    public void setWell(boolean well) {
         this.well = well;
     }
 
-    public String getElevatorUp() {
+    public boolean getElevatorUp() {
         return elevatorUp;
     }
 
-    public void setElevatorUp(String elevatorUp) {
+    public void setElevatorUp(boolean elevatorUp) {
         this.elevatorUp = elevatorUp;
     }
 
-    public String getMachineRoom() {
+    public boolean getMachineRoom() {
         return machineRoom;
     }
 
-    public void setMachineRoom(String machineRoom) {
+    public void setMachineRoom(boolean machineRoom) {
         this.machineRoom = machineRoom;
     }
 
@@ -57,5 +59,10 @@ public class Service {
 
     public void setEmployee(String employee) {
         this.employee = employee;
+    }
+
+    @Override
+    public String toString() {
+        return date;
     }
 }

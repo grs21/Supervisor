@@ -2,6 +2,7 @@ package com.grs21.supervisor.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Apartment implements Serializable {
@@ -18,12 +19,12 @@ public class Apartment implements Serializable {
     private String well;
     private String elevatorUp;
     private String machineRoom;
-    private ArrayList<Service> serviceArrayList;
+    private ArrayList<HashMap> serviceArrayList=new ArrayList<>();
 
     public Apartment(String uuid, String apartmentName, String apartmentAddress, String cost
             , String managerName, String managerNumber, String managerAddress, String employeeName
             , String employeeNumber, String contractDate, String well, String elevatorUp
-            , String machineRoom) {
+            , String machineRoom,ArrayList<HashMap>services) {
         this.uuid = uuid;
         this.apartmentName = apartmentName;
         this.apartmentAddress = apartmentAddress;
@@ -37,6 +38,7 @@ public class Apartment implements Serializable {
         this.well = well;
         this.elevatorUp = elevatorUp;
         this.machineRoom = machineRoom;
+        this.serviceArrayList=services;
 
     }
 
@@ -142,6 +144,14 @@ public class Apartment implements Serializable {
 
     public void setMachineRoom(String machineRoom) {
         this.machineRoom = machineRoom;
+    }
+
+    public ArrayList<HashMap> getServiceArrayList() {
+        return serviceArrayList;
+    }
+
+    public void setServiceArrayList(ArrayList<HashMap> serviceArrayList) {
+        this.serviceArrayList = serviceArrayList;
     }
 
     @Override

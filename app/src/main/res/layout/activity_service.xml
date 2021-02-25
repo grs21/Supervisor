@@ -5,9 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     >
-   <!-- <ScrollView
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,21 +23,6 @@
             android:background="@color/blue"
             >
 
-            <ImageView
-                android:id="@+id/imageViewSearchViewIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_search"
-                android:layout_marginTop="65dp"
-                />
-            <AutoCompleteTextView
-                android:id="@+id/autoComplete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:hint="@string/search_build"
-                android:layout_toEndOf="@+id/imageViewSearchViewIcon"
-                />
             <TextView
                 android:id="@+id/textViewServiceBuildName"
                 android:layout_width="wrap_content"
@@ -40,7 +30,6 @@
                 android:text="Build Name"
                 android:textColor="@color/white"
                 android:textSize="33sp"
-                android:layout_below="@+id/autoComplete"
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"
                 />
@@ -114,41 +103,7 @@
                 android:checked="false"
                 android:buttonTint="@color/white"
                 />
-            <TextView
-                android:id="@+id/textViewServiceDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="25dp"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                android:text="@string/date"
-                android:layout_below="@+id/textViewServiceMachineRoom"
 
-                />
-            <EditText
-                android:id="@+id/EditTextServiceCurrentDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="18dp"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                android:text="00/00/0000"
-                android:layout_below="@+id/textViewServiceMachineRoom"
-                android:layout_toEndOf="@+id/textViewServiceDate"
-                />
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/buttonServiceGetDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textViewServiceMachineRoom"
-                android:layout_toEndOf="@+id/EditTextServiceCurrentDate"
-                android:layout_marginTop="18dp"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/button_background"
-                android:text="@string/date"
-                />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonServiceScan"
                 android:layout_width="wrap_content"
@@ -165,7 +120,7 @@
                 android:id="@+id/buttonServiceSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textViewServiceDate"
+                android:layout_below="@+id/textViewServiceMachineRoom"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="10dp"
@@ -174,5 +129,5 @@
                 android:layout_marginStart="30dp"
                 />
         </RelativeLayout>
-    </ScrollView>-->
+    </ScrollView>
 </LinearLayout>

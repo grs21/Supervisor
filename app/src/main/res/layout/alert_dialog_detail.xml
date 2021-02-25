@@ -6,16 +6,16 @@
     android:background="@color/white"
     >
         <TextView
-            android:id="@+id/textViewServiceDialogDate"
+            android:id="@+id/textViewDetailDialogEmployee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewServiceDialogElevatorUp"
-            android:layout_toEndOf="@+id/checkboxServiceDialogElevatorMachine"
+            android:layout_below="@+id/textViewDetailDialogElevatorUp"
+            android:layout_toEndOf="@+id/checkboxDetailDialogElevatorMachine"
             android:text="example Employee"
             android:layout_marginTop="8dp"
             />
         <TextView
-            android:id="@+id/textViewServiceDialogName"
+            android:id="@+id/textViewDetailDialogDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -26,77 +26,77 @@
             />
 
         <TextView
-            android:id="@+id/textViewServiceDialogWell"
+            android:id="@+id/textViewDetailDialogWell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kuyu"
             android:textSize="15sp"
-            android:layout_below="@+id/textViewServiceDialogName"
+            android:layout_below="@+id/textViewDetailDialogDate"
             android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
 
             />
 
         <CheckBox
-            android:id="@+id/checkboxServiceDialogWell"
+            android:id="@+id/checkboxDetailDialogWell"
             android:layout_width="34dp"
             android:layout_height="21dp"
-            android:layout_toEndOf="@+id/textViewServiceDialogWell"
+            android:layout_toEndOf="@+id/textViewDetailDialogWell"
             android:layout_marginStart="1dp"
-            android:layout_below="@id/textViewServiceDialogName"
+            android:layout_below="@id/textViewDetailDialogDate"
             android:layout_marginTop="8dp"
             android:clickable="false"
             />
         <TextView
-            android:id="@+id/textViewServiceDialogElevatorUp"
+            android:id="@+id/textViewDetailDialogElevatorUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kabin Üstü"
-            android:layout_below="@+id/textViewServiceDialogWell"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="5dp"
-
-
-            />
-        <CheckBox
-            android:id="@+id/checkboxServiceDialogElevatorTop"
-            android:layout_width="34dp"
-            android:layout_height="21dp"
-            android:layout_below="@+id/textViewServiceDialogWell"
-            android:layout_toEndOf="@+id/textViewServiceDialogElevatorUp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="8dp"
-            android:clickable="false"
-            />
-        <TextView
-            android:id="@+id/textViewServiceDialogMachineRoom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Makina Dairesi"
-            android:layout_below="@+id/textViewServiceDialogElevatorUp"
+            android:layout_below="@+id/textViewDetailDialogWell"
             android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
 
 
             />
         <CheckBox
-            android:id="@+id/checkboxServiceDialogElevatorMachine"
+            android:id="@+id/checkboxDetailDialogElevatorTop"
             android:layout_width="34dp"
             android:layout_height="21dp"
-            android:layout_toEndOf="@+id/textViewServiceDialogMachineRoom"
-            android:layout_below="@+id/textViewServiceDialogElevatorUp"
+            android:layout_below="@+id/textViewDetailDialogWell"
+            android:layout_toEndOf="@+id/textViewDetailDialogElevatorUp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:clickable="false"
+            />
+        <TextView
+            android:id="@+id/textViewDetailDialogMachineRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Makina Dairesi"
+            android:layout_below="@+id/textViewDetailDialogElevatorUp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+
+
+            />
+        <CheckBox
+            android:id="@+id/checkboxDetailDialogElevatorMachine"
+            android:layout_width="34dp"
+            android:layout_height="21dp"
+            android:layout_toEndOf="@+id/textViewDetailDialogMachineRoom"
+            android:layout_below="@+id/textViewDetailDialogElevatorUp"
             android:clickable="false"
             android:layout_marginStart="1dp"
             android:layout_marginTop="8dp"
             />
        <androidx.appcompat.widget.AppCompatButton
-           android:id="@+id/buttonDialogCancel"
+           android:id="@+id/buttonDetailDialogCancel"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:background="@drawable/button_background"
            android:text="cancel"
            android:layout_marginTop="10dp"
-           android:layout_below="@+id/textViewServiceDialogMachineRoom"
+           android:layout_below="@+id/textViewDetailDialogMachineRoom"
            android:layout_marginBottom="20dp"
            android:layout_centerHorizontal="true"
            />

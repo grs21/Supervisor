@@ -34,9 +34,12 @@ import com.grs21.supervisor.R;
 import com.grs21.supervisor.adapter.AdapterApartmentRecyclerView;
 import com.grs21.supervisor.databinding.FragmentApartmentBinding;
 import com.grs21.supervisor.model.Apartment;
+import com.grs21.supervisor.model.Service;
 import com.grs21.supervisor.util.ItemViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
@@ -83,14 +86,12 @@ public class ApartmentFragment extends Fragment implements SearchView.OnQueryTex
                                 ,(String)getData.get("managerNumber"),(String)getData.get("managerAddress")
                                 ,(String)getData.get("employeeName"),(String)getData.get("employeeNumber")
                                 ,(String)getData.get("dateOfContract"),(String) getData.get("wellQRCOdeInfo")
-                                ,(String) getData.get("elevatorUpQRCOdeInfo"),(String) getData.get("machineQRCOdeInfo"));
+                                ,(String) getData.get("elevatorUpQRCOdeInfo"),(String) getData.get("machineQRCOdeInfo")
+                        , (ArrayList<HashMap>) getData.get("service"));
                         apartments.add(apartment);
 
                     }
-                    if (!apartments.isEmpty()) {
-                        ItemViewModel viewModel = new ViewModelProvider(getActivity()).get(ItemViewModel.class);
-                        viewModel.selectItem(apartments);
-                    }
+
                     LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
                     adapter=new AdapterApartmentRecyclerView(apartments);
                     binding.recyclerView.setLayoutManager(linearLayoutManager);

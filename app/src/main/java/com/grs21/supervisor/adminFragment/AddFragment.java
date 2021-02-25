@@ -8,7 +8,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +20,12 @@ import androidx.fragment.app.Fragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.grs21.supervisor.R;
 import com.grs21.supervisor.databinding.FragmentAddBinding;
+import com.grs21.supervisor.model.Service;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -70,6 +72,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
                             buildData.put("wellQRCOdeInfo", binding.editTextBuildName.getText().toString() + "Well");
                             buildData.put("elevatorUpQRCOdeInfo", binding.editTextBuildName.getText().toString() + "ElevatorUp");
                             buildData.put("machineQRCOdeInfo", binding.editTextBuildName.getText().toString() + "Machine");
+                            buildData.put("service", FieldValue.arrayUnion(new Service()));
                             fireStore.collection("Builds").add(buildData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
@@ -97,7 +100,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
                             toast.show();
                         }
                     }else{
-                        customDialog();
+                        customConnectionDialog();
                     }
                 break;
             case R.id.buttonDate:
@@ -108,7 +111,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
         }
     }
-    private void customDialog() {
+    private void customConnectionDialog() {
         AlertDialog.Builder alertDialog=new AlertDialog.Builder(getContext());
         alertDialog.setMessage(R.string.check_connecting).setCancelable(true)
                 .setPositiveButton(R.string.connect, new DialogInterface.OnClickListener() {

@@ -17,7 +17,7 @@
     <string name="apartment">apartment</string>
     <string name="add">add</string>
     <string name="service">service</string>
-    <string name="please_select_apartment">Please select apartment !!</string>
+    <string name="please_make_a_service">Please make a service!!</string>
     <string name="repair">repair</string>
     <string name="well">well</string>
     <string name="title_activity_build_detail">BuildDetailActivity</string>
@@ -55,22 +55,22 @@
     <string name="date">Date:</string>
     <string name="write_build_Name">Please enter the build Name</string>
     <string name="check_connecting">Please connect to internet to proceed further</string>
-
+    <string name="make_service">Make Service</string>
 
 
     <string-array name="month">
         <item>---</item>
-        <item >January</item>
-        <item >February</item>
-        <item >March</item>
-        <item >April</item>
-        <item >May</item>
-        <item >June</item>
-        <item >July</item>
-        <item >August</item>
-        <item >September</item>
-        <item >October</item>
-        <item >November</item>
-        <item >December</item>
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
     </string-array>
 </resources>
