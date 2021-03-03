@@ -9,12 +9,16 @@
             android:title="@string/new_account"
             android:icon="@drawable/ic_create_new_account"
             />
-        <item android:id="@+id/logOut"
-            android:title="@string/logout"
-            android:icon="@drawable/ic_logout"
-            />
+
 
     </group>
+
+
+    <item android:id="@+id/logOut"
+        android:title="@string/logout"
+        android:icon="@drawable/ic_logout"
+
+        />
 
 
 </menu>

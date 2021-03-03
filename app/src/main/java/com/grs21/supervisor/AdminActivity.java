@@ -1,7 +1,6 @@
 package com.grs21.supervisor;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,15 +17,12 @@ import android.widget.TextView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.grs21.supervisor.databinding.ActivityAdminBinding;
 import com.grs21.supervisor.adminFragment.AddFragment;
 import com.grs21.supervisor.adminFragment.ApartmentFragment;
 import com.grs21.supervisor.adminFragment.RepairFragment;
-import com.grs21.supervisor.adminFragment.ServiceFragment;
-
-import org.w3c.dom.Text;
+import com.grs21.supervisor.model.User;
 
 import java.util.ArrayList;
 
@@ -35,10 +31,12 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
     private ActivityAdminBinding binding;
     private DrawerLayout drawerLayout;
     private FirebaseAuth firebaseAuth;
-    FirebaseUser user;
+    private FirebaseFirestore fireStore;
     private Fragment repairFragment=new RepairFragment();
-    private Fragment apartmentFragment=new ApartmentFragment();
-    private Fragment serviceFragment=new ServiceFragment();
+    private User currentUser;
+    private static final String TAG = "AdminActivity";
+    ActionBarDrawerToggle toggle;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,28 +44,43 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         View view=binding.getRoot();
         setContentView(view);
         firebaseAuth=FirebaseAuth.getInstance();
-        user=firebaseAuth.getCurrentUser();
-        drawerLayout=binding.drawerLayout;
-        Toolbar toolbar=binding.toolBarAdmin;
-        setSupportActionBar(toolbar);
+        fireStore=FirebaseFirestore.getInstance();
 
+
+        Intent intent=getIntent();
+        currentUser=(User)intent.getSerializableExtra("currentUser");
+        drawerLayout=binding.drawerLayout;
+        toolbar=binding.toolBarAdmin;
+        setSupportActionBar(toolbar);
+        initializeBottomNavigationBar();
+        initializeNavigationMenu();
+
+    }
+
+    private void initializeBottomNavigationBar() {
         BottomNavigationView bottomNavigationView=findViewById(R.id.admin_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(adminNavigationListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.admin_fragmentContainer,new ApartmentFragment())
                 .commit();
+    }
 
+
+    private void initializeNavigationMenu() {
         NavigationView navigationView=binding.navigationView;
-
+        View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header);
+        TextView textViewUsername= headerLayout.findViewById(R.id.textViewNavigationUserName);
+        textViewUsername.setText(currentUser.getUserName());
+        TextView textViewAccessLevel= headerLayout.findViewById(R.id.textViewNavigationAccessLwl);
+        textViewAccessLevel.setText(currentUser.getAccessLevel());
         navigationView.setNavigationItemSelectedListener(this);
 
-        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar
+        toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar
                 ,R.string.navigation_drawer_open,R.string.navigation_drawer_close );
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-
-
     }
+
 
     @Override
     public void onBackPressed() {
@@ -85,10 +98,13 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
             Fragment selectedFragment=null;
             switch (item.getItemId()){
                 case R.id.menuItemAdd:
+                    Bundle bundle=new Bundle();
+                    bundle.putSerializable("currentUser", currentUser);
                     selectedFragment=new AddFragment();
+                    selectedFragment.setArguments(bundle);
                     break;
                 case R.id.menuItemApartmentList:
-                    selectedFragment=new ApartmentFragment();
+                    selectedFragment= new ApartmentFragment();
                     break;
                 case R.id.menuItemRepair:
                     selectedFragment=repairFragment;
@@ -100,9 +116,9 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
     };
 
 
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
         switch (item.getItemId()){
             case R.id.logOut:
                 if (firebaseAuth!=null){
@@ -111,9 +127,13 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                 }
                 break;
             case R.id.registration:
-                startActivity(new Intent(getApplicationContext(),RegistrationActivity.class));
+                Intent intent=new Intent(getApplicationContext(),RegistrationActivity.class);
+                intent.putExtra("currentUser", currentUser);
+                startActivity(intent);
                 break;
         }
         return true;
     }
+
+
 }

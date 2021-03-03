@@ -1,28 +1,17 @@
 package com.grs21.supervisor.adminFragment;
 
-import android.app.SearchManager;
-import android.content.Context;
+
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -34,14 +23,11 @@ import com.grs21.supervisor.R;
 import com.grs21.supervisor.adapter.AdapterApartmentRecyclerView;
 import com.grs21.supervisor.databinding.FragmentApartmentBinding;
 import com.grs21.supervisor.model.Apartment;
-import com.grs21.supervisor.model.Service;
-import com.grs21.supervisor.util.ItemViewModel;
+import com.grs21.supervisor.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import es.dmoral.toasty.Toasty;
 
 public class ApartmentFragment extends Fragment implements SearchView.OnQueryTextListener {
@@ -53,6 +39,7 @@ public class ApartmentFragment extends Fragment implements SearchView.OnQueryTex
     private ArrayList<Apartment> apartments=new ArrayList<>();
     private FirebaseFirestore fireStore;
     private AdapterApartmentRecyclerView adapter;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,6 +49,7 @@ public class ApartmentFragment extends Fragment implements SearchView.OnQueryTex
         getDataFromFireStore();
         SearchView searchView= binding.searchView;
         searchView.setOnQueryTextListener(this);
+
 
         return binding.getRoot();
     }

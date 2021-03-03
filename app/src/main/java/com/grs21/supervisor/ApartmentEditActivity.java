@@ -24,6 +24,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.grs21.supervisor.databinding.ActivityAppartmentEditBinding;
 import com.grs21.supervisor.model.Apartment;
+import com.grs21.supervisor.model.User;
+
 import java.util.HashMap;
 import es.dmoral.toasty.Toasty;
 
@@ -41,6 +43,8 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
     private  String alertDialogCancel;
     private  String alertDialogConnect;
     private  String alertDialogDelete;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +55,6 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
         fireStore = FirebaseFirestore.getInstance();
         Intent intent=getIntent();
         apartment=(Apartment) intent.getSerializableExtra("apartment");
-
         toastMessageFailureDelete=getResources().getString(R.string.failure_delete);
         toastMessageSuccessfullyDelete=getResources().getString(R.string.successfully_delete);
         alertDialogDoYouWantDelete=getResources().getString(R.string.do_you_want_delete);
@@ -61,22 +64,12 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
         alertDialogConnect=getResources().getString(R.string.connect);
         alertDialogDelete=getResources().getString(R.string.delete);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(apartment.getApartmentName());
+        getSupportActionBar().setTitle("");
+        binding.textViewEditToolBarTitle.setText(apartment.getApartmentName());
         binding.buttonDetailEditApartmentSave.setOnClickListener(this);
         binding.buttonDetailEditDelete.setOnClickListener(this);
+        binding.imageButtonEditToDetailBackButton.setOnClickListener(this);
         initializeData(apartment);
-    }
-    private void initializeData(Apartment apartment) {
-        binding.editTextEditBuildName.setText(apartment.getApartmentName());
-        binding.editTextEditBuildAddress.setText(apartment.getApartmentAddress());
-        binding.editTextEditCost.setText(apartment.getCost());
-        binding.editTextEditManagerName.setText(apartment.getManagerName());
-        binding.editTextEditManagerNumber.setText(apartment.getManagerNumber());
-        binding.editTextEditManagerAddress.setText(apartment.getManagerAddress());
-        binding.editTextEditEmployeeName.setText(apartment.getEmployeeName());
-        binding.editTextEditEmployeeNumber.setText(apartment.getEmployeeNumber());
-        binding.editTextEditContractDate.setText(apartment.getContractDate());
     }
 
     @Override
@@ -130,9 +123,9 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
                     alertDialog.setPositiveButton(alertDialogDelete, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            DocumentReference documentReference = fireStore.collection("Builds")
-                                    .document(apartment.getUuid());
-                            documentReference.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        DocumentReference documentReference = fireStore.collection("Builds")
+                                .document(apartment.getUuid());
+                        documentReference.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
@@ -168,6 +161,12 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
                     alertDialog.create().show();
                 }
                break;
+            case R.id.imageButtonEditToDetailBackButton:
+                Intent intent = new Intent(ApartmentEditActivity.this, BuildDetailActivity.class);
+                intent.putExtra("apartment", apartment);
+                startActivity(intent);
+                finish();
+                break;
         }
     }
     private boolean isConnected() {
@@ -192,6 +191,18 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
         });
         alertDialog.create().show();
     }
+    private void initializeData(Apartment apartment) {
+        binding.editTextEditBuildName.setText(apartment.getApartmentName());
+        binding.editTextEditBuildAddress.setText(apartment.getApartmentAddress());
+        binding.editTextEditCost.setText(apartment.getCost());
+        binding.editTextEditManagerName.setText(apartment.getManagerName());
+        binding.editTextEditManagerNumber.setText(apartment.getManagerNumber());
+        binding.editTextEditManagerAddress.setText(apartment.getManagerAddress());
+        binding.editTextEditEmployeeName.setText(apartment.getEmployeeName());
+        binding.editTextEditEmployeeNumber.setText(apartment.getEmployeeNumber());
+        binding.editTextEditContractDate.setText(apartment.getContractDate());
+    }
+
 
 
 }

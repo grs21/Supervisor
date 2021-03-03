@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,11 +26,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.grs21.supervisor.R;
 import com.grs21.supervisor.databinding.FragmentAddBinding;
 import com.grs21.supervisor.model.Service;
-
+import com.grs21.supervisor.model.User;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.UUID;
+
 import es.dmoral.toasty.Toasty;
 
 public class AddFragment extends Fragment implements View.OnClickListener {
@@ -37,7 +40,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     private FragmentAddBinding binding;
     private FirebaseFirestore fireStore;
     private static final String TAG = "AddFragment";
-
+    private User currentUser;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,6 +48,8 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.buttonDate.setOnClickListener(this);
         binding.buttonBuildSave.setOnClickListener(this);
         fireStore=FirebaseFirestore.getInstance();
+        currentUser=(User)getArguments().getSerializable("currentUser");
+
         return binding.getRoot();
     }
 
@@ -56,6 +61,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
                     if (isConnected()) {
                         if (!binding.editTextBuildName.getText().toString().isEmpty()) {
+                            UUID uuid=UUID.randomUUID();
                             final ProgressDialog progressDialog = new ProgressDialog(v.getContext());
                             progressDialog.setTitle(R.string.uploading);
                             progressDialog.show();
@@ -73,16 +79,20 @@ public class AddFragment extends Fragment implements View.OnClickListener {
                             buildData.put("elevatorUpQRCOdeInfo", binding.editTextBuildName.getText().toString() + "ElevatorUp");
                             buildData.put("machineQRCOdeInfo", binding.editTextBuildName.getText().toString() + "Machine");
                             buildData.put("service", FieldValue.arrayUnion(new Service()));
-                            fireStore.collection("Builds").add(buildData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    progressDialog.dismiss();
-                                    Toast toastSuccess = Toasty.success(v.getContext(), R.string.saved
-                                            , Toast.LENGTH_SHORT, true);
-                                    toastSuccess.setGravity(Gravity.CENTER, 0, 0);
-                                    toastSuccess.show();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
+                            fireStore.collection(currentUser.getCompany())
+                                    .document("Builds")
+                                    .collection(uuid.toString())
+                                    .add(buildData)
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            progressDialog.dismiss();
+                                            Toast toastSuccess = Toasty.success(v.getContext(), R.string.saved
+                                                    , Toast.LENGTH_SHORT, true);
+                                            toastSuccess.setGravity(Gravity.CENTER, 0, 0);
+                                            toastSuccess.show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     progressDialog.dismiss();

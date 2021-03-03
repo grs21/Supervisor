@@ -18,15 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Supervisor">
-        <activity android:name=".activity.ServiceActivity"
-            android:parentActivityName=".BuildDetailActivity"
-            ></activity>
+        <activity android:name=".activity.ServiceActivity"></activity>
         <activity
             android:name=".ApartmentEditActivity"
             android:parentActivityName=".AdminActivity"></activity>
-        <activity
-            android:name=".BuildDetailActivity"
-            android:parentActivityName=".AdminActivity" />
+        <activity android:name=".BuildDetailActivity" />
         <activity android:name=".UserActivity" />
         <activity android:name=".AdminActivity" />
         <activity android:name=".RegistrationActivity" />

@@ -4,11 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     >
  <androidx.appcompat.widget.Toolbar
      android:id="@+id/toolbarBuildDetail"
      android:layout_width="match_parent"
-     android:layout_height="wrap_content"/>
+     android:layout_height="wrap_content"
+     android:background="#FF5722"
+     />
 
  <androidx.appcompat.widget.AppCompatButton
      android:id="@+id/buttonMakeService"
@@ -28,6 +31,7 @@
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+
       >
 
 
@@ -232,11 +236,12 @@
        />
    <Spinner
        android:id="@+id/spinnerDate"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
+       android:layout_width="150dp"
+       android:layout_height="20dp"
        android:layout_below="@+id/textViewBuildDetailContractDate"
-       android:layout_marginStart="33dp"
        android:layout_marginTop="7dp"
+       android:layout_marginBottom="7dp"
+
 
        />
    <androidx.appcompat.widget.AppCompatButton

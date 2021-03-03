@@ -1,17 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/blue"
-    android:orientation="vertical"
+    android:orientation="vertical">
+<com.google.android.material.appbar.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     >
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarService"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:background="@color/blue">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:theme="@style/Widget.AppCompat.Toolbar"
+            />
+        <TextView
+            android:id="@+id/textViewServiceToolBarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="15dp"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            />
+        <ImageButton
+            android:id="@+id/imageButtonBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_back_button_24"
+            android:background="@color/blue"
+            android:layout_marginStart="10dp"
+            />
+    </RelativeLayout>
+</com.google.android.material.appbar.AppBarLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

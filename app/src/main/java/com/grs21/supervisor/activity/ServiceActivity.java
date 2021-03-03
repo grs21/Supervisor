@@ -1,5 +1,6 @@
 package com.grs21.supervisor.activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,6 +10,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -38,7 +41,6 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
     private ActivityServiceBinding binding;
     private Apartment apartment;
     private Intent intent;
-
     private FirebaseFirestore fireStore;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
@@ -52,23 +54,32 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
         intent=getIntent();
         apartment=(Apartment) intent.getSerializableExtra("apartment");
 
+
         Toolbar toolbar=findViewById(R.id.toolbarService);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(apartment.getApartmentName());
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle("");
+        binding.textViewServiceToolBarTitle.setText(apartment.getApartmentName());
 
         firebaseAuth= FirebaseAuth.getInstance();
         user=firebaseAuth.getCurrentUser();
         fireStore=FirebaseFirestore.getInstance();
+
         binding.buttonServiceScan.setOnClickListener(this);
         binding.buttonServiceSave.setOnClickListener(this);
         binding.textViewServiceBuildName.setText(apartment.getApartmentName());
+        binding.imageButtonBackButton.setOnClickListener(this);
     }
-
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.imageButtonBackButton:
+                Intent intent=new Intent(ServiceActivity.this,BuildDetailActivity.class);
+                intent.putExtra("apartment",apartment);
+                startActivity(intent);
+
+                break;
             case R.id.buttonServiceScan:
                 scanCode();
                 break;
@@ -126,12 +137,6 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                         }
                     });
                     dialog.show();
-
-                    //Todo: Saying in AlertDialog error message not check checkBox
-                    //todo: Show the which checkbox if not check
-                    //todo: kaydedip kaydeticeğini sor
-                    //todo: FirebaseFireStore da Service Arrayinin içine Service oluşturup kaydet
-
                 }else{
                     Toast toastSuccess = Toasty.error(ServiceActivity.this, R.string.please_make_a_service
                             , Toast.LENGTH_LONG, true);
@@ -182,5 +187,4 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-    
 }

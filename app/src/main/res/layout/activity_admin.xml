@@ -41,8 +41,8 @@
         android:id="@+id/navigationView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu"
+        app:itemIconPadding="15dp"
         android:layout_gravity="start"
         />
 
