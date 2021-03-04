@@ -15,7 +15,7 @@
     <EditText
         android:id="@+id/editTextUserName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:background="@drawable/text_background"
         android:hint="@string/user_name"
         android:textSize="22sp"
@@ -27,7 +27,7 @@
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:background="@drawable/text_background"
         android:hint="@string/password"
         android:textSize="22sp"

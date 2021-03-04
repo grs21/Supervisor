@@ -20,16 +20,16 @@
            android:layout_height="wrap_content"
            android:textSize="20sp"
            android:text="Build Name"
-           android:layout_marginEnd="155dp"
+           android:layout_marginEnd="20dp"
            android:padding="4dp"
            android:textColor="@color/white"
            />
        <TextView
-           android:id="@+id/textViewRecyclerViewContractName"
+           android:id="@+id/textViewRecyclerViewMostLastServiceDate"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_below="@+id/textViewRecyclerViewBuildName"
-           android:text="En Son yapılan bakım tarihi"
+           android:text="21/21/2222"
            android:padding="8dp"
            android:textColor="@color/white"
            />
@@ -40,7 +40,7 @@
            android:text="Kuyu"
            android:textSize="15sp"
            android:textColor="@color/white"
-           android:layout_marginStart="244dp"
+           android:layout_marginStart="200dp"
            />
 
        <CheckBox
@@ -58,7 +58,7 @@
            android:layout_height="wrap_content"
            android:text="Kabin"
            android:layout_below="@+id/textViewRecyclerViewWell"
-           android:layout_marginStart="244dp"
+           android:layout_marginStart="200dp"
            android:textColor="@color/white"
            />
        <CheckBox
@@ -76,7 +76,7 @@
            android:layout_height="wrap_content"
            android:text="Makina Dairesi"
            android:layout_below="@+id/textViewRecyclerViewElevatorUp"
-           android:layout_marginStart="244dp"
+           android:layout_marginStart="200dp"
            android:textColor="@color/white"
            />
        <CheckBox

@@ -37,6 +37,7 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
     private TextView textViewDialogDate,textViewDialogEmployee;
     private CheckBox checkBoxWell,checkBoxUp,checkBoxMachineRoom;
     private static final String TAG = "BuildDetailActivity";
+    private User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +50,10 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
         binding.buttonMakeService.setOnClickListener(this);
         serviceArrayList=new ArrayList<>();
 
+
         intent=getIntent();
         apartment=(Apartment) intent.getSerializableExtra("apartment");
-
+        currentUser=(User)intent.getSerializableExtra("currentUser");
         Toolbar toolbar=binding.toolbarBuildDetail;
         toolbar.setTitle(apartment.getApartmentName());
         toolbar.inflateMenu(R.menu.service_to_detailback_button);
@@ -96,6 +98,7 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
             case R.id.buttonDetailToEdit:
                 Intent intent=new Intent(BuildDetailActivity.this,ApartmentEditActivity.class);
                 intent.putExtra("apartment", (Serializable) apartment);
+                intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
                 finish();
                 break;
@@ -105,7 +108,9 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
             case R.id.buttonMakeService:
                 Intent intent1=new Intent(BuildDetailActivity.this, ServiceActivity.class);
                 intent1.putExtra("apartment", apartment);
+                intent1.putExtra("currentUser",currentUser);
                 startActivity(intent1);
+                finish();
                 break;
         }
     }
@@ -134,5 +139,13 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
  }
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(BuildDetailActivity.this,AdminActivity.class);
+        intent.putExtra("currentUser", currentUser);
+        startActivity(intent);
+        super.onBackPressed();
     }
 }

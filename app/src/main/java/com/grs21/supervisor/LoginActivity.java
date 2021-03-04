@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private Boolean state=true;
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -112,7 +113,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (user.getAccessLevel().equals("admin") ){
                 Intent intent=new Intent(LoginActivity.this,AdminActivity.class);
                 intent.putExtra("currentUser",user);
-                    startActivity(intent);
+                   progressDialog.dismiss();
+                   startActivity(intent);
+                    finish();
 
             } else if (user.getAccessLevel().equals("user")){
                // startActivity(new Intent(getApplicationContext(),UserActivity.class));
@@ -133,8 +136,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onResume() {
         if (FirebaseAuth.getInstance().getCurrentUser()!=null){
+            progressDialog = new ProgressDialog(LoginActivity.this);
+            progressDialog.setTitle(R.string.log_in);
+            progressDialog.show();
             getUserData(FirebaseAuth.getInstance().getCurrentUser().getUid());
-            finish();
         }
         super.onResume();
     }

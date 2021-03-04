@@ -60,7 +60,12 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
     private void initializeBottomNavigationBar() {
         BottomNavigationView bottomNavigationView=findViewById(R.id.admin_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(adminNavigationListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.admin_fragmentContainer,new ApartmentFragment())
+
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("currentUser", currentUser);
+        ApartmentFragment apartmentFragment=new ApartmentFragment();
+        apartmentFragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.admin_fragmentContainer,apartmentFragment)
                 .commit();
     }
 
@@ -104,7 +109,10 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                     selectedFragment.setArguments(bundle);
                     break;
                 case R.id.menuItemApartmentList:
+                    Bundle bundle1=new Bundle();
+                    bundle1.putSerializable("currentUser", currentUser);
                     selectedFragment= new ApartmentFragment();
+                    selectedFragment.setArguments(bundle1);
                     break;
                 case R.id.menuItemRepair:
                     selectedFragment=repairFragment;
@@ -124,6 +132,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                 if (firebaseAuth!=null){
                     firebaseAuth.signOut();
                     startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                    finish();
                 }
                 break;
             case R.id.registration:

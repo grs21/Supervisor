@@ -34,12 +34,12 @@
             />
         <ImageButton
             android:id="@+id/imageButtonBackButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_back_button_24"
             android:background="@color/blue"
-            android:layout_marginStart="10dp"
+
             />
     </RelativeLayout>
 </com.google.android.material.appbar.AppBarLayout>

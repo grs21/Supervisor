@@ -61,13 +61,14 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
                     if (isConnected()) {
                         if (!binding.editTextBuildName.getText().toString().isEmpty()) {
+                           String buildName= binding.editTextBuildName.getText().toString();
                             UUID uuid=UUID.randomUUID();
                             final ProgressDialog progressDialog = new ProgressDialog(v.getContext());
                             progressDialog.setTitle(R.string.uploading);
                             progressDialog.show();
                             HashMap<String, Object> buildData = new HashMap<>();
                             buildData.put("cost", binding.editTextCost.getText().toString());
-                            buildData.put("buildName", binding.editTextBuildName.getText().toString());
+                            buildData.put("buildName", buildName);
                             buildData.put("address", binding.editTextBuildAddress.getText().toString());
                             buildData.put("managerName", binding.editTextManagerName.getText().toString());
                             buildData.put("managerNumber", binding.editTextManagerNumber.getText().toString());
@@ -80,8 +81,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
                             buildData.put("machineQRCOdeInfo", binding.editTextBuildName.getText().toString() + "Machine");
                             buildData.put("service", FieldValue.arrayUnion(new Service()));
                             fireStore.collection(currentUser.getCompany())
-                                    .document("Builds")
-                                    .collection(uuid.toString())
                                     .add(buildData)
                                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                         @Override

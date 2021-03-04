@@ -9,17 +9,20 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -29,11 +32,15 @@ import com.grs21.supervisor.R;
 import com.grs21.supervisor.databinding.ActivityServiceBinding;
 import com.grs21.supervisor.model.Apartment;
 import com.grs21.supervisor.model.Service;
+import com.grs21.supervisor.model.User;
 import com.grs21.supervisor.util.CaptureAct;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
 
@@ -45,6 +52,9 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
     private static final String TAG = "ServiceActivity";
+    private User currentUser;
+    private String company;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +63,8 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(view);
         intent=getIntent();
         apartment=(Apartment) intent.getSerializableExtra("apartment");
-
+        currentUser=(User) intent.getSerializableExtra("currentUser");
+        company=currentUser.getCompany();
 
         Toolbar toolbar=findViewById(R.id.toolbarService);
         setSupportActionBar(toolbar);
@@ -77,7 +88,9 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.imageButtonBackButton:
                 Intent intent=new Intent(ServiceActivity.this,BuildDetailActivity.class);
                 intent.putExtra("apartment",apartment);
+                intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
+                finish();
 
                 break;
             case R.id.buttonServiceScan:
@@ -101,8 +114,10 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                     DCElevatorUp.setChecked(elevatorUpBoolean);
                     DCMachineRoom.setChecked(machineRoomBoolean);
 
-                    TextView textViewName=dialog.findViewById(R.id.textViewServiceDialogDate);
+                    TextView textViewName=dialog.findViewById(R.id.textViewServiceDialogApartmentName);
                     textViewName.setText(apartment.getApartmentName());
+                    TextView textViewEmployee=dialog.findViewById(R.id.textViewServiceDialogEmployee);
+                    textViewEmployee.setText(currentUser.getFullName());
 
                     Button buttonCancel,buttonSave;
                     buttonCancel=dialog.findViewById(R.id.buttonServiceDialogCancel);
@@ -127,13 +142,14 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                         service.setElevatorUp(elevatorUpBoolean);
                         service.setDate(dateString);
                         service.setEmployee(user.getEmail());
-
-                            DocumentReference docRef=fireStore.collection("Builds")
+                            Log.d(TAG, "onClick: "+apartment.getUuid());
+                            DocumentReference docRef=fireStore.collection(company)
                                     .document(apartment.getUuid());
                             docRef.update("service", FieldValue.arrayUnion(service));
                             dialog.dismiss();
                             progressDialog.dismiss();
-                            startActivity(new Intent(ServiceActivity.this, BuildDetailActivity.class));
+                            apartmentGetDataAfterScan();
+
                         }
                     });
                     dialog.show();
@@ -186,5 +202,32 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
         }else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void apartmentGetDataAfterScan(){
+        DocumentReference documentReference=fireStore.collection(company).document(apartment.getUuid());
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DocumentSnapshot documentSnapshot=task.getResult();
+                    if (documentSnapshot.exists()){
+                       Map<String,Object> getData=documentSnapshot.getData();
+                        Log.d(TAG, "onComplete:+++++++ "+documentSnapshot.getId());
+                        Log.d(TAG, "onComplete:+++++++ "+getData.get("buildName"));
+                        Apartment apartment=new Apartment(documentSnapshot.getId(),(String)getData.get("buildName")
+                                ,(String)getData.get("address"),(String)getData.get("cost"),(String)getData.get("managerName")
+                                ,(String)getData.get("managerNumber"),(String)getData.get("managerAddress")
+                                ,(String)getData.get("employeeName"),(String)getData.get("employeeNumber")
+                                ,(String)getData.get("dateOfContract"),(String) getData.get("wellQRCOdeInfo")
+                                ,(String) getData.get("elevatorUpQRCOdeInfo"),(String) getData.get("machineQRCOdeInfo")
+                                , (ArrayList<HashMap>) getData.get("service"));
+                        Intent intent1=new  Intent(ServiceActivity.this, BuildDetailActivity.class);
+                        intent1.putExtra("apartment",apartment);
+                        intent1.putExtra("currentUser",currentUser);
+                        startActivity(intent1);
+                        finish();
+                    }
+            }
+        });
     }
 }

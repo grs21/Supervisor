@@ -2,6 +2,7 @@ package com.grs21.supervisor.adminFragment;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,23 +40,24 @@ public class ApartmentFragment extends Fragment implements SearchView.OnQueryTex
     private ArrayList<Apartment> apartments=new ArrayList<>();
     private FirebaseFirestore fireStore;
     private AdapterApartmentRecyclerView adapter;
-
+    private User currentUser;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding=FragmentApartmentBinding.inflate(inflater,container,false);
 
+        Bundle bundle=getArguments();
+        currentUser=(User) bundle.getSerializable("currentUser");
         fireStore=FirebaseFirestore.getInstance();
         getDataFromFireStore();
         SearchView searchView= binding.searchView;
         searchView.setOnQueryTextListener(this);
 
-
         return binding.getRoot();
     }
 
     private void getDataFromFireStore() {
-        CollectionReference collectionReference=fireStore.collection("Builds");
+        CollectionReference collectionReference=fireStore.collection(currentUser.getCompany());
         collectionReference.orderBy("dateOfContract", Query.Direction.ASCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -81,7 +83,7 @@ public class ApartmentFragment extends Fragment implements SearchView.OnQueryTex
                     }
 
                     LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
-                    adapter=new AdapterApartmentRecyclerView(apartments);
+                    adapter=new AdapterApartmentRecyclerView(apartments,currentUser);
                     binding.recyclerView.setLayoutManager(linearLayoutManager);
                     binding.recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
@@ -89,6 +91,7 @@ public class ApartmentFragment extends Fragment implements SearchView.OnQueryTex
             }
         });
     }
+
 
 
     @Override

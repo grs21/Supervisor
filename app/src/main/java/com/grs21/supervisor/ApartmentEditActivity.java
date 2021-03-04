@@ -33,6 +33,7 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
 
     private ActivityAppartmentEditBinding binding;
     private Apartment apartment;
+    private User currentUSer;
     private FirebaseFirestore fireStore;
     private static final String TAG = "ApartmentEditActivity";
     private  String toastMessageFailureDelete;
@@ -55,6 +56,7 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
         fireStore = FirebaseFirestore.getInstance();
         Intent intent=getIntent();
         apartment=(Apartment) intent.getSerializableExtra("apartment");
+        currentUSer=(User)intent.getSerializableExtra("currentUser");
         toastMessageFailureDelete=getResources().getString(R.string.failure_delete);
         toastMessageSuccessfullyDelete=getResources().getString(R.string.successfully_delete);
         alertDialogDoYouWantDelete=getResources().getString(R.string.do_you_want_delete);
@@ -164,6 +166,7 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
             case R.id.imageButtonEditToDetailBackButton:
                 Intent intent = new Intent(ApartmentEditActivity.this, BuildDetailActivity.class);
                 intent.putExtra("apartment", apartment);
+                intent.putExtra("currentUser", currentUSer);
                 startActivity(intent);
                 finish();
                 break;

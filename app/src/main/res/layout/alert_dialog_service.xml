@@ -9,13 +9,14 @@
         android:id="@+id/textViewServiceDialogEmployee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewServiceDialogElevatorUp"
-        android:layout_toEndOf="@+id/checkboxServiceDialogElevatorMachine"
+        android:layout_below="@+id/textViewServiceDialogApartmentName"
+        android:layout_toEndOf="@+id/checkboxServiceDialogWell"
         android:text="example Employee"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="2dp"
         />
     <TextView
-        android:id="@+id/textViewServiceDialogDate"
+        android:id="@+id/textViewServiceDialogApartmentName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
@@ -31,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="Kuyu"
         android:textSize="15sp"
-        android:layout_below="@+id/textViewServiceDialogDate"
+        android:layout_below="@+id/textViewServiceDialogApartmentName"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
 
@@ -43,7 +44,7 @@
         android:layout_height="21dp"
         android:layout_toEndOf="@+id/textViewServiceDialogWell"
         android:layout_marginStart="1dp"
-        android:layout_below="@id/textViewServiceDialogDate"
+        android:layout_below="@id/textViewServiceDialogApartmentName"
         android:layout_marginTop="8dp"
         android:clickable="false"
         />
