@@ -150,10 +150,6 @@ public class Apartment implements Serializable {
         return serviceArrayList;
     }
 
-    public void setServiceArrayList(ArrayList<HashMap> serviceArrayList) {
-        this.serviceArrayList = serviceArrayList;
-    }
-
     @Override
     public String toString() {
         return apartmentName ;

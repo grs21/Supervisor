@@ -13,9 +13,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 public class UserActivity extends AppCompatActivity {
 
     private ActivityUserBinding binding;

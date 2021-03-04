@@ -5,11 +5,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -25,7 +22,6 @@ import com.grs21.supervisor.model.User;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class BuildDetailActivity extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemSelectedListener {
     private ActivityBuildDetailBinding binding;
@@ -96,7 +92,7 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
         switch (v.getId()){
 
             case R.id.buttonDetailToEdit:
-                Intent intent=new Intent(BuildDetailActivity.this,ApartmentEditActivity.class);
+                Intent intent=new Intent(BuildDetailActivity.this, ApartmentEditActivity.class);
                 intent.putExtra("apartment", (Serializable) apartment);
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
@@ -143,7 +139,7 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onBackPressed() {
-        Intent intent=new Intent(BuildDetailActivity.this,AdminActivity.class);
+        Intent intent=new Intent(BuildDetailActivity.this, AdminActivity.class);
         intent.putExtra("currentUser", currentUser);
         startActivity(intent);
         super.onBackPressed();

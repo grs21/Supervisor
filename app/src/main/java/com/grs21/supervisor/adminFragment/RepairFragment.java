@@ -24,7 +24,7 @@ import com.grs21.supervisor.util.ItemViewModel;
 
 import java.util.ArrayList;
 
-public class RepairFragment extends Fragment {
+public class RepairFragment extends Fragment implements View.OnClickListener {
 
     private FragmentRepairBinding binding;
     private static final String TAG = "RepairFragment";
@@ -35,10 +35,19 @@ public class RepairFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding=FragmentRepairBinding.inflate(inflater,container,false);
 
+        binding.imageButtonRepairAdd.setOnClickListener(this);
+
+
         return binding.getRoot();
     }
 
 
+    @Override
+    public void onClick(View v) {
+
+
+
     }
+}
 
 

@@ -155,7 +155,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                             , new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
-                                    Intent intent=new Intent(RegistrationActivity.this,AdminActivity.class);
+                                    Intent intent=new Intent(RegistrationActivity.this, AdminActivity.class);
                                     intent.putExtra("currentUser",user);
                                     startActivity(intent);
                                     finish();

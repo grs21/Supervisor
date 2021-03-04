@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -111,7 +110,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
     private void checkUserAccessLevel(User user) {
             if (user.getAccessLevel().equals("admin") ){
-                Intent intent=new Intent(LoginActivity.this,AdminActivity.class);
+                Intent intent=new Intent(LoginActivity.this, AdminActivity.class);
                 intent.putExtra("currentUser",user);
                    progressDialog.dismiss();
                    startActivity(intent);
