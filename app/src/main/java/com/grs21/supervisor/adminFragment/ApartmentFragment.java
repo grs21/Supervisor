@@ -71,7 +71,7 @@ public class ApartmentFragment extends Fragment implements SearchView.OnQueryTex
                 if (value!=null){
                     for (DocumentSnapshot snapshot:value.getDocuments()){
                         Map<String,Object> getData=snapshot.getData();
-                        Apartment apartment=new Apartment((String) snapshot.getId(),(String)getData.get("buildName")
+                        Apartment apartment=new Apartment( snapshot.getId(),(String)getData.get("buildName")
                                 ,(String)getData.get("address"),(String)getData.get("cost"),(String)getData.get("managerName")
                                 ,(String)getData.get("managerNumber"),(String)getData.get("managerAddress")
                                 ,(String)getData.get("employeeName"),(String)getData.get("employeeNumber")

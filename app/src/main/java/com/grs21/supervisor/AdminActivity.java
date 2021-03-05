@@ -37,6 +37,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
     private static final String TAG = "AdminActivity";
     ActionBarDrawerToggle toggle;
     Toolbar toolbar;
+    private  Bundle bundleCurrentUserData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +53,8 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         drawerLayout=binding.drawerLayout;
         toolbar=binding.toolBarAdmin;
         setSupportActionBar(toolbar);
+        bundleCurrentUserData =new Bundle();
+        bundleCurrentUserData.putSerializable("currentUser", currentUser);
         initializeBottomNavigationBar();
         initializeNavigationMenu();
 
@@ -61,10 +64,9 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         BottomNavigationView bottomNavigationView=findViewById(R.id.admin_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(adminNavigationListener);
 
-        Bundle bundle=new Bundle();
-        bundle.putSerializable("currentUser", currentUser);
+
         ApartmentFragment apartmentFragment=new ApartmentFragment();
-        apartmentFragment.setArguments(bundle);
+        apartmentFragment.setArguments(bundleCurrentUserData);
         getSupportFragmentManager().beginTransaction().replace(R.id.admin_fragmentContainer,apartmentFragment)
                 .commit();
     }
@@ -103,19 +105,17 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
             Fragment selectedFragment=null;
             switch (item.getItemId()){
                 case R.id.menuItemAdd:
-                    Bundle bundle=new Bundle();
-                    bundle.putSerializable("currentUser", currentUser);
                     selectedFragment=new AddFragment();
-                    selectedFragment.setArguments(bundle);
+                    selectedFragment.setArguments(bundleCurrentUserData);
                     break;
                 case R.id.menuItemApartmentList:
-                    Bundle bundle1=new Bundle();
-                    bundle1.putSerializable("currentUser", currentUser);
+
                     selectedFragment= new ApartmentFragment();
-                    selectedFragment.setArguments(bundle1);
+                    selectedFragment.setArguments(bundleCurrentUserData);
                     break;
                 case R.id.menuItemRepair:
-                    selectedFragment=repairFragment;
+                    selectedFragment=new RepairFragment();
+                    selectedFragment.setArguments(bundleCurrentUserData);
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.admin_fragmentContainer, selectedFragment).commit();

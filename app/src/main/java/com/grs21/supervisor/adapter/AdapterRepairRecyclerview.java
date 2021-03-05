@@ -1,5 +1,6 @@
 package com.grs21.supervisor.adapter;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -8,6 +9,7 @@ import android.widget.AdapterView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.grs21.supervisor.R;
 import com.grs21.supervisor.model.Repair;
 
 import java.util.ArrayList;
@@ -23,6 +25,8 @@ public class AdapterRepairRecyclerview extends RecyclerView.Adapter<AdapterRepai
     @NonNull
     @Override
     public RepairViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+       View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_repair_recyclerview,parent);
+
         return null;
     }
 
@@ -34,7 +38,7 @@ public class AdapterRepairRecyclerview extends RecyclerView.Adapter<AdapterRepai
 
     @Override
     public int getItemCount() {
-        return 0;
+        return repairArrayList.size();
     }
 
     public class RepairViewHolder extends RecyclerView.ViewHolder{
