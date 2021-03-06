@@ -118,7 +118,8 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                     selectedFragment.setArguments(bundleCurrentUserData);
                     break;
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.admin_fragmentContainer, selectedFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.admin_fragmentContainer
+                    , selectedFragment).commit();
             return true;
         }
     };

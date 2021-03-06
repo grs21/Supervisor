@@ -2,17 +2,30 @@ package com.grs21.supervisor.model;
 
 public class Repair {
 
+    private String id;
     private String apartmentName;
     private User user;
     private String notes;
+    private String date;
+
 
     public Repair() {
     }
 
-    public Repair(String apartmentName, User user, String notes) {
+    public Repair(String apartmentName, User user, String notes,String date) {
+
+        this.date=date;
         this.apartmentName = apartmentName;
         this.user = user;
         this.notes = notes;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getApartmentName() {
@@ -39,12 +52,22 @@ public class Repair {
         this.notes = notes;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Repair{" +
-                "apartmentName='" + apartmentName + '\'' +
+                "id='" + id + '\'' +
+                ", apartmentName='" + apartmentName + '\'' +
                 ", user=" + user +
                 ", notes='" + notes + '\'' +
+                ", date='" + date + '\'' +
                 '}';
     }
 }
