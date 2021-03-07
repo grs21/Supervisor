@@ -89,19 +89,21 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
+        final int buttonGotoEdit=R.id.buttonDetailToEdit;
+        final int buttonDialogCancel=R.id.buttonDetailDialogCancel;
+        final int buttonMakeService=R.id.buttonMakeService;
         switch (v.getId()){
-
-            case R.id.buttonDetailToEdit:
+            case buttonGotoEdit:
                 Intent intent=new Intent(BuildDetailActivity.this, ApartmentEditActivity.class);
                 intent.putExtra("apartment", (Serializable) apartment);
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.buttonDetailDialogCancel:
+            case buttonDialogCancel:
                 dialog.dismiss();
                 break;
-            case R.id.buttonMakeService:
+            case buttonMakeService:
                 Intent intent1=new Intent(BuildDetailActivity.this, ServiceActivity.class);
                 intent1.putExtra("apartment", apartment);
                 intent1.putExtra("currentUser",currentUser);
@@ -140,6 +142,7 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onBackPressed() {
         Intent intent=new Intent(BuildDetailActivity.this, AdminActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("currentUser", currentUser);
         startActivity(intent);
         super.onBackPressed();

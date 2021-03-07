@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
     private Boolean state=true;
-    private ProgressDialog progressDialog;
 
 
     @Override
@@ -47,20 +46,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-
+        final int buttonLogin=R.id.buttonLogin;
         switch (v.getId()) {
-            case   R.id.buttonLogin:
+
+            case   buttonLogin:
             checkInput(binding.editTextUserName);
             checkInput(binding.editTextPassword);
             if (state) {
                 final ProgressDialog progressDialog = new ProgressDialog(v.getContext());
                 progressDialog.setTitle(R.string.uploading);
                 progressDialog.show();
-                firebaseAuth.signInWithEmailAndPassword(binding.editTextUserName.getText().toString()
-                        , binding.editTextPassword.getText().toString())
+                firebaseAuth.signInWithEmailAndPassword(binding.editTextUserName.getText().toString().trim()
+                        , binding.editTextPassword.getText().toString().trim())
                         .addOnSuccessListener(authResult -> {
                             getUserData(authResult.getUser().getUid());
-                            progressDialog.dismiss();
+                           progressDialog.dismiss();
                     Snackbar.make(findViewById(android.R.id.content), "Logged Successfully"
                             , BaseTransientBottomBar.LENGTH_SHORT).show();
 
@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     progressDialog.dismiss();
                     Snackbar.make(findViewById(android.R.id.content), e.getMessage()
                             , BaseTransientBottomBar.LENGTH_SHORT).show();
+                    Log.d(TAG, "onClick: ++++++++++++++++"+e.getMessage());
 
                 });
             }
@@ -75,35 +76,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
     private void getUserData(String uid){
-        Log.d(TAG, "getUserData: "+uid);
         DocumentReference userInfo=firebaseFirestore.collection("Users").document(uid);
         userInfo.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
-
                     DocumentSnapshot documentSnapshot=task.getResult();
                   try {
-                    Log.d(TAG, "getUSerData:++++++++++++++++ "+uid);
-                    Map<String,Object> getData=documentSnapshot.getData();
+                  Map<String,Object> getData=documentSnapshot.getData();
                     String company=(String) getData.get("company");
                     String fullName=(String) getData.get("fullName");
                     String accessLevel=(String)getData.get("accessLevel");
                     String password=(String)getData.get("password");
                     String userName=(String) getData.get("userName");
-                    User user=new User(fullName,uid,userName,password,accessLevel,company);
-                    checkUserAccessLevel(user);
-                    Log.d(TAG, "getUSerData:++++++++++++++++++++++++++++"+fullName);
-                    }
+                 User user=new User(fullName,uid,userName,password,accessLevel,company);
+                 checkUserAccessLevel(user);
+                      Log.d(TAG, "onComplete: ++++++++++++++"+user.getCompany());
+                   }
                   catch (Exception e){
-
                       Snackbar.make(findViewById(android.R.id.content), "NULL"
                               , BaseTransientBottomBar.LENGTH_SHORT).show();
-
+                      Log.d(TAG, "onComplete:+++++++++++++ "+e.getMessage());
                   }
                 }
                 else{
-                    Log.d(TAG, "onCompleteGetUserData: "+task.getException());
+                    Log.d(TAG, "onCompleteGetUserData: ++++++++++++++"+task.getException());
                 }
             }
         });
@@ -112,7 +109,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (user.getAccessLevel().equals("admin") ){
                 Intent intent=new Intent(LoginActivity.this, AdminActivity.class);
                 intent.putExtra("currentUser",user);
-                   progressDialog.dismiss();
                    startActivity(intent);
                     finish();
 
@@ -135,10 +131,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onResume() {
         if (FirebaseAuth.getInstance().getCurrentUser()!=null){
-            progressDialog = new ProgressDialog(LoginActivity.this);
+            ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
             progressDialog.setTitle(R.string.log_in);
             progressDialog.show();
             getUserData(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+
         }
         super.onResume();
     }

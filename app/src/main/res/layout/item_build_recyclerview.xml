@@ -16,11 +16,11 @@
        >
        <TextView
            android:id="@+id/textViewRecyclerViewBuildName"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
+           android:layout_width="190dp"
+           android:layout_height="34dp"
            android:textSize="20sp"
            android:text="Build Name"
-           android:layout_marginEnd="20dp"
+           android:layout_marginEnd="1dp"
            android:padding="4dp"
            android:textColor="@color/white"
            />

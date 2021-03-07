@@ -126,25 +126,16 @@ public class Apartment implements Serializable {
         return elevatorUp;
     }
 
-    public void setElevatorUp(String elevatorUp) {
-        this.elevatorUp = elevatorUp;
-    }
 
     public String getWell() {
         return well;
     }
 
-    public void setWell(String well) {
-        this.well = well;
-    }
 
     public String getMachineRoom() {
         return machineRoom;
     }
 
-    public void setMachineRoom(String machineRoom) {
-        this.machineRoom = machineRoom;
-    }
 
     public ArrayList<HashMap> getServiceArrayList() {
         return serviceArrayList;

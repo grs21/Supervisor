@@ -7,34 +7,26 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.grs21.supervisor.databinding.ActivityAdminBinding;
 import com.grs21.supervisor.adminFragment.AddFragment;
 import com.grs21.supervisor.adminFragment.ApartmentFragment;
 import com.grs21.supervisor.adminFragment.RepairFragment;
 import com.grs21.supervisor.model.User;
 
-import java.util.ArrayList;
 
 public class AdminActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private ArrayList<String> add=new ArrayList<>();
     private ActivityAdminBinding binding;
     private DrawerLayout drawerLayout;
     private FirebaseAuth firebaseAuth;
-    private FirebaseFirestore fireStore;
-    private Fragment repairFragment=new RepairFragment();
     private User currentUser;
-    private static final String TAG = "AdminActivity";
     ActionBarDrawerToggle toggle;
     Toolbar toolbar;
     private  Bundle bundleCurrentUserData;
@@ -45,7 +37,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         View view=binding.getRoot();
         setContentView(view);
         firebaseAuth=FirebaseAuth.getInstance();
-        fireStore=FirebaseFirestore.getInstance();
+
 
 
         Intent intent=getIntent();
@@ -59,7 +51,6 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         initializeNavigationMenu();
 
     }
-
     private void initializeBottomNavigationBar() {
         BottomNavigationView bottomNavigationView=findViewById(R.id.admin_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(adminNavigationListener);
@@ -70,8 +61,6 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         getSupportFragmentManager().beginTransaction().replace(R.id.admin_fragmentContainer,apartmentFragment)
                 .commit();
     }
-
-
     private void initializeNavigationMenu() {
         NavigationView navigationView=binding.navigationView;
         View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header);
@@ -87,8 +76,6 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         toggle.syncState();
 
     }
-
-
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)){
@@ -102,18 +89,20 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
             =new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            final int menuBuildAdd=R.id.menuItemAdd;
+            final int menuApartmentList=R.id.menuItemApartmentList;
+            final int menuRepair=R.id.menuItemRepair;
             Fragment selectedFragment=null;
             switch (item.getItemId()){
-                case R.id.menuItemAdd:
+                case menuBuildAdd:
                     selectedFragment=new AddFragment();
                     selectedFragment.setArguments(bundleCurrentUserData);
                     break;
-                case R.id.menuItemApartmentList:
-
+                case menuApartmentList:
                     selectedFragment= new ApartmentFragment();
                     selectedFragment.setArguments(bundleCurrentUserData);
                     break;
-                case R.id.menuItemRepair:
+                case menuRepair:
                     selectedFragment=new RepairFragment();
                     selectedFragment.setArguments(bundleCurrentUserData);
                     break;
@@ -123,20 +112,19 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
             return true;
         }
     };
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
+        final int logOut=R.id.logOut;
+        final int registration=R.id.registration;
         switch (item.getItemId()){
-            case R.id.logOut:
+            case logOut:
                 if (firebaseAuth!=null){
                     firebaseAuth.signOut();
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                     finish();
                 }
                 break;
-            case R.id.registration:
+            case registration:
                 Intent intent=new Intent(getApplicationContext(), RegistrationActivity.class);
                 intent.putExtra("currentUser", currentUser);
                 startActivity(intent);

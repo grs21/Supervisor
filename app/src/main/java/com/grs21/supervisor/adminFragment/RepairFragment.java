@@ -30,6 +30,7 @@ import com.grs21.supervisor.adapter.AdapterRepairRecyclerview;
 import com.grs21.supervisor.databinding.FragmentRepairBinding;
 import com.grs21.supervisor.model.Repair;
 import com.grs21.supervisor.model.User;
+import com.grs21.supervisor.util.ToastMessage;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -54,10 +55,12 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
     private RecyclerView repairRecyclerView;
     private AdapterRepairRecyclerview.RepairRecyclerviewOnclickListener repairListener;
     private String date;
+    private ToastMessage toastMessage;
      @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding=FragmentRepairBinding.inflate(inflater,container,false);
+        toastMessage=new ToastMessage();
          Date currentDate=Calendar.getInstance().getTime();
          date= DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(currentDate);
         repairArrayList=new ArrayList<>();
@@ -155,8 +158,9 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                     reference.update(editData).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast toast=Toasty.success(getContext(),R.string.saved);
-                            toast.show();
+
+                            toastMessage.successMessage(getResources().getString(R.string.saved)
+                                    , v.getContext());
                             dialog.dismiss();
                           refreshPage();
 
@@ -169,8 +173,8 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                         }
                     });
                 }else{
-                    Toast toast=Toasty.warning(getContext(), "Build or note name cannot be empty");
-                    toast.show();
+                    toastMessage.warningMessage(getResources().getString(R.string.cannot_be_space)
+                            , v.getContext());
                 }
 
 
@@ -212,7 +216,8 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                 String buildName= editTextAddBuildName.getText().toString();
                 String note= editTextAddRepairNote.getText().toString();
 
-
+                if (!buildName.isEmpty() && !note.isEmpty())
+                {
                 Repair repair=new Repair(buildName,currentUser,note,date);
                 firebaseFirestore.document(currentUser.getCompany()+"/Repairs")
                         .collection("repair")
@@ -235,32 +240,12 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                         dialog.dismiss();
 
                     }
-                });
-
-               /* HashMap<String,Object> hashMapRepair=new HashMap<>();
-                hashMapRepair.put("buildName", );
-                hashMapRepair.put("note", );
-                firebaseFirestore.collection(currentUser.getCompany())
-                        .document("Repairs")
-                         .set(hashMapRepair)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                progressDialog.dismiss();
-                                Toast toast=Toasty.success(getContext(), R.string.saved);
-                                toast.show();
-                                dialog.dismiss();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast toast=Toasty.error(getContext(), R.string.notSaved);
-                        toast.show();
-                        dialog.dismiss();
-
-                    }
-                });*/
+                 });
+                }else {
+                    progressDialog.dismiss();
+                    toastMessage.warningMessage(getResources().getString(R.string.cannot_be_space)
+                            , v.getContext());
+                }
                 break;
             case R.id.buttonRepairDialogCancel:
                 dialog.dismiss();

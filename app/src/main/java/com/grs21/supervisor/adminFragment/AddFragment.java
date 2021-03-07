@@ -8,12 +8,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -27,24 +24,26 @@ import com.grs21.supervisor.R;
 import com.grs21.supervisor.databinding.FragmentAddBinding;
 import com.grs21.supervisor.model.Service;
 import com.grs21.supervisor.model.User;
+import com.grs21.supervisor.util.ToastMessage;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.UUID;
 
-import es.dmoral.toasty.Toasty;
 
 public class AddFragment extends Fragment implements View.OnClickListener {
 
     private FragmentAddBinding binding;
     private FirebaseFirestore fireStore;
-    private static final String TAG = "AddFragment";
     private User currentUser;
+    private ToastMessage toastMessage;
+    private  String buildName,address,cost,managerName,managerNumber
+            ,managerAddress, employeeName,employeeNumber,contractDate;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding=FragmentAddBinding.inflate(inflater,container,false);
+        toastMessage=new ToastMessage();
         binding.buttonDate.setOnClickListener(this);
         binding.buttonBuildSave.setOnClickListener(this);
         fireStore=FirebaseFirestore.getInstance();
@@ -56,79 +55,69 @@ public class AddFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        final int save=R.id.buttonBuildSave;
+        final int getDate=R.id.buttonDate;
         switch (v.getId()){
-            case R.id.buttonBuildSave:
-
-                    if (isConnected()) {
-                        if (!binding.editTextBuildName.getText().toString().isEmpty()) {
-                           String buildName= binding.editTextBuildName.getText().toString();
-                            UUID uuid=UUID.randomUUID();
-                            final ProgressDialog progressDialog = new ProgressDialog(v.getContext());
-                            progressDialog.setTitle(R.string.uploading);
-                            progressDialog.show();
-                            HashMap<String, Object> buildData = new HashMap<>();
-                            buildData.put("cost", binding.editTextCost.getText().toString());
-                            buildData.put("buildName", buildName);
-                            buildData.put("address", binding.editTextBuildAddress.getText().toString());
-                            buildData.put("managerName", binding.editTextManagerName.getText().toString());
-                            buildData.put("managerNumber", binding.editTextManagerNumber.getText().toString());
-                            buildData.put("managerAddress", binding.editTextManagerAddress.getText().toString());
-                            buildData.put("employeeName", binding.editTextEmployeeName.getText().toString());
-                            buildData.put("employeeNumber", binding.editTextEmployeeNumber.getText().toString());
-                            buildData.put("dateOfContract", binding.editTextContractDate.getText().toString());
-                            buildData.put("wellQRCOdeInfo", binding.editTextBuildName.getText().toString() + "Well");
-                            buildData.put("elevatorUpQRCOdeInfo", binding.editTextBuildName.getText().toString() + "ElevatorUp");
-                            buildData.put("machineQRCOdeInfo", binding.editTextBuildName.getText().toString() + "Machine");
-                            buildData.put("service", FieldValue.arrayUnion(new Service()));
-                            fireStore.collection(currentUser.getCompany())
-                                    .add(buildData)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                        @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-                                            progressDialog.dismiss();
-                                            Toast toastSuccess = Toasty.success(v.getContext(), R.string.saved
-                                                    , Toast.LENGTH_SHORT, true);
-                                            toastSuccess.setGravity(Gravity.CENTER, 0, 0);
-                                            toastSuccess.show();
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
+            case save:
+                getTextValue();
+                if (isConnected()) {
+                    if (!buildName.isEmpty()) {
+                        final ProgressDialog progressDialog = new ProgressDialog(v.getContext());
+                        progressDialog.setTitle(R.string.uploading);
+                        progressDialog.show();
+                        HashMap<String, Object> buildData = new HashMap<>();
+                        buildData.put("cost", cost);
+                        buildData.put("buildName", buildName);
+                        buildData.put("address", address);
+                        buildData.put("managerName", managerName);
+                        buildData.put("managerNumber", managerNumber);
+                        buildData.put("managerAddress", managerAddress);
+                        buildData.put("employeeName", employeeName);
+                        buildData.put("employeeNumber", employeeNumber);
+                        buildData.put("dateOfContract", contractDate);
+                        buildData.put("wellQRCOdeInfo", buildName + "Well");
+                        buildData.put("elevatorUpQRCOdeInfo", buildName+ "ElevatorUp");
+                        buildData.put("machineQRCOdeInfo", buildName + "Machine");
+                        buildData.put("service", FieldValue.arrayUnion(new Service()));
+                        fireStore.collection(currentUser.getCompany())
+                                .add(buildData)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
                                     progressDialog.dismiss();
-                                    Toast toastFailure = Toasty.warning(v.getContext(), R.string.notSaved + e.getMessage()
-                                            , Toast.LENGTH_SHORT, true);
-                                    toastFailure.setGravity(Gravity.CENTER, 0, 0);
-                                    toastFailure.show();
-                                }
-                            });
-                            itemReset();
-                        } else{
-                            Toast toast=Toasty.warning(getContext(), R.string.write_build_Name
-                                    ,Toasty.LENGTH_LONG,true);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
-                        }
-                    }else{
-                        customConnectionDialog();
+                                    toastMessage.successMessage(getResources().getString(R.string.saved)
+                                            , v.getContext());
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                progressDialog.dismiss();
+                               toastMessage.errorMessage(getResources()
+                                       .getString(R.string.notSaved), v.getContext());
+                            }
+                        });
+                        itemReset();
+                    } else{
+                       toastMessage.warningMessage(getResources()
+                               .getString(R.string.write_build_Name), v.getContext());
                     }
+                }else{
+                    customConnectionDialog();
+                }
                 break;
-            case R.id.buttonDate:
+            case getDate:
                 Date date=Calendar.getInstance().getTime();
                 String currentDate= DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(date);
                 binding.editTextContractDate.setText(currentDate);
               break;
-
         }
     }
     private void customConnectionDialog() {
         AlertDialog.Builder alertDialog=new AlertDialog.Builder(getContext());
         alertDialog.setMessage(R.string.check_connecting).setCancelable(true)
-                .setPositiveButton(R.string.connect, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                    }
-                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.connect, (dialog, which)
+                        -> startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS)))
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
@@ -152,5 +141,17 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.editTextEmployeeNumber.setText("");
         binding.editTextContractDate.setText("");
         binding.editTextCost.setText("");
+    }
+    private void getTextValue(){
+        buildName= binding.editTextBuildName.getText().toString().trim();
+        cost=binding.editTextCost.getText().toString().trim();
+        address=binding.editTextBuildAddress.getText().toString().trim();
+        managerName=binding.editTextManagerName.getText().toString().trim();
+        managerNumber= binding.editTextManagerNumber.getText().toString().trim();
+        managerAddress=binding.editTextManagerAddress.getText().toString().trim();
+        employeeName =  binding.editTextEmployeeName.getText().toString().trim();
+        employeeNumber=binding.editTextEmployeeNumber.getText().toString().trim();
+        contractDate=binding.editTextContractDate.getText().toString().trim();
+
     }
 }

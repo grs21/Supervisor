@@ -50,7 +50,7 @@ public class AdapterApartmentRecyclerView extends RecyclerView.Adapter<AdapterAp
         HashMap lastService=apartments.get(position).getServiceArrayList().get(lastServiceIndex);
 
         holder.buildName.setText(apartments.get(position).getApartmentName());
-        holder.contractDate.setText((String)lastService.get("date"));
+        holder.contractDate.setText(apartments.get(position).getContractDate());
         holder.checkBoxWell.setChecked((boolean) lastService.get("well"));
         holder.checkBoxMachineRoom.setChecked((boolean)lastService.get("machineRoom"));
         holder.checkBoxElevatorUp.setChecked((boolean)lastService.get("elevatorUp"));

@@ -132,7 +132,7 @@
                 android:layout_below="@+id/textViewServiceElevatorUp"
                 android:layout_marginTop="35dp"
                 android:layout_marginStart="7dp"
-                android:checked="false"
+                android:clickable="false"
                 android:buttonTint="@color/white"
                 />
 
