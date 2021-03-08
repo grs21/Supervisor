@@ -29,7 +29,7 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
     private Apartment apartment;
     private Dialog dialog;
     private Spinner spinner;
-    ArrayList<Service> serviceArrayList;
+    private ArrayList<Service> serviceArrayList;
     private TextView textViewDialogDate,textViewDialogEmployee;
     private CheckBox checkBoxWell,checkBoxUp,checkBoxMachineRoom;
     private static final String TAG = "BuildDetailActivity";
