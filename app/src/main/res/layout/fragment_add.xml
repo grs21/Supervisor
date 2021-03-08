@@ -18,9 +18,9 @@
             <EditText
                 android:id="@+id/editTextBuildName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:background="@drawable/text_background"
-                android:hint="Building Name"
+                android:hint="@string/buildName"
                 android:textSize="22sp"
                 android:layout_marginStart="33dp"
                 android:layout_marginEnd="33dp"
@@ -45,7 +45,7 @@
             <EditText
                 android:id="@+id/editTextCost"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:background="@drawable/text_background"
                 android:hint="Cost"
                 android:textSize="22sp"
@@ -59,7 +59,7 @@
             <EditText
                 android:id="@+id/editTextManagerName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:background="@drawable/text_background"
                 android:hint="Manager Name"
                 android:textSize="22sp"
@@ -73,7 +73,7 @@
             <EditText
                 android:id="@+id/editTextManagerNumber"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:background="@drawable/text_background"
                 android:hint="Manager Name Number"
                 android:textSize="22sp"
@@ -88,7 +88,7 @@
             <EditText
                 android:id="@+id/editTextManagerAddress"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:background="@drawable/text_background"
                 android:hint="Manager Address"
                 android:textSize="22sp"
@@ -102,7 +102,7 @@
             <EditText
                 android:id="@+id/editTextEmployeeName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:background="@drawable/text_background"
                 android:hint="Employee Name"
                 android:textSize="22sp"
@@ -116,7 +116,7 @@
             <EditText
                 android:id="@+id/editTextEmployeeNumber"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:background="@drawable/text_background"
                 android:hint="Employee Number"
                 android:textSize="22sp"
@@ -131,14 +131,14 @@
             <EditText
                 android:id="@+id/editTextContractDate"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:ems="7"
                 android:background="@drawable/text_background"
                 android:layout_below="@+id/editTextEmployeeNumber"
                 android:hint="Date of Contract"
                 android:textSize="22sp"
                 android:layout_marginStart="33dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:padding="4dp"
                 android:backgroundTint="@color/lightOrange"
                 />
@@ -148,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/editTextContractDate"
                 android:text="Save"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="33dp"
 
                 />
@@ -159,7 +159,7 @@
                 android:layout_below="@+id/editTextEmployeeNumber"
                 android:layout_toRightOf="@+id/editTextContractDate"
                 android:text="date"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="2dp"
 

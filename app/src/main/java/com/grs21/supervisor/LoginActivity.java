@@ -42,14 +42,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         binding.buttonLogin.setOnClickListener(this);
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseFirestore=FirebaseFirestore.getInstance();
-
     }
 
     @Override
     public void onClick(View v) {
         final int buttonLogin=R.id.buttonLogin;
         switch (v.getId()) {
-
             case   buttonLogin:
             checkInput(binding.editTextUserName);
             checkInput(binding.editTextPassword);
@@ -64,8 +62,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                            progressDialog.dismiss();
                     Snackbar.make(findViewById(android.R.id.content), "Logged Successfully"
                             , BaseTransientBottomBar.LENGTH_SHORT).show();
-
-                }).addOnFailureListener(e -> {
+                        }).addOnFailureListener(e -> {
                     progressDialog.dismiss();
                     Snackbar.make(findViewById(android.R.id.content), e.getMessage()
                             , BaseTransientBottomBar.LENGTH_SHORT).show();
@@ -112,10 +109,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             intent.putExtra("currentUser",user);
                startActivity(intent);
                 finish();
-
         } else if (user.getAccessLevel().equals("user")){
             startActivity(new Intent(getApplicationContext(),UserActivity.class));
-
         }
         else{
             toastMessage.warningMessage("AccessLevel", LoginActivity.this);

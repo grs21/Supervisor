@@ -46,7 +46,7 @@
    <TextView
        android:id="@+id/textViewBuildDetailBuildName"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
+       android:layout_height="38dp"
        android:background="@drawable/text_background"
        android:hint="@string/buildName"
        android:textSize="22sp"
@@ -90,7 +90,7 @@
    <TextView
        android:id="@+id/textViewBuildDetailCost"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
+       android:layout_height="38dp"
        android:background="@drawable/text_background"
        android:hint="@string/cost"
        android:textSize="22sp"
@@ -112,7 +112,7 @@
    <TextView
        android:id="@+id/textViewBuildDetailManagerName"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
+       android:layout_height="38dp"
        android:background="@drawable/text_background"
        android:hint="@string/manager_name"
        android:textSize="22sp"
@@ -131,19 +131,20 @@
        android:layout_marginTop="15dp"
        android:layout_marginStart="8dp"
        />
+
    <TextView
        android:id="@+id/textViewBuildDetailManagerNumber"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
+       android:layout_height="38dp"
+       android:layout_below="@+id/textViewBuildDetailManagerName"
+       android:layout_marginStart="90dp"
+       android:layout_marginTop="9dp"
+       android:layout_marginEnd="33dp"
        android:background="@drawable/text_background"
        android:hint="@string/manager_name_number"
-       android:textSize="22sp"
-       android:layout_marginStart="90dp"
-       android:layout_marginEnd="33dp"
-       android:layout_marginTop="10dp"
        android:padding="4dp"
-       android:layout_below="@+id/textViewBuildDetailManagerName"
-       />
+       android:textSize="22sp" />
+
    <TextView
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
@@ -157,16 +158,16 @@
    <TextView
        android:id="@+id/textViewBuildDetailManagerAddress"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
+       android:layout_height="38dp"
+       android:layout_below="@+id/textViewBuildDetailManagerNumber"
+       android:layout_marginStart="90dp"
+       android:layout_marginTop="10dp"
+       android:layout_marginEnd="33dp"
        android:background="@drawable/text_background"
        android:hint="@string/manager_address"
-       android:textSize="22sp"
-       android:layout_marginStart="90dp"
-       android:layout_marginEnd="33dp"
-       android:layout_marginTop="10dp"
        android:padding="4dp"
-       android:layout_below="@+id/textViewBuildDetailManagerNumber"
-       />
+       android:textSize="22sp" />
+
    <TextView
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
@@ -179,7 +180,7 @@
    <TextView
        android:id="@+id/textViewBuildDetailEmployeeName"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
+       android:layout_height="38dp"
        android:background="@drawable/text_background"
        android:hint="@string/employee_name"
        android:textSize="22sp"
@@ -201,7 +202,7 @@
    <TextView
        android:id="@+id/textViewBuildDetailEmployeeNumber"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"
+       android:layout_height="38dp"
        android:background="@drawable/text_background"
        android:hint="@string/employee_number"
        android:textSize="22sp"
@@ -224,7 +225,7 @@
    <TextView
        android:id="@+id/textViewBuildDetailContractDate"
        android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
+       android:layout_height="38dp"
        android:ems="9"
        android:background="@drawable/text_background"
        android:layout_below="@+id/textViewBuildDetailEmployeeNumber"
@@ -255,14 +256,6 @@
        android:text="@string/edit"
        android:layout_marginTop="7dp"
        />
-
-
   </RelativeLayout>
-
-
-
-
  </ScrollView>
-
-
 </LinearLayout>
