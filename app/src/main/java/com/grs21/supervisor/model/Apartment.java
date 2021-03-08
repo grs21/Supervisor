@@ -2,6 +2,7 @@ package com.grs21.supervisor.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Apartment implements Serializable {
@@ -15,12 +16,16 @@ public class Apartment implements Serializable {
     private String employeeName;
     private String employeeNumber;
     private String contractDate;
-    private ArrayList<Service> serviceArrayList;
+    private String well;
+    private String elevatorUp;
+    private String machineRoom;
+    private ArrayList<HashMap> serviceArrayList=new ArrayList<>();
 
-    public Apartment(String uuid,String apartmentName, String apartmentAddress, String cost
-            , String managerName, String managerNumber, String managerAddress
-            , String employeeName, String employeeNumber, String contractDate) {
-        this.uuid=uuid;
+    public Apartment(String uuid, String apartmentName, String apartmentAddress, String cost
+            , String managerName, String managerNumber, String managerAddress, String employeeName
+            , String employeeNumber, String contractDate, String well, String elevatorUp
+            , String machineRoom,ArrayList<HashMap>services) {
+        this.uuid = uuid;
         this.apartmentName = apartmentName;
         this.apartmentAddress = apartmentAddress;
         this.cost = cost;
@@ -30,6 +35,11 @@ public class Apartment implements Serializable {
         this.employeeName = employeeName;
         this.employeeNumber = employeeNumber;
         this.contractDate = contractDate;
+        this.well = well;
+        this.elevatorUp = elevatorUp;
+        this.machineRoom = machineRoom;
+        this.serviceArrayList=services;
+
     }
 
     public String getUuid() {
@@ -112,8 +122,27 @@ public class Apartment implements Serializable {
         this.contractDate = contractDate;
     }
 
+    public String getElevatorUp() {
+        return elevatorUp;
+    }
+
+
+    public String getWell() {
+        return well;
+    }
+
+
+    public String getMachineRoom() {
+        return machineRoom;
+    }
+
+
+    public ArrayList<HashMap> getServiceArrayList() {
+        return serviceArrayList;
+    }
+
     @Override
     public String toString() {
-        return "apartmentName='" + apartmentName ;
+        return apartmentName ;
     }
 }

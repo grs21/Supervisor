@@ -1,5 +1,6 @@
 package com.grs21.supervisor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,10 +19,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.grs21.supervisor.databinding.ActivityRegistrationBinding;
+import com.grs21.supervisor.model.User;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +33,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     private FirebaseFirestore firebaseFirestore;
     private static final String TAG = "RegistrationActivity";
     private Boolean state = true;
+    FirebaseUser firebaseUser;
+    private User user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,10 +42,14 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         binding = ActivityRegistrationBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        Intent intent=getIntent();
+        user=(User)intent.getSerializableExtra("currentUser");
         binding.buttonRegistration.setOnClickListener(this);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
         checkBoxSetting();
+
 
     }
 
@@ -56,32 +62,50 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         if (state&& checkBoxIsCheck()) {
            final String accessLevel;
             if (binding.checkboxUser.isChecked()){
-                accessLevel="isUser";
+                accessLevel="user";
             }else{
-                accessLevel="isAdmin";
+                accessLevel="admin";
             }
+
             firebaseAuth.createUserWithEmailAndPassword(binding.editTextUserNameRegistration.getText().toString()
-                    , binding.editTextPasswordRegistration.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                @Override
-                public void onSuccess(AuthResult authResult) {
-                    Snackbar.make(findViewById(android.R.id.content), "Account Created", BaseTransientBottomBar
-                            .LENGTH_LONG).show();
-                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                    DocumentReference dr = firebaseFirestore.collection("Users")
-                            .document(firebaseUser.getUid());
+            , binding.editTextPasswordRegistration.getText().toString())
+            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                    FirebaseUser createdUser = firebaseAuth.getCurrentUser();
+                    Log.d(TAG, "onSuccess:CREATE_ACCOUNT+++++++++++ "+user.getCompany());
+
                     Map<String,Object> userInfo=new HashMap<>();
                     userInfo.put("fullName", binding.editTextFullName.getText().toString());
                     userInfo.put("userName", binding.editTextUserNameRegistration.getText().toString());
                     userInfo.put("password", binding.editTextPasswordRegistration.getText().toString());
-                    userInfo.put(accessLevel, "1");
-                    dr.set(userInfo);
-                    checkUserAccessLevel(authResult.getUser().getUid());
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d(TAG, "onFailure: " + e.getMessage());
-                }
+                    userInfo.put("accessLevel", accessLevel);
+                    userInfo.put("company" , user.getCompany());
+                        firebaseFirestore
+                        .collection("Users")
+                        .document(createdUser.getUid())
+                        .set(userInfo)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!++++++++++++++++++");
+                        firebaseAuth.signOut();
+                        checkUserAccessLevel();
+                        }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing document+++++++++++++++++++", e);
+                            }
+                        });
+            }}).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "onFailure: " + e.getMessage());
+                Toast.makeText(RegistrationActivity.this, e.getMessage()
+                        , Toast.LENGTH_SHORT).show();
+            }
             });
         }
     }
@@ -93,25 +117,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         } else {
             state = true;
         }
-    }
-
-    private void checkUserAccessLevel(String uid) {
-
-        DocumentReference fr = firebaseFirestore.collection("Users").document(uid);
-        fr.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Log.d(TAG, "onSuccess: " + documentSnapshot.getData());
-                if (documentSnapshot.getString("isAdmin") != null) {
-                    // startActivity(new Intent(getApplicationContext(),AdminActivity.class));
-                    //finish();
-                }
-                if (documentSnapshot.getString("isUser") != null) {
-                    //startActivity(new Intent(getApplicationContext(),UserActivity.class));
-                    //finish();
-                }
-            }
-        });
     }
 
     private Boolean checkBoxIsCheck() {
@@ -140,5 +145,40 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 }
             }
         });
+    }
+
+    private void checkUserAccessLevel() {
+        if (user.getAccessLevel().equals("admin") ){
+            firebaseAuth.signOut();
+            firebaseAuth.signInWithEmailAndPassword(user.getUserName(), user.getPassword()).
+                    addOnSuccessListener(RegistrationActivity.this
+                            , new OnSuccessListener<AuthResult>() {
+                                @Override
+                                public void onSuccess(AuthResult authResult) {
+                                    Intent intent=new Intent(RegistrationActivity.this, AdminActivity.class);
+                                    intent.putExtra("currentUser",user);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+
+        } else if (user.getAccessLevel().equals("user")){
+            // startActivity(new Intent(getApplicationContext(),UserActivity.class));
+        }
+    }
+
+    private void login(){
+        Log.d(TAG, "login:++++++++++++loginup");
+        firebaseAuth.signInWithEmailAndPassword(user.getUserName(), user.getPassword())
+                .addOnSuccessListener(RegistrationActivity.this, new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        Log.d(TAG, "onSuccess:++++++++++login ");
+                        Snackbar.make(findViewById(android.R.id.content)
+                                , "Account Created", BaseTransientBottomBar
+                                        .LENGTH_LONG).show();
+                        checkUserAccessLevel();
+                    }
+                });
     }
 }

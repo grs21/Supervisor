@@ -2,18 +2,23 @@
     <string name="app_name">Supervisor</string>
     <string name="login">Login</string>
     <string name="user_name">User name</string>
+    <string name="password">Password</string>
+    <string name="not_match">Attention wrong building selection</string>
     <string name="create_account">create Account</string>
     <string name="full_name">Full Name</string>
     <string name="user">User</string>
     <string name="admin">Admin</string>
     <string name="uploading">Uploading build...</string>
     <string name="saved">Saved</string>
+    <string name="failure">Failure</string>
     <string name="notSaved">Not Saved!!</string>
+    <string name="cannot_be_space">Build name or note cannot be left blank!!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="apartment">apartment</string>
     <string name="add">add</string>
     <string name="service">service</string>
+    <string name="please_make_a_service">Please make a service!!</string>
     <string name="repair">repair</string>
     <string name="well">well</string>
     <string name="title_activity_build_detail">BuildDetailActivity</string>
@@ -21,6 +26,7 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="log_in">logging into the system..</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
@@ -36,22 +42,40 @@
     <string name="edit">Edit</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="deleted">Deleted</string>
+    <string name="not_deleted">Not deleted!!</string>
     <string name="cancel">Cancel</string>
     <string name="successfully_delete">Successfully Deleted</string>
     <string name="failure_delete">Deleting Failure!!</string>
+    <string name="logout">Logout</string>
+    <string name="new_account">New Account</string>
+    <string name="do_you_want_delete">Do you want delete !!</string>
+    <string name="connect">connect</string>
+    <string name="repair_save">Repair saving...</string>
+    <string name="search_build">Search Build</string>
+    <string name="scan">Scan</string>
+    <string name="wel">Kuyu:</string>
+    <string name="machine_room">M.Dairesi:</string>
+    <string name="service_save">Service Save</string>
+    <string name="date">Date:</string>
+    <string name="write_build_Name">Please enter the build Name</string>
+    <string name="check_connecting">Please connect to internet to proceed further</string>
+    <string name="make_service">Make Service</string>
+
+
     <string-array name="month">
         <item>---</item>
-        <item >January</item>
-        <item >February</item>
-        <item >March</item>
-        <item >April</item>
-        <item >May</item>
-        <item >June</item>
-        <item >July</item>
-        <item >August</item>
-        <item >September</item>
-        <item >October</item>
-        <item >November</item>
-        <item >December</item>
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
     </string-array>
 </resources>

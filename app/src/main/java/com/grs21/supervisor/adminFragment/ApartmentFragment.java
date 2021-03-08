@@ -1,24 +1,18 @@
 package com.grs21.supervisor.adminFragment;
 
-import android.app.SearchManager;
-import android.content.Context;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -28,80 +22,42 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.grs21.supervisor.R;
 import com.grs21.supervisor.adapter.AdapterApartmentRecyclerView;
-import com.grs21.supervisor.databinding.FragmentApartmentBinding;
+import com.grs21.supervisor.databinding.FragmentAdminApartmentBinding;
 import com.grs21.supervisor.model.Apartment;
+import com.grs21.supervisor.model.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
-
 import es.dmoral.toasty.Toasty;
 
-public class ApartmentFragment extends Fragment {
+public class ApartmentFragment extends Fragment implements SearchView.OnQueryTextListener {
     private static final String TAG = "ApartmentFragment";
 
-    private FragmentApartmentBinding binding;
+    private FragmentAdminApartmentBinding binding;
     private ArrayList<String> apartmentName=new ArrayList<>();
     private ArrayList<String> apartmentContract=new ArrayList<>();
     private ArrayList<Apartment> apartments=new ArrayList<>();
     private FirebaseFirestore fireStore;
     private AdapterApartmentRecyclerView adapter;
+    private User currentUser;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding=FragmentApartmentBinding.inflate(inflater,container,false);
+        binding=FragmentAdminApartmentBinding.inflate(inflater,container,false);
+
+        Bundle bundle=getArguments();
+        currentUser=(User) bundle.getSerializable("currentUser");
         fireStore=FirebaseFirestore.getInstance();
         getDataFromFireStore();
+        SearchView searchView= binding.searchView;
+        searchView.setOnQueryTextListener(this);
 
-
-
-
-
-        /*SearchView searchView= binding.searchView;
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                return false;
-            }
-        });*/
         return binding.getRoot();
     }
 
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-
-
-
-
-        inflater.inflate(R.menu.search_menu, menu);
-        MenuItem menuItem=menu.findItem(R.menu.search_menu);
-        SearchManager searchManager=(SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView=(SearchView)menuItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-
-
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
     private void getDataFromFireStore() {
-        CollectionReference collectionReference=fireStore.collection("Builds");
+        CollectionReference collectionReference=fireStore.collection(currentUser.getCompany());
         collectionReference.orderBy("dateOfContract", Query.Direction.ASCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -115,15 +71,19 @@ public class ApartmentFragment extends Fragment {
                 if (value!=null){
                     for (DocumentSnapshot snapshot:value.getDocuments()){
                         Map<String,Object> getData=snapshot.getData();
-                        Apartment apartment=new Apartment((String) snapshot.getId(),(String)getData.get("buildName")
-                                ,(String)getData.get("address"),(String)getData.get("Cost"),(String)getData.get("managerName")
+                        Apartment apartment=new Apartment( snapshot.getId(),(String)getData.get("buildName")
+                                ,(String)getData.get("address"),(String)getData.get("cost"),(String)getData.get("managerName")
                                 ,(String)getData.get("managerNumber"),(String)getData.get("managerAddress")
                                 ,(String)getData.get("employeeName"),(String)getData.get("employeeNumber")
-                                ,(String)getData.get("dateOfContract"));
+                                ,(String)getData.get("dateOfContract"),(String) getData.get("wellQRCOdeInfo")
+                                ,(String) getData.get("elevatorUpQRCOdeInfo"),(String) getData.get("machineQRCOdeInfo")
+                        , (ArrayList<HashMap>) getData.get("service"));
                         apartments.add(apartment);
+
                     }
+
                     LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
-                    adapter=new AdapterApartmentRecyclerView(apartments);
+                    adapter=new AdapterApartmentRecyclerView(apartments,currentUser);
                     binding.recyclerView.setLayoutManager(linearLayoutManager);
                     binding.recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
@@ -133,4 +93,15 @@ public class ApartmentFragment extends Fragment {
     }
 
 
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapter.getFilter().filter(newText);
+        return false;
+    }
 }

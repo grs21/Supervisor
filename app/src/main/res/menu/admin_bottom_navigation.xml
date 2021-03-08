@@ -10,10 +10,7 @@
         android:icon="@drawable/ic_apartment"
         android:title="@string/apartment"
         />
-    <item android:id="@+id/menuItemService"
-        android:icon="@drawable/ic_service"
-        android:title="@string/service"
-        />
+
     <item
         android:id="@+id/menuItemRepair"
         android:icon="@drawable/ic_repair"

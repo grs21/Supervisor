@@ -15,20 +15,19 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolBar"
+            android:id="@+id/toolBarAdmin"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:elevation="4dp"
+            app:titleTextColor="@color/white"
+            android:background="@color/orange"
             />
         <FrameLayout
             android:id="@+id/admin_fragmentContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/admin_bottom_navigation"
-
-            />-->
-
-
+            />
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/admin_bottom_navigation"
             android:layout_width="match_parent"
@@ -43,8 +42,8 @@
         android:id="@+id/navigationView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/drawer_menu"
+        app:menu="@menu/admin_drawer_menu"
+        app:itemIconPadding="15dp"
         android:layout_gravity="start"
         />
 

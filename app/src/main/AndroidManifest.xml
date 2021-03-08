@@ -2,25 +2,35 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.grs21.supervisor">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Supervisor">
-        <activity android:name=".ApartmentEditActivity"
-
-            android:parentActivityName=".AdminActivity">
-        </activity>
+        <activity android:name=".activity.ServiceActivity"></activity>
         <activity
-            android:name=".BuildDetailActivity"
-            android:parentActivityName=".AdminActivity" />
+            android:name=".ApartmentEditActivity"
+            android:parentActivityName=".AdminActivity"></activity>
+        <activity android:name=".BuildDetailActivity" />
         <activity android:name=".UserActivity" />
         <activity android:name=".AdminActivity" />
         <activity android:name=".RegistrationActivity" />
+        <activity
+            android:name=".util.CaptureAct"
+            android:screenOrientation="fullSensor"
+            android:stateNotNeeded="true"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

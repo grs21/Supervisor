@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/blue"
+    android:orientation="vertical">
+<com.google.android.material.appbar.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blue">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarService"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:theme="@style/Widget.AppCompat.Toolbar"
+            />
+        <TextView
+            android:id="@+id/textViewServiceToolBarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="15dp"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            />
+        <ImageButton
+            android:id="@+id/imageButtonBackButton"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_back_button_24"
+            android:background="@color/blue"
+
+            />
+    </RelativeLayout>
+</com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blue"
+            >
+
+            <TextView
+                android:id="@+id/textViewServiceBuildName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Build Name"
+                android:textColor="@color/white"
+                android:textSize="33sp"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                />
+            <TextView
+                android:id="@+id/textViewServiceWell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wel"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:layout_below="@+id/textViewServiceBuildName"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="39dp"
+                />
+
+            <CheckBox
+                android:id="@+id/checkBoxServiceWell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/textViewServiceWell"
+                android:layout_below="@+id/textViewServiceBuildName"
+                android:layout_marginTop="31dp"
+                android:layout_marginStart="49dp"
+                android:clickable="false"
+                android:buttonTint="@color/white"
+                />
+
+            <TextView
+                android:id="@+id/textViewServiceElevatorUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="K.Üstü:"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:layout_below="@+id/textViewServiceWell"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="45dp"
+                />
+
+            <CheckBox
+                android:id="@+id/checkBoxServiceFragmentElevatorUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/textViewServiceElevatorUp"
+                android:layout_below="@+id/textViewServiceWell"
+                android:layout_marginTop="35dp"
+                android:layout_marginStart="32dp"
+                android:clickable="false"
+                android:buttonTint="@color/white"
+                />
+            <TextView
+                android:id="@+id/textViewServiceMachineRoom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/machine_room"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:layout_below="@+id/textViewServiceElevatorUp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="45dp"
+                />
+
+            <CheckBox
+                android:id="@+id/checkBoxServiceMachineRoom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/textViewServiceMachineRoom"
+                android:layout_below="@+id/textViewServiceElevatorUp"
+                android:layout_marginTop="35dp"
+                android:layout_marginStart="7dp"
+                android:clickable="false"
+                android:buttonTint="@color/white"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonServiceScan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scan"
+                android:background="@drawable/button_background"
+                android:layout_toEndOf="@+id/checkBoxServiceFragmentElevatorUp"
+                android:layout_below="@+id/checkBoxServiceWell"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="40dp"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonServiceSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewServiceMachineRoom"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/service_save"
+                android:background="@drawable/button_background"
+                android:layout_marginStart="30dp"
+                />
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout>
