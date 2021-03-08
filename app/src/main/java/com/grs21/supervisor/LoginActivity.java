@@ -58,7 +58,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 firebaseAuth.signInWithEmailAndPassword(binding.editTextUserName.getText().toString().trim()
                         , binding.editTextPassword.getText().toString().trim())
                         .addOnSuccessListener(authResult -> {
+                            Log.d(TAG, "onClick:+++++++ üstloginUserID"+authResult.getUser().getUid());
                             getUserData(authResult.getUser().getUid());
+                            Log.d(TAG, "onClick:+++++++ altloginUserID"+authResult.getUser().getUid());
                            progressDialog.dismiss();
                     Snackbar.make(findViewById(android.R.id.content), "Logged Successfully"
                             , BaseTransientBottomBar.LENGTH_SHORT).show();
@@ -80,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot documentSnapshot=task.getResult();
-                  try {
+               /*   try {*/
                   Map<String,Object> getData=documentSnapshot.getData();
                     String company=(String) getData.get("company");
                     String fullName=(String) getData.get("fullName");
@@ -90,12 +92,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                  User user=new User(fullName,uid,userName,password,accessLevel,company);
                  checkUserAccessLevel(user);
                       Log.d(TAG, "onComplete: ++++++++++++++"+user.getCompany());
-                   }
+                  /* }
                   catch (Exception e){
                       Snackbar.make(findViewById(android.R.id.content), "NULL"
                               , BaseTransientBottomBar.LENGTH_SHORT).show();
                       Log.d(TAG, "onComplete:+++++++++++++ "+e.getMessage());
-                  }
+                  }*/
                 }
                 else{
                     Log.d(TAG, "onCompleteGetUserData: ++++++++++++++"+task.getException());
@@ -110,7 +112,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                startActivity(intent);
                 finish();
         } else if (user.getAccessLevel().equals("user")){
-            startActivity(new Intent(getApplicationContext(),UserActivity.class));
+            Intent intent=new Intent(LoginActivity.this, UserActivity.class);
+            intent.putExtra("currentUser",user);
+            startActivity(intent);
+            finish();
         }
         else{
             toastMessage.warningMessage("AccessLevel", LoginActivity.this);

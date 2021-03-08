@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -27,9 +28,10 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
     private DrawerLayout drawerLayout;
     private FirebaseAuth firebaseAuth;
     private User currentUser;
-    ActionBarDrawerToggle toggle;
-    Toolbar toolbar;
+    private ActionBarDrawerToggle toggle;
+    private Toolbar toolbar;
     private  Bundle bundleCurrentUserData;
+    private static final String TAG = "AdminActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +40,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         setContentView(view);
         firebaseAuth=FirebaseAuth.getInstance();
 
-
+        Log.d(TAG, "onCreate:+++++++++++++ loginAdmin");
 
         Intent intent=getIntent();
         currentUser=(User)intent.getSerializableExtra("currentUser");

@@ -34,7 +34,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.grs21.supervisor.R;
 import com.grs21.supervisor.adapter.AdapterRepairRecyclerview;
-import com.grs21.supervisor.databinding.FragmentRepairBinding;
+import com.grs21.supervisor.databinding.FragmentAdminRepairBinding;
 import com.grs21.supervisor.model.Repair;
 import com.grs21.supervisor.model.User;
 import com.grs21.supervisor.util.ToastMessage;
@@ -50,7 +50,7 @@ import es.dmoral.toasty.Toasty;
 
 public class RepairFragment extends Fragment implements View.OnClickListener {
 
-    private FragmentRepairBinding binding;
+    private FragmentAdminRepairBinding binding;
     private EditText editTextAddBuildName, editTextAddRepairNote,editTextDetailBuildName
             ,editTextDetailNote;
     private static final String TAG = "RepairFragment";
@@ -66,7 +66,7 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
      @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding=FragmentRepairBinding.inflate(inflater,container,false);
+        binding=FragmentAdminRepairBinding.inflate(inflater,container,false);
         toastMessage=new ToastMessage();
          Date currentDate=Calendar.getInstance().getTime();
          date= DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(currentDate);

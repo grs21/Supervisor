@@ -21,7 +21,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.grs21.supervisor.R;
-import com.grs21.supervisor.databinding.FragmentAddBinding;
+import com.grs21.supervisor.databinding.FragmentAdminAddBinding;
 import com.grs21.supervisor.model.Service;
 import com.grs21.supervisor.model.User;
 import com.grs21.supervisor.util.ToastMessage;
@@ -33,7 +33,7 @@ import java.util.HashMap;
 
 public class AddFragment extends Fragment implements View.OnClickListener {
 
-    private FragmentAddBinding binding;
+    private FragmentAdminAddBinding binding;
     private FirebaseFirestore fireStore;
     private User currentUser;
     private ToastMessage toastMessage;
@@ -42,7 +42,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding=FragmentAddBinding.inflate(inflater,container,false);
+        binding=FragmentAdminAddBinding.inflate(inflater,container,false);
         toastMessage=new ToastMessage();
         binding.buttonDate.setOnClickListener(this);
         binding.buttonBuildSave.setOnClickListener(this);

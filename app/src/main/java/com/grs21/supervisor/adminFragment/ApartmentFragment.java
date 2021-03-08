@@ -22,7 +22,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.grs21.supervisor.R;
 import com.grs21.supervisor.adapter.AdapterApartmentRecyclerView;
-import com.grs21.supervisor.databinding.FragmentApartmentBinding;
+import com.grs21.supervisor.databinding.FragmentAdminApartmentBinding;
 import com.grs21.supervisor.model.Apartment;
 import com.grs21.supervisor.model.User;
 
@@ -34,7 +34,7 @@ import es.dmoral.toasty.Toasty;
 public class ApartmentFragment extends Fragment implements SearchView.OnQueryTextListener {
     private static final String TAG = "ApartmentFragment";
 
-    private FragmentApartmentBinding binding;
+    private FragmentAdminApartmentBinding binding;
     private ArrayList<String> apartmentName=new ArrayList<>();
     private ArrayList<String> apartmentContract=new ArrayList<>();
     private ArrayList<Apartment> apartments=new ArrayList<>();
@@ -44,7 +44,7 @@ public class ApartmentFragment extends Fragment implements SearchView.OnQueryTex
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding=FragmentApartmentBinding.inflate(inflater,container,false);
+        binding=FragmentAdminApartmentBinding.inflate(inflater,container,false);
 
         Bundle bundle=getArguments();
         currentUser=(User) bundle.getSerializable("currentUser");
