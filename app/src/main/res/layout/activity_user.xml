@@ -5,7 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserActivity">
+    android:id="@+id/userDrawerLayout"
+    android:fitsSystemWindows="true"
+    tools:context=".UserActivity"
+    tools:openDrawer="start">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -15,6 +18,7 @@
            android:layout_height="?attr/actionBarSize"
            app:titleTextColor="@color/white"
            android:background="@color/orange"
+           android:elevation="10dp"
         />
         <FrameLayout
             android:id="@+id/userFragmentContainer"
@@ -34,7 +38,7 @@
         android:id="@+id/navigationViewUser"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:menu="@menu/admin_drawer_menu"
+        app:menu="@menu/user_drawer_menu"
         app:itemIconPadding="15dp"
         android:layout_gravity="start"
         />

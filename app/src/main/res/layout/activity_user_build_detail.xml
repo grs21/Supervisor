@@ -1,59 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     >
-    <com.google.android.material.appbar.AppBarLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarUserBuildDetail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageButton
-                android:id="@+id/imageButtonEditToDetailBackButton"
-                android:layout_width="?attr/actionBarSize"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_back_button_24"
-                android:background="#FF5722"
+        android:layout_height="wrap_content"
+        android:background="#FF5722"
+        />
 
-                />
-            <TextView
-                android:id="@+id/textViewEditToolBarTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="15dp"
-                android:textSize="22sp"
-                android:gravity="center"
-                android:textColor="@color/black"
-                />
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolBarEditActivity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/imageButtonEditToDetailBackButton"
-                />
-
-        </RelativeLayout>
-
-
-    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonUserMakeService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:text="@string/make_service"
+        android:background="@drawable/button_background"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="15dp">
+        android:layout_marginBottom="15dp"
+        >
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-
+            android:layout_height="wrap_content"
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,10 +39,9 @@
                 android:textSize="19sp"
                 android:layout_marginTop="23dp"
                 android:layout_marginStart="8dp"
-
                 />
-            <EditText
-                android:id="@+id/editTextEditBuildName"
+            <TextView
+                android:id="@+id/textViewUserBuildDetailBuildName"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:background="@drawable/text_background"
@@ -74,19 +51,18 @@
                 android:layout_marginEnd="33dp"
                 android:layout_marginTop="20dp"
                 android:padding="4dp"
-
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Adres:"
-                android:layout_below="@+id/editTextEditBuildName"
+                android:layout_below="@+id/textViewUserBuildDetailBuildName"
                 android:textSize="19sp"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="8dp"
                 />
-            <EditText
-                android:id="@+id/editTextEditBuildAddress"
+            <TextView
+                android:id="@+id/textViewUserBuildDetailBuildAddress"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:background="@drawable/text_background"
@@ -96,20 +72,20 @@
                 android:layout_marginEnd="33dp"
                 android:layout_marginTop="10dp"
                 android:padding="4dp"
-                android:layout_below="@+id/editTextEditBuildName"
+                android:layout_below="@+id/textViewUserBuildDetailBuildName"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Aidat :"
-                android:layout_below="@+id/editTextEditBuildAddress"
+                android:layout_below="@+id/textViewUserBuildDetailBuildAddress"
                 android:textSize="19sp"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="8dp"
 
                 />
-            <EditText
-                android:id="@+id/editTextEditCost"
+            <TextView
+                android:id="@+id/textViewUserBuildDetailCost"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:background="@drawable/text_background"
@@ -119,19 +95,19 @@
                 android:layout_marginEnd="33dp"
                 android:layout_marginTop="10dp"
                 android:padding="4dp"
-                android:layout_below="@+id/editTextEditBuildAddress"
+                android:layout_below="@+id/textViewUserBuildDetailBuildAddress"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Yönetici:"
-                android:layout_below="@+id/editTextEditCost"
+                android:layout_below="@+id/textViewUserBuildDetailCost"
                 android:textSize="19sp"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="8dp"
                 />
-            <EditText
-                android:id="@+id/editTextEditManagerName"
+            <TextView
+                android:id="@+id/textViewUserBuildDetailManagerName"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:background="@drawable/text_background"
@@ -141,64 +117,75 @@
                 android:layout_marginEnd="33dp"
                 android:layout_marginTop="10dp"
                 android:padding="4dp"
-                android:layout_below="@+id/editTextEditCost"
+                android:layout_below="@+id/textViewUserBuildDetailCost"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Y.Tel:"
-                android:layout_below="@+id/editTextEditManagerName"
-                android:textSize="19sp"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="8dp"
-                />
-            <EditText
-                android:id="@+id/editTextEditManagerNumber"
-                android:layout_width="match_parent"
-                android:layout_height="38dp"
-                android:background="@drawable/text_background"
-                android:hint="@string/manager_number"
-                android:textSize="22sp"
-                android:layout_marginStart="90dp"
-                android:layout_marginEnd="33dp"
-                android:layout_marginTop="10dp"
-                android:padding="4dp"
-                android:layout_below="@+id/editTextEditManagerName"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Y.Adres:"
-                android:layout_below="@+id/editTextEditManagerNumber"
+                android:layout_below="@+id/textViewUserBuildDetailManagerName"
                 android:textSize="19sp"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="8dp"
                 />
 
-            <EditText
-                android:id="@+id/editTextEditManagerAddress"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textViewUserBuildDetailManagerNumber"
+                android:layout_width="180dp"
                 android:layout_height="38dp"
-                android:background="@drawable/text_background"
-                android:hint="@string/manager_address"
-                android:textSize="22sp"
+                android:layout_below="@+id/textViewUserBuildDetailManagerName"
                 android:layout_marginStart="90dp"
-                android:layout_marginEnd="33dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/text_background"
+                android:hint="@string/manager_number"
                 android:padding="4dp"
-                android:layout_below="@+id/editTextEditManagerNumber"
-                />
+                android:textSize="22sp" />
+
+            <ImageButton
+                android:id="@+id/imageButtonUserDetailManagerNumber"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/textViewUserBuildDetailManagerName"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/textViewUserBuildDetailManagerNumber"
+                android:background="@color/black"
+                android:src="@drawable/ic_phone" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gö.İsim:"
-                android:layout_below="@+id/editTextEditManagerAddress"
+                android:text="Y.Adres:"
+                android:layout_below="@+id/textViewUserBuildDetailManagerNumber"
                 android:textSize="19sp"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="8dp"
                 />
-            <EditText
-                android:id="@+id/editTextEditEmployeeName"
+
+            <TextView
+                android:id="@+id/textViewUserBuildDetailManagerAddress"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_below="@+id/textViewUserBuildDetailManagerNumber"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="33dp"
+                android:background="@drawable/text_background"
+                android:hint="@string/manager_address"
+                android:padding="4dp"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gö.İsim:"
+                android:layout_below="@+id/textViewUserBuildDetailManagerAddress"
+                android:textSize="19sp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="8dp"
+                />
+            <TextView
+                android:id="@+id/textViewUserBuildDetailEmployeeName"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:background="@drawable/text_background"
@@ -208,73 +195,71 @@
                 android:layout_marginEnd="33dp"
                 android:layout_marginTop="10dp"
                 android:padding="4dp"
-                android:layout_below="@+id/editTextEditManagerAddress"
+                android:layout_below="@+id/textViewUserBuildDetailManagerAddress"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Gö.Tel:"
-                android:layout_below="@+id/editTextEditEmployeeName"
+                android:layout_below="@+id/textViewUserBuildDetailEmployeeName"
                 android:textSize="19sp"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="8dp"
                 />
-            <EditText
-                android:id="@+id/editTextEditEmployeeNumber"
-                android:layout_width="match_parent"
+
+            <TextView
+                android:id="@+id/textViewUserBuildDetailEmployeeNumber"
+                android:layout_width="180dp"
                 android:layout_height="38dp"
+                android:layout_below="@+id/textViewUserBuildDetailEmployeeName"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/text_background"
                 android:hint="@string/employee_number"
-                android:textSize="22sp"
-                android:layout_marginStart="90dp"
-                android:layout_marginEnd="33dp"
-                android:layout_marginTop="10dp"
                 android:padding="4dp"
-                android:layout_below="@+id/editTextEditEmployeeName"
-                />
+                android:textSize="22sp" />
+
+            <ImageButton
+                android:id="@+id/imageButtonUserDetailEmployeeNumber"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/textViewUserBuildDetailEmployeeName"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/textViewUserBuildDetailManagerNumber"
+                android:background="@color/black"
+                android:src="@drawable/ic_phone" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Söz Tarih:"
-                android:layout_below="@+id/editTextEditEmployeeNumber"
+                android:layout_below="@+id/textViewUserBuildDetailEmployeeNumber"
                 android:textSize="19sp"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="8dp"
                 />
 
-            <EditText
-                android:id="@+id/editTextEditContractDate"
+            <TextView
+                android:id="@+id/textViewUserBuildDetailContractDate"
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
                 android:ems="9"
                 android:background="@drawable/text_background"
-                android:layout_below="@+id/editTextEditEmployeeNumber"
+                android:layout_below="@+id/textViewUserBuildDetailEmployeeNumber"
                 android:hint="@string/date_of_contract"
                 android:textSize="22sp"
-                android:layout_marginStart="120dp"
+                android:layout_marginStart="90dp"
                 android:layout_marginTop="10dp"
                 android:padding="4dp"
                 />
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/buttonDetailEditApartmentSave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/editTextEditContractDate"
-                android:layout_marginStart="60dp"
-                android:background="@drawable/button_background"
-                android:text="@string/save"
-                android:layout_marginTop="5dp"
-                />
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/buttonDetailEditDelete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/editTextEditContractDate"
-                android:layout_toEndOf="@id/buttonDetailEditApartmentSave"
-                android:background="@drawable/button_background"
-                android:text="@string/delete"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="5dp"
+            <Spinner
+                android:id="@+id/spinnerUserDate"
+                android:layout_width="150dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/textViewUserBuildDetailContractDate"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+
                 />
         </RelativeLayout>
     </ScrollView>

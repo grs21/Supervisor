@@ -18,10 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Supervisor">
-        <activity android:name=".activity.ServiceActivity"></activity>
+        <activity android:name=".UserBuildDetailActivity"></activity>
+        <activity android:name=".activity.ServiceActivity" />
         <activity
             android:name=".ApartmentEditActivity"
-            android:parentActivityName=".AdminActivity"></activity>
+            android:parentActivityName=".AdminActivity" />
         <activity android:name=".BuildDetailActivity" />
         <activity android:name=".UserActivity" />
         <activity android:name=".AdminActivity" />
@@ -30,7 +31,7 @@
             android:name=".util.CaptureAct"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

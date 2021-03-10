@@ -9,11 +9,12 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.grs21.supervisor.BuildDetailActivity;
 import com.grs21.supervisor.R;
+import com.grs21.supervisor.UserBuildDetailActivity;
 import com.grs21.supervisor.model.Apartment;
 import com.grs21.supervisor.model.User;
 
@@ -21,31 +22,29 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AdapterApartmentRecyclerView extends RecyclerView.Adapter<AdapterApartmentRecyclerView.ViewHolder> implements Filterable {
-
+public class AdapterUserApartmentRecyclerView extends RecyclerView.Adapter<AdapterUserApartmentRecyclerView.UserViewHolder> implements Filterable {
     private ArrayList<Apartment> apartments;
     private ArrayList<Apartment> apartmentFull;
     private static final String TAG = "AdapterApartmentRecycle";
     private User currentUser;
 
-
-    public AdapterApartmentRecyclerView(ArrayList<Apartment> apartments,User currentUser) {
+    public AdapterUserApartmentRecyclerView(ArrayList<Apartment> apartments, User currentUser) {
         this.apartments = apartments;
-        apartmentFull = new ArrayList<>();
+        this.apartmentFull = new ArrayList<>();
         apartmentFull.addAll(apartments);
-        this.currentUser=currentUser;
+        this.currentUser = currentUser;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_build_recyclerview, parent, false);
-        return new ViewHolder(view);
+    public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+       View view= LayoutInflater.from(parent.getContext())
+               .inflate(R.layout.item_build_recyclerview, parent,false);
+       return new UserViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         int lastServiceIndex=apartments.get(position).getServiceArrayList().size()-1;
         HashMap lastService=apartments.get(position).getServiceArrayList().get(lastServiceIndex);
         boolean well=(boolean) lastService.get("well");
@@ -61,7 +60,7 @@ public class AdapterApartmentRecyclerView extends RecyclerView.Adapter<AdapterAp
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(v.getContext(), BuildDetailActivity.class);
+                Intent intent=new Intent(v.getContext(), UserBuildDetailActivity.class);
                 intent.putExtra("apartment",apartments.get(position));
                 intent.putExtra("currentUser",currentUser);
                 v.getContext().startActivity(intent);
@@ -74,11 +73,16 @@ public class AdapterApartmentRecyclerView extends RecyclerView.Adapter<AdapterAp
         return apartments.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder  {
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    public class UserViewHolder extends RecyclerView.ViewHolder{
         TextView buildName, lastServiceDate;
         RelativeLayout relativeLayout;
         CheckBox checkBoxWell,checkBoxElevatorUp,checkBoxMachineRoom;
-        public ViewHolder(@NonNull View itemView) {
+        public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             checkBoxElevatorUp=itemView.findViewById(R.id.checkboxRecyclerViewElevatorTop);
             checkBoxMachineRoom=itemView.findViewById(R.id.checkboxRecyclerViewElevatorMachine);
@@ -86,13 +90,7 @@ public class AdapterApartmentRecyclerView extends RecyclerView.Adapter<AdapterAp
             buildName = itemView.findViewById(R.id.textViewRecyclerViewBuildName);
             lastServiceDate = itemView.findViewById(R.id.textViewRecyclerViewMostLastServiceDate);
             relativeLayout=itemView.findViewById(R.id.relativeLayout);
-
         }
-    }
-
-    @Override
-    public Filter getFilter() {
-        return filter;
     }
 
     private Filter filter = new Filter() {

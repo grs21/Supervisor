@@ -34,7 +34,7 @@
     <string name="address">Address</string>
     <string name="cost">Cost</string>
     <string name="manager_name">Manager Name</string>
-    <string name="manager_name_number">Manager Name Number</string>
+    <string name="manager_number">Manager  Number</string>
     <string name="manager_address">Manager Address</string>
     <string name="employee_name">Employee Name</string>
     <string name="employee_number">Employee Number</string>

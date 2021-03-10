@@ -55,7 +55,7 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
         toolbar.inflateMenu(R.menu.service_to_detailback_button);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(apartment.getApartmentName());
-        
+
         for (HashMap service:apartment.getServiceArrayList()) {
             Service generateService=new Service(
                      (boolean)service.get("well")
@@ -134,7 +134,7 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
             dialog.findViewById(R.id.buttonDetailDialogCancel).setOnClickListener(this);
             dialog.show();
         }
- }
+    }
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }

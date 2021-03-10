@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseFirestore firebaseFirestore;
     private Boolean state=true;
     private ToastMessage toastMessage;
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -52,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             checkInput(binding.editTextUserName);
             checkInput(binding.editTextPassword);
             if (state) {
-                final ProgressDialog progressDialog = new ProgressDialog(v.getContext());
+                progressDialog = new ProgressDialog(v.getContext());
                 progressDialog.setTitle(R.string.uploading);
                 progressDialog.show();
                 firebaseAuth.signInWithEmailAndPassword(binding.editTextUserName.getText().toString().trim()
@@ -61,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Log.d(TAG, "onClick:+++++++ üstloginUserID"+authResult.getUser().getUid());
                             getUserData(authResult.getUser().getUid());
                             Log.d(TAG, "onClick:+++++++ altloginUserID"+authResult.getUser().getUid());
-                           progressDialog.dismiss();
+
                     Snackbar.make(findViewById(android.R.id.content), "Logged Successfully"
                             , BaseTransientBottomBar.LENGTH_SHORT).show();
                         }).addOnFailureListener(e -> {
@@ -81,27 +82,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
-                    DocumentSnapshot documentSnapshot=task.getResult();
-               /*   try {*/
+                  try {
+                  DocumentSnapshot documentSnapshot=task.getResult();
                   Map<String,Object> getData=documentSnapshot.getData();
-                    String company=(String) getData.get("company");
-                    String fullName=(String) getData.get("fullName");
-                    String accessLevel=(String)getData.get("accessLevel");
-                    String password=(String)getData.get("password");
-                    String userName=(String) getData.get("userName");
-                 User user=new User(fullName,uid,userName,password,accessLevel,company);
-                 checkUserAccessLevel(user);
-                      Log.d(TAG, "onComplete: ++++++++++++++"+user.getCompany());
-                  /* }
-                  catch (Exception e){
+                  String company=(String) getData.get("company");
+                  String fullName=(String) getData.get("fullName");
+                  String accessLevel=(String)getData.get("accessLevel");
+                  String password=(String)getData.get("password");
+                  String userName=(String) getData.get("userName");
+                  User user=new User(fullName,uid,userName,password,accessLevel,company);
+                  progressDialog.dismiss();
+                  checkUserAccessLevel(user);
+                  Log.d(TAG, "onComplete: ++++++++++++++"+user.getCompany());
+
+                     } catch (Exception e){
                       Snackbar.make(findViewById(android.R.id.content), "NULL"
-                              , BaseTransientBottomBar.LENGTH_SHORT).show();
-                      Log.d(TAG, "onComplete:+++++++++++++ "+e.getMessage());
-                  }*/
+                          , BaseTransientBottomBar.LENGTH_SHORT).show();
+                       Log.d(TAG, "onComplete:+++++++++++++ "+e.getMessage());
+                        }
                 }
                 else{
-                    Log.d(TAG, "onCompleteGetUserData: ++++++++++++++"+task.getException());
-                }
+                Log.d(TAG, "onCompleteGetUserData: ++++++++++++++"+task.getException());
+                    }
             }
         });
     }
@@ -109,8 +111,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (user.getAccessLevel().equals("admin") ){
             Intent intent=new Intent(LoginActivity.this, AdminActivity.class);
             intent.putExtra("currentUser",user);
-               startActivity(intent);
-                finish();
+            startActivity(intent);
+            finish();
         } else if (user.getAccessLevel().equals("user")){
             Intent intent=new Intent(LoginActivity.this, UserActivity.class);
             intent.putExtra("currentUser",user);
@@ -134,7 +136,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onResume() {
         if (FirebaseAuth.getInstance().getCurrentUser()!=null){
-            ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+             progressDialog = new ProgressDialog(LoginActivity.this);
             progressDialog.setTitle(R.string.log_in);
             progressDialog.show();
             getUserData(FirebaseAuth.getInstance().getCurrentUser().getUid());
