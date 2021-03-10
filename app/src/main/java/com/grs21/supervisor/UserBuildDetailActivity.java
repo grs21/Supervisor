@@ -90,8 +90,10 @@ public class UserBuildDetailActivity extends AppCompatActivity implements View.O
         switch (v.getId()){
             case makeService:
                 Intent intent=new Intent(UserBuildDetailActivity.this, ServiceActivity.class);
+                String senderClassName=this.getLocalClassName();
                 intent.putExtra("apartment", apartment);
                 intent.putExtra("currentUser",currentUser);
+                intent.putExtra("className", senderClassName);
                 startActivity(intent);
                 finish();
                 break;

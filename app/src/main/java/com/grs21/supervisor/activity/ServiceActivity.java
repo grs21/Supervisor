@@ -29,11 +29,13 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.grs21.supervisor.BuildDetailActivity;
 import com.grs21.supervisor.R;
+import com.grs21.supervisor.UserBuildDetailActivity;
 import com.grs21.supervisor.databinding.ActivityServiceBinding;
 import com.grs21.supervisor.model.Apartment;
 import com.grs21.supervisor.model.Service;
 import com.grs21.supervisor.model.User;
 import com.grs21.supervisor.util.CaptureAct;
+import com.grs21.supervisor.util.ToastMessage;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -47,13 +49,17 @@ import es.dmoral.toasty.Toasty;
 public class ServiceActivity extends AppCompatActivity implements View.OnClickListener{
     private ActivityServiceBinding binding;
     private Apartment apartment;
-    private Intent intent;
+    private static  Intent intent;
     private FirebaseFirestore fireStore;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
     private static final String TAG = "ServiceActivity";
     private User currentUser;
     private String company;
+    private String senderClassName;
+    private ToastMessage toastMessage=new ToastMessage();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,15 +68,12 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
         View view=binding.getRoot();
         setContentView(view);
         intent=getIntent();
+
         apartment=(Apartment) intent.getSerializableExtra("apartment");
         currentUser=(User) intent.getSerializableExtra("currentUser");
         company=currentUser.getCompany();
 
-        Toolbar toolbar=findViewById(R.id.toolbarService);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle("");
-        binding.textViewServiceToolBarTitle.setText(apartment.getApartmentName());
+        initializeToolbar();
 
         firebaseAuth= FirebaseAuth.getInstance();
         user=firebaseAuth.getCurrentUser();
@@ -82,15 +85,13 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
         binding.imageButtonBackButton.setOnClickListener(this);
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.imageButtonBackButton:
-                Intent intent=new Intent(ServiceActivity.this,BuildDetailActivity.class);
-                intent.putExtra("apartment",apartment);
-                intent.putExtra("currentUser", currentUser);
-                startActivity(intent);
-                finish();
+
+                backToEditActivity(apartment);
 
                 break;
             case R.id.buttonServiceScan:
@@ -142,7 +143,6 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                         service.setElevatorUp(elevatorUpBoolean);
                         service.setDate(dateString);
                         service.setEmployee(user.getEmail());
-                            Log.d(TAG, "onClick: "+apartment.getUuid());
                             DocumentReference docRef=fireStore.collection(company)
                                     .document(apartment.getUuid());
                             docRef.update("service", FieldValue.arrayUnion(service));
@@ -154,10 +154,8 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                     });
                     dialog.show();
                 }else{
-                    Toast toastSuccess = Toasty.error(ServiceActivity.this, R.string.please_make_a_service
-                            , Toast.LENGTH_LONG, true);
-                    toastSuccess.setGravity(Gravity.CENTER, 0, 0);
-                    toastSuccess.show();
+                    toastMessage.errorMessage(getResources().getString(R.string.please_make_a_service)
+                            , ServiceActivity.this);
                 }
                 break;
 
@@ -171,6 +169,15 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
         integrator.setPrompt("Scanning Code");
         integrator.initiateScan();
     }
+
+    void initializeToolbar(){
+        Toolbar toolbar=findViewById(R.id.toolbarService);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle("");
+        binding.textViewServiceToolBarTitle.setText(apartment.getApartmentName());
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -203,6 +210,19 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+    void backToEditActivity(Apartment apartment){
+       Intent intent;
+       if (currentUser.getAccessLevel().equals("admin")) {
+           intent = new Intent(ServiceActivity.this, BuildDetailActivity.class);
+       }else
+       {
+           intent = new Intent(ServiceActivity.this, UserBuildDetailActivity.class);
+       }
+       intent.putExtra("apartment", apartment);
+       intent.putExtra("currentUser", currentUser);
+       startActivity(intent);
+       finish();
+    }
 
     private void apartmentGetDataAfterScan(){
         DocumentReference documentReference=fireStore.collection(company).document(apartment.getUuid());
@@ -212,8 +232,6 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                     DocumentSnapshot documentSnapshot=task.getResult();
                     if (documentSnapshot.exists()){
                        Map<String,Object> getData=documentSnapshot.getData();
-                        Log.d(TAG, "onComplete:+++++++ "+documentSnapshot.getId());
-                        Log.d(TAG, "onComplete:+++++++ "+getData.get("buildName"));
                         Apartment apartment=new Apartment(documentSnapshot.getId(),(String)getData.get("buildName")
                                 ,(String)getData.get("address"),(String)getData.get("cost"),(String)getData.get("managerName")
                                 ,(String)getData.get("managerNumber"),(String)getData.get("managerAddress")
@@ -221,11 +239,9 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                                 ,(String)getData.get("dateOfContract"),(String) getData.get("wellQRCOdeInfo")
                                 ,(String) getData.get("elevatorUpQRCOdeInfo"),(String) getData.get("machineQRCOdeInfo")
                                 , (ArrayList<HashMap>) getData.get("service"));
-                        Intent intent1=new  Intent(ServiceActivity.this, BuildDetailActivity.class);
-                        intent1.putExtra("apartment",apartment);
-                        intent1.putExtra("currentUser",currentUser);
-                        startActivity(intent1);
-                        finish();
+                       toastMessage.successMessage(getResources().getString(R.string.saved)
+                               , ServiceActivity.this);
+                       backToEditActivity(apartment);
                     }
             }
         });

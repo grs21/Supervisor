@@ -45,8 +45,8 @@ public class UserApartmentFragment extends Fragment implements SearchView.OnQuer
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
      binding=FragmentUserApartmentBinding.inflate(inflater,container,false);
 
-      bundle=getArguments();
       toastMessage=new ToastMessage();
+      bundle=getArguments();
       currentUser=(User) bundle.getSerializable(bundleKeyCurrentUser);
       getDataFromFireStore();
       SearchView searchView=binding.searchViewUserApartment;
@@ -56,7 +56,7 @@ public class UserApartmentFragment extends Fragment implements SearchView.OnQuer
 
     private void getDataFromFireStore() {
         collectionReference=fireStore.collection(currentUser.getCompany());
-        collectionReference.orderBy("dateOfContract", Query.Direction.ASCENDING)
+        collectionReference.orderBy("dateOfContract", Query.Direction.DESCENDING)
         .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -77,9 +77,9 @@ public class UserApartmentFragment extends Fragment implements SearchView.OnQuer
                 }
                LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
                 adapter=new AdapterUserApartmentRecyclerView(apartments,currentUser);
-                adapter.notifyDataSetChanged();
                 binding.recyclerViewUserApartment.setAdapter(adapter);
                 binding.recyclerViewUserApartment.setLayoutManager(linearLayoutManager);
+                adapter.notifyDataSetChanged();
             }
 
             }

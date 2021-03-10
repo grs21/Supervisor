@@ -58,7 +58,7 @@ public class ApartmentFragment extends Fragment implements SearchView.OnQueryTex
 
     private void getDataFromFireStore() {
         CollectionReference collectionReference=fireStore.collection(currentUser.getCompany());
-        collectionReference.orderBy("dateOfContract", Query.Direction.ASCENDING)
+        collectionReference.orderBy("dateOfContract", Query.Direction.DESCENDING)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

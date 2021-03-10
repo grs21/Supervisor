@@ -61,6 +61,7 @@
     <string name="write_build_Name">Please enter the build Name</string>
     <string name="check_connecting">Please connect to internet to proceed further</string>
     <string name="make_service">Make Service</string>
+    <string name="please_selected">please select</string>
 
 
     <string-array name="month">

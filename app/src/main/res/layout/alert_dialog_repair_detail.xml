@@ -22,6 +22,7 @@
         android:layout_marginEnd="15dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="30dp"
+        android:paddingStart="15dp"
         android:background="@drawable/text_background"
         />
     <TextView
@@ -44,6 +45,9 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="20dp"
+        android:gravity="top"
+        android:paddingStart="15dp"
+        android:paddingTop="4dp"
         />
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonRepairDetailDialogSave"

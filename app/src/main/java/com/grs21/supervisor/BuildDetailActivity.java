@@ -14,7 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.grs21.supervisor.activity.ServiceActivity;
-import com.grs21.supervisor.databinding.ActivityBuildDetailBinding;
+import com.grs21.supervisor.databinding.ActivityAdminBuildDetailBinding;
 import com.grs21.supervisor.model.Apartment;
 import com.grs21.supervisor.model.Service;
 import com.grs21.supervisor.model.User;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BuildDetailActivity extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemSelectedListener {
-    private ActivityBuildDetailBinding binding;
+    private ActivityAdminBuildDetailBinding binding;
     private Intent intent;
     private Apartment apartment;
     private Dialog dialog;
@@ -37,7 +37,7 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityBuildDetailBinding.inflate(getLayoutInflater());
+        binding=ActivityAdminBuildDetailBinding.inflate(getLayoutInflater());
         View view=binding.getRoot();
         setContentView(view);
         spinner=binding.spinnerDate;

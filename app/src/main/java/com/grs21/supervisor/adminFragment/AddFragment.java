@@ -78,7 +78,9 @@ public class AddFragment extends Fragment implements View.OnClickListener {
                         buildData.put("wellQRCOdeInfo", buildName + "Well");
                         buildData.put("elevatorUpQRCOdeInfo", buildName+ "ElevatorUp");
                         buildData.put("machineQRCOdeInfo", buildName + "Machine");
-                        buildData.put("service", FieldValue.arrayUnion(new Service()));
+                        Service service=new Service();
+                        service.setDate(getResources().getString(R.string.please_selected));
+                        buildData.put("service", FieldValue.arrayUnion(service));
                         fireStore.collection(currentUser.getCompany())
                                 .add(buildData)
                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

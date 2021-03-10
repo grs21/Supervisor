@@ -39,9 +39,6 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         View view=binding.getRoot();
         setContentView(view);
         firebaseAuth=FirebaseAuth.getInstance();
-
-        Log.d(TAG, "onCreate:+++++++++++++ loginAdmin");
-
         Intent intent=getIntent();
         currentUser=(User)intent.getSerializableExtra("currentUser");
         drawerLayout=binding.drawerLayout;
