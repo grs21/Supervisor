@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@drawable/alert_dialog_background"
     >
         <TextView
             android:id="@+id/textViewDetailDialogEmployee"
@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:text="Kuyu"
             android:textSize="15sp"
+            android:textColor="@color/black"
             android:layout_below="@+id/textViewDetailDialogDate"
             android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
@@ -52,8 +53,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kabin Üstü"
+            android:textSize="15sp"
+            android:textColor="@color/black"
             android:layout_below="@+id/textViewDetailDialogWell"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="8dp"
 
 
@@ -73,8 +76,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Makina Dairesi"
+            android:textColor="@color/black"
+            android:textSize="15sp"
             android:layout_below="@+id/textViewDetailDialogElevatorUp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="8dp"
 
 
@@ -89,6 +94,17 @@
             android:layout_marginStart="1dp"
             android:layout_marginTop="8dp"
             />
+        <TextView
+            android:id="@+id/textViewDetailDialogCost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewDetailDialogMachineRoom"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+
+            />
        <androidx.appcompat.widget.AppCompatButton
            android:id="@+id/buttonDetailDialogCancel"
            android:layout_width="wrap_content"
@@ -96,7 +112,7 @@
            android:background="@drawable/button_background"
            android:text="cancel"
            android:layout_marginTop="10dp"
-           android:layout_below="@+id/textViewDetailDialogMachineRoom"
+           android:layout_below="@+id/textViewDetailDialogCost"
            android:layout_marginBottom="20dp"
            android:layout_centerHorizontal="true"
            />

@@ -2,11 +2,13 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
-    <item android:id="@+id/menuItemAdd"
+    <item
+        android:id="@+id/menuItemAdd"
         android:icon="@drawable/ic_add"
         android:title="@string/add"
         />
-    <item android:id="@+id/menuItemApartmentList"
+    <item
+        android:id="@+id/menuItemApartmentList"
         android:icon="@drawable/ic_apartment"
         android:title="@string/apartment"
         />

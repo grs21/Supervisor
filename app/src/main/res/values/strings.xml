@@ -10,6 +10,7 @@
     <string name="admin">Admin</string>
     <string name="uploading">Uploading build...</string>
     <string name="saved">Saved</string>
+    <string name="please_enter_cost">Enter Cost..</string>
     <string name="failure">Failure</string>
     <string name="notSaved">Not Saved!!</string>
     <string name="cannot_be_space">Build name or note cannot be left blank!!</string>

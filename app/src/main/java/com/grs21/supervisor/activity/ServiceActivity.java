@@ -8,12 +8,15 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -104,16 +107,20 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                 machineRoomBoolean=binding.checkBoxServiceMachineRoom.isChecked();
 
                 if (wellBoolean|| elevatorUpBoolean || machineRoomBoolean){
-                    CheckBox DCWell,DCElevatorUp,DCMachineRoom;
+                    CheckBox well,elevatorUp,machineRoom;
+                    EditText cost;
                     Dialog dialog=new Dialog(ServiceActivity.this);
                     dialog.setContentView(R.layout.alert_dialog_service);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                    DCElevatorUp=dialog.findViewById(R.id.checkboxServiceDialogElevatorTop);
-                    DCMachineRoom=dialog.findViewById(R.id.checkboxServiceDialogElevatorMachine);
-                    DCWell=dialog.findViewById(R.id.checkboxServiceDialogWell);
-                    DCWell.setChecked(wellBoolean);
-                    DCElevatorUp.setChecked(elevatorUpBoolean);
-                    DCMachineRoom.setChecked(machineRoomBoolean);
+                    cost=dialog.findViewById(R.id.editTextServiceDialogCost);
+                    elevatorUp=dialog.findViewById(R.id.checkboxServiceDialogElevatorTop);
+                    machineRoom=dialog.findViewById(R.id.checkboxServiceDialogElevatorMachine);
+                    well=dialog.findViewById(R.id.checkboxServiceDialogWell);
+
+                    well.setChecked(wellBoolean);
+                    elevatorUp.setChecked(elevatorUpBoolean);
+                    machineRoom.setChecked(machineRoomBoolean);
 
                     TextView textViewName=dialog.findViewById(R.id.textViewServiceDialogApartmentName);
                     textViewName.setText(apartment.getApartmentName());
@@ -132,24 +139,28 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                     buttonSave.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            final ProgressDialog progressDialog = new ProgressDialog(v.getContext());
-                            progressDialog.setTitle(R.string.uploading);
-                            progressDialog.show();
-                            Date date= Calendar.getInstance().getTime();
-                            String dateString= DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(date);
-                            Service service=new Service();
-                        service.setWell(wellBoolean);
-                        service.setMachineRoom(machineRoomBoolean);
-                        service.setElevatorUp(elevatorUpBoolean);
-                        service.setDate(dateString);
-                        service.setEmployee(user.getEmail());
-                            DocumentReference docRef=fireStore.collection(company)
-                                    .document(apartment.getUuid());
-                            docRef.update("service", FieldValue.arrayUnion(service));
-                            dialog.dismiss();
-                            progressDialog.dismiss();
-                            apartmentGetDataAfterScan();
-
+                            if (!cost.getText().toString().isEmpty()) {
+                                final ProgressDialog progressDialog = new ProgressDialog(v.getContext());
+                                progressDialog.setTitle(R.string.uploading);
+                                progressDialog.show();
+                                Date date = Calendar.getInstance().getTime();
+                                String dateString = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(date);
+                                Service service = new Service();
+                                service.setWell(wellBoolean);
+                                service.setMachineRoom(machineRoomBoolean);
+                                service.setElevatorUp(elevatorUpBoolean);
+                                service.setDate(dateString);
+                                service.setEmployee(user.getEmail());
+                                service.setCost(cost.getText().toString().trim());
+                                DocumentReference docRef = fireStore.collection(company)
+                                        .document(apartment.getUuid());
+                                docRef.update("service", FieldValue.arrayUnion(service));
+                                dialog.dismiss();
+                                progressDialog.dismiss();
+                                apartmentGetDataAfterScan();
+                            }else {
+                                cost.setError(getResources().getString(R.string.please_enter_cost));
+                            }
                         }
                     });
                     dialog.show();
@@ -181,34 +192,41 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result!=null){
-            if (result.getContents()!=null) {
-                try {
-                    String well = apartment.getWell();
-                    String up = apartment.getElevatorUp();
-                    String machineRoom = apartment.getMachineRoom();
-                    if (well.equals(result.getContents())) {
-                        binding.checkBoxServiceWell.setChecked(true);
-                    } else if (up.equals(result.getContents())) {
-                        binding.checkBoxServiceFragmentElevatorUp.setChecked(true);
-                    } else if (machineRoom.equals(result.getContents())) {
-                        binding.checkBoxServiceMachineRoom.setChecked(true);
-                    } else {
-                        Toast toastSuccess = Toasty.warning(ServiceActivity.this,R.string.not_match
+        try {
+
+            if (result != null) {
+                if (result.getContents() != null) {
+                    try {
+                        String well = apartment.getWell();
+                        String up = apartment.getElevatorUp();
+                        String machineRoom = apartment.getMachineRoom();
+                        if (well.equals(result.getContents())) {
+                            binding.checkBoxServiceWell.setChecked(true);
+                        } else if (up.equals(result.getContents())) {
+                            binding.checkBoxServiceFragmentElevatorUp.setChecked(true);
+                        } else if (machineRoom.equals(result.getContents())) {
+                            binding.checkBoxServiceMachineRoom.setChecked(true);
+                        } else {
+                            Toast toastSuccess = Toasty.warning(ServiceActivity.this, R.string.not_match
+                                    , Toast.LENGTH_LONG, true);
+                            toastSuccess.setGravity(Gravity.CENTER, 0, 0);
+                            toastSuccess.show();
+                        }
+                    } catch (Exception e) {
+                        Toast toastSuccess = Toasty.error(ServiceActivity.this, R.string.please_make_a_service
                                 , Toast.LENGTH_LONG, true);
                         toastSuccess.setGravity(Gravity.CENTER, 0, 0);
                         toastSuccess.show();
                     }
-                } catch (Exception e) {
-                    Toast toastSuccess = Toasty.error(ServiceActivity.this, R.string.please_make_a_service
-                            , Toast.LENGTH_LONG, true);
-                    toastSuccess.setGravity(Gravity.CENTER, 0, 0);
-                    toastSuccess.show();
                 }
+            } else {
+                toastMessage.errorMessage("LÜTFEN TEKRAR OKUTUN", this);
             }
-        }else {
-            super.onActivityResult(requestCode, resultCode, data);
+        }catch (Exception e){
+            toastMessage.errorMessage("LÜTFEN TEKRAR OKUTUN", this);
+            Log.d(TAG, "onActivityResult: "+e.getMessage());
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
     void backToEditActivity(Apartment apartment){
        Intent intent;

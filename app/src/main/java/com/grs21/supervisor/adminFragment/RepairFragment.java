@@ -5,6 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -58,7 +61,7 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
     private Dialog dialog;
     private User currentUser;
     private Repair clickedRepair;
-    private ArrayList<Repair> repairArrayList;
+    private ArrayList<Repair> repairArrayList=new ArrayList<>();;
     private RecyclerView repairRecyclerView;
     private AdapterRepairRecyclerview.RepairRecyclerviewOnclickListener repairListener;
     private String date;
@@ -70,7 +73,6 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
         toastMessage=new ToastMessage();
          Date currentDate=Calendar.getInstance().getTime();
          date= DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(currentDate);
-        repairArrayList=new ArrayList<>();
         repairRecyclerView=binding.recyclerViewRepair;
         repairRecyclerView.setOnClickListener(this);
         binding.imageButtonRepairAdd.setOnClickListener(this);
@@ -93,10 +95,8 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
          final int dialogCancel=R.id.buttonRepairDialogCancel;
         switch (v.getId()){
             case detailDialogSave:
-
                 String apartmentName= editTextDetailBuildName.getText().toString().trim();
                 String repairNote=editTextDetailNote.getText().toString().trim();
-
                 if (!apartmentName.isEmpty() && !repairNote.isEmpty()) {
                     if (isConnected()) {
                         HashMap<String, Object> editData = new HashMap<>();
@@ -224,6 +224,7 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
     private void initializeAddAlertDialog() {
          dialog=new Dialog(getContext());
          dialog.setContentView(R.layout.alert_dialog_add_repair);
+         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
           editTextAddBuildName = dialog.findViewById(R.id.editTextRepairDialogBuildName);
           editTextAddRepairNote =dialog.findViewById(R.id.editTextRepairDialogNote);
           Button buttonSave=dialog.findViewById(R.id.buttonRepairDialogSave);
@@ -258,6 +259,7 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
     private void initializeDetailAlertDialog() {
         dialog=new Dialog(getContext());
         dialog.setContentView(R.layout.alert_dialog_repair_detail);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
         editTextDetailBuildName=dialog.findViewById(R.id.editTextRepairDetailDialogBuildName);
         editTextDetailNote=dialog.findViewById(R.id.editTextRepairDetailDialogNote);
@@ -279,6 +281,7 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                 int size=queryDocumentSnapshots.getDocuments().size();
                 for (int i = 0; i <size ; i++) {
                     String id= queryDocumentSnapshots.getDocuments().get(i).getId();
+                    Log.d(TAG, "onSuccess: ");
                     DocumentSnapshot documentSnapshot =queryDocumentSnapshots.getDocuments().get(i);
                     Repair repair= documentSnapshot.toObject(Repair.class);
                     repair.setId(id);

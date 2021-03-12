@@ -42,12 +42,7 @@ public class AdapterRepairRecyclerview extends RecyclerView.Adapter<AdapterRepai
     public void onBindViewHolder(@NonNull RepairViewHolder holder, int position) {
     holder.textViewBuildName.setText(repairArrayList.get(position).getApartmentName());
     holder.textViewDate.setText(repairArrayList.get(position).getDate());
-   /* holder.itemView.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Log.d(TAG, "onClick:++++++++ "+repairArrayList);
-        }
-    });*/
+
 
     }
 

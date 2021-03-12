@@ -9,13 +9,15 @@ public class Service {
     private boolean machineRoom;
     private String date;
     private String employee;
+    private String cost;
 
-    public Service(boolean well, boolean elevatorUp, boolean machineRoom, String date, String employee) {
+    public Service(boolean well, boolean elevatorUp, boolean machineRoom, String date, String employee,String cost) {
         this.well = well;
         this.elevatorUp = elevatorUp;
         this.machineRoom = machineRoom;
         this.date = date;
         this.employee = employee;
+        this.cost=cost;
     }
 
     public Service() {
@@ -59,6 +61,14 @@ public class Service {
 
     public void setEmployee(String employee) {
         this.employee = employee;
+    }
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
     }
 
     @Override

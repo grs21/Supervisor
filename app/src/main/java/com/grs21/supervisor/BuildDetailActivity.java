@@ -5,6 +5,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,8 +32,7 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
     private Dialog dialog;
     private Spinner spinner;
     private ArrayList<Service> serviceArrayList;
-    private TextView textViewDialogDate,textViewDialogEmployee;
-    private CheckBox checkBoxWell,checkBoxUp,checkBoxMachineRoom;
+
     private static final String TAG = "BuildDetailActivity";
     private User currentUser;
     @Override
@@ -62,7 +63,8 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
                     ,(boolean)service.get("elevatorUp")
                     ,(boolean)service.get("machineRoom")
                     ,(String) service.get("date")
-                    ,(String) service.get("employee"));
+                    ,(String) service.get("employee")
+                    ,(String)service.get("cost"));
             serviceArrayList.add(generateService);
         }
         initializeData(apartment);
@@ -116,11 +118,15 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (position>0) {
+            TextView textViewDialogDate,textViewDialogEmployee,textViewDialogCost;
+            CheckBox checkBoxWell,checkBoxUp,checkBoxMachineRoom;
             Service spinnerService = (Service) parent.getSelectedItem();
             dialog = new Dialog(BuildDetailActivity.this);
             dialog.setContentView(R.layout.alert_dialog_detail);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             textViewDialogDate = dialog.findViewById(R.id.textViewDetailDialogDate);
             textViewDialogEmployee = dialog.findViewById(R.id.textViewDetailDialogEmployee);
+            textViewDialogCost=dialog.findViewById(R.id.textViewDetailDialogCost);
             checkBoxMachineRoom = dialog.findViewById(R.id.checkboxDetailDialogElevatorMachine);
             checkBoxUp = dialog.findViewById(R.id.checkboxDetailDialogElevatorTop);
             checkBoxWell = dialog.findViewById(R.id.checkboxDetailDialogWell);
@@ -131,6 +137,7 @@ public class BuildDetailActivity extends AppCompatActivity implements View.OnCli
 
             textViewDialogEmployee.setText(spinnerService.getEmployee());
             textViewDialogDate.setText(spinnerService.getDate());
+            textViewDialogCost.setText(spinnerService.getCost());
             dialog.findViewById(R.id.buttonDetailDialogCancel).setOnClickListener(this);
             dialog.show();
         }
