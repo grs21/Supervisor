@@ -21,7 +21,7 @@
            android:textSize="20sp"
            android:text="Build Name"
            android:layout_marginEnd="1dp"
-           android:padding="4dp"
+           android:padding="2dp"
            android:textColor="@color/white"
            />
        <TextView
@@ -30,7 +30,7 @@
            android:layout_height="wrap_content"
            android:layout_below="@+id/textViewRecyclerViewBuildName"
            android:text="21/21/2222"
-           android:padding="8dp"
+           android:padding="5dp"
            android:textColor="@color/white"
            />
        <TextView

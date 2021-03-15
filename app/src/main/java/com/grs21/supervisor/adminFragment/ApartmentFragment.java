@@ -69,6 +69,7 @@ public class ApartmentFragment extends Fragment implements SearchView.OnQueryTex
                     toastSuccess.show();
                 }
                 if (value!=null){
+                    apartments.clear();
                     for (DocumentSnapshot snapshot:value.getDocuments()){
                         Map<String,Object> getData=snapshot.getData();
                         Apartment apartment=new Apartment( snapshot.getId(),(String)getData.get("buildName")

@@ -33,7 +33,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.grs21.supervisor.R;
 import com.grs21.supervisor.adapter.AdapterRepairRecyclerview;
@@ -175,18 +178,18 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                         progressDialog.show();
                         Repair repair = new Repair(buildName, currentUser, note, date);
                         firebaseFirestore.document(currentUser.getCompany() + "/Repairs")
-                                .collection("repair")
-                                .add(repair)
-                                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                                        progressDialog.dismiss();
-                                        Toast toast = Toasty.success(getContext(), R.string.saved);
-                                        toast.show();
-                                        dialog.dismiss();
-                                        refreshPage();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
+                            .collection("repair")
+                            .add(repair)
+                            .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                                    progressDialog.dismiss();
+                                    Toast toast = Toasty.success(getContext(), R.string.saved);
+                                    toast.show();
+                                    dialog.dismiss();
+                                    refreshPage();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 progressDialog.dismiss();
@@ -274,6 +277,28 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
     private void getRepairsFromFirebase() {
 
         firebaseFirestore.document(currentUser.getCompany()+"/Repairs")
+            .collection("repair").orderBy("date", Query.Direction.DESCENDING)
+            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    repairArrayList.clear();
+                    for (DocumentSnapshot snapshot:value.getDocuments()){
+
+                        Repair repair = snapshot.toObject(Repair.class);
+                        repair.setId(snapshot.getId());
+                        repairArrayList.add(repair);
+                        Log.d(TAG, "onEvent: "+repair.getApartmentName());
+                    }
+                    setAdapter(repairArrayList);
+
+                }
+            });
+     }
+
+
+    /*private void getRepairsFromFirebas() {
+
+        firebaseFirestore.document(currentUser.getCompany()+"/Repairs")
                 .collection("repair")
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -297,7 +322,7 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-    }
+    }*/
 
     private void customConnectionDialog() {
         AlertDialog.Builder alertDialog=new AlertDialog.Builder(getContext());
