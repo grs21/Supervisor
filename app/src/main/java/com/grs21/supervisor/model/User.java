@@ -10,14 +10,25 @@ public class User implements Serializable {
         private String password;
         private String accessLevel;
         private String company;
+        private String phoneID;
 
-    public User(String fullName, String id, String userName, String password, String accessLevel, String company) {
+    public User(String fullName, String id, String userName, String password, String accessLevel, String company
+    ,String phoneID) {
         this.fullName = fullName;
         this.id = id;
         this.userName = userName;
         this.password = password;
         this.accessLevel = accessLevel;
         this.company = company;
+        this.phoneID=phoneID;
+    }
+
+    public String getPhoneID() {
+        return phoneID;
+    }
+
+    public void setPhoneID(String phoneID) {
+        this.phoneID = phoneID;
     }
 
     public User() {

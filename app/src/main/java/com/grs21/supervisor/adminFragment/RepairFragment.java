@@ -44,12 +44,18 @@ import com.grs21.supervisor.databinding.FragmentAdminRepairBinding;
 import com.grs21.supervisor.model.Repair;
 import com.grs21.supervisor.model.User;
 import com.grs21.supervisor.util.ToastMessage;
+import com.onesignal.OneSignal;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import es.dmoral.toasty.Toasty;
 
@@ -183,11 +189,13 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                             .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentReference> task) {
-                                    progressDialog.dismiss();
-                                    Toast toast = Toasty.success(getContext(), R.string.saved);
-                                    toast.show();
-                                    dialog.dismiss();
-                                    refreshPage();
+                                progressDialog.dismiss();
+                                Toast toast = Toasty.success(getContext(), R.string.saved);
+                                toast.show();
+                                dialog.dismiss();
+                                refreshPage();
+                                sendNotification(buildName);
+
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -214,6 +222,46 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
         }
 
     }
+
+    private void sendNotification(String message){
+
+     firebaseFirestore.collection("Users").get()
+             .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+         @Override
+         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+             for (DocumentSnapshot documentSnapshot:queryDocumentSnapshots.getDocuments()){
+                 Map<String,Object> getData=documentSnapshot.getData();
+                 String company=(String) getData.get("company");
+                 String phoneID=(String)getData.get("phoneID");
+                 if (currentUser.getCompany().equals(company)){
+                     try {
+                         OneSignal.postNotification(new JSONObject("{'contents': {'en':'"+message+"'}" +
+                                         ", 'include_player_ids': ['" + phoneID + "']}"),
+                         new OneSignal.PostNotificationResponseHandler() {
+                             @Override
+                             public void onSuccess(JSONObject response) {
+                                 Log.i("OneSignalExample", "postNotification Success: " + response.toString());
+                                 Toast.makeText(getContext(), "tüm kullanıcılara gönderildi"
+                                         , Toast.LENGTH_SHORT).show();
+                             }
+
+                             @Override
+                             public void onFailure(JSONObject response) {
+                                 Log.e("OneSignalExample", "postNotification Failure: " + response.toString());
+                             }
+                         });
+
+                     } catch (JSONException e) {
+                         e.printStackTrace();
+                     }
+
+
+                 }
+
+             }
+         }
+     });
+     }
 
     private void refreshPage() {
         RepairFragment  repairFragment=new RepairFragment();
@@ -294,35 +342,6 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                 }
             });
      }
-
-
-    /*private void getRepairsFromFirebas() {
-
-        firebaseFirestore.document(currentUser.getCompany()+"/Repairs")
-                .collection("repair")
-                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                int size=queryDocumentSnapshots.getDocuments().size();
-                for (int i = 0; i <size ; i++) {
-                    String id= queryDocumentSnapshots.getDocuments().get(i).getId();
-                    Log.d(TAG, "onSuccess: ");
-                    DocumentSnapshot documentSnapshot =queryDocumentSnapshots.getDocuments().get(i);
-                    Repair repair= documentSnapshot.toObject(Repair.class);
-                    repair.setId(id);
-                    repairArrayList.add(repair);
-                    Log.d(TAG, "onSuccess: "+id);
-                }
-                setAdapter(repairArrayList);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "onFailure: "+e.getMessage());
-            }
-        });
-
-    }*/
 
     private void customConnectionDialog() {
         AlertDialog.Builder alertDialog=new AlertDialog.Builder(getContext());

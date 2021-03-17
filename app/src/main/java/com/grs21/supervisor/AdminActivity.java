@@ -13,24 +13,30 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.grs21.supervisor.databinding.ActivityAdminBinding;
 import com.grs21.supervisor.adminFragment.AddFragment;
 import com.grs21.supervisor.adminFragment.ApartmentFragment;
 import com.grs21.supervisor.adminFragment.RepairFragment;
 import com.grs21.supervisor.model.User;
+import com.onesignal.OneSignal;
 
 
 public class AdminActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ActivityAdminBinding binding;
     private DrawerLayout drawerLayout;
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore fireStore;
     private User currentUser;
     private ActionBarDrawerToggle toggle;
     private Toolbar toolbar;
-    private  Bundle bundleCurrentUserData;
+    private  Bundle bundleCurrentUserData=new Bundle();
     private static final String TAG = "AdminActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +45,40 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         View view=binding.getRoot();
         setContentView(view);
         firebaseAuth=FirebaseAuth.getInstance();
+        fireStore=FirebaseFirestore.getInstance();
+
         Intent intent=getIntent();
         currentUser=(User)intent.getSerializableExtra("currentUser");
+
         drawerLayout=binding.drawerLayout;
         toolbar=binding.toolBarAdmin;
+
         setSupportActionBar(toolbar);
-        bundleCurrentUserData =new Bundle();
         bundleCurrentUserData.putSerializable("currentUser", currentUser);
+
         initializeBottomNavigationBar();
         initializeNavigationMenu();
+        userPhoneIdControl(OneSignal.getDeviceState().getUserId());
 
     }
+
+    private void userPhoneIdControl(String userPhoneId) {
+        if (!userPhoneId.equals(currentUser.getPhoneID())){
+            Log.d(TAG, "userPhoneIdControl: "+firebaseAuth.getCurrentUser().getUid());
+            fireStore.collection("Users").document(firebaseAuth.getCurrentUser().getUid())
+                    .update("phoneID",userPhoneId).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(AdminActivity.this, "PhoneID değiştirildi", Toast.LENGTH_LONG).show();
+                }
+            });
+        }else
+        {
+            Toast.makeText(this, "PhoneID değiştilmedi", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     private void initializeBottomNavigationBar() {
         BottomNavigationView bottomNavigationView=findViewById(R.id.admin_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(adminNavigationListener);
@@ -75,6 +104,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         toggle.syncState();
 
     }
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)){
@@ -84,6 +114,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
             super.onBackPressed();
         }
     }
+
     private BottomNavigationView.OnNavigationItemSelectedListener adminNavigationListener
             =new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -111,6 +142,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
             return true;
         }
     };
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         final int logOut=R.id.logOut;

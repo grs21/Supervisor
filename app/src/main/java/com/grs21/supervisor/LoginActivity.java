@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -20,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.grs21.supervisor.databinding.ActivityLoginBinding;
 import com.grs21.supervisor.model.User;
 import com.grs21.supervisor.util.ToastMessage;
+import com.onesignal.OneSignal;
 
 import java.util.Map;
 
@@ -31,6 +35,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Boolean state=true;
     private ToastMessage toastMessage;
     private ProgressDialog progressDialog;
+    private static final String ONESIGNAL_APP_ID = "6e682d9f-2ec1-49a6-ac16-6943f69621c0";
 
 
     @Override
@@ -43,6 +48,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         binding.buttonLogin.setOnClickListener(this);
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseFirestore=FirebaseFirestore.getInstance();
+        oneSignalInitialize();
+    }
+    private void userPhoneIdControl(String userPhoneId,User currentUser) {
+        if (!userPhoneId.equals(currentUser.getPhoneID())){
+            Log.d(TAG, "userPhoneIdControl: "+firebaseAuth.getCurrentUser().getUid());
+            firebaseFirestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid())
+                    .update("phoneID",userPhoneId).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+
+                }
+            });
+        }else
+        {
+
+        }
+    }
+
+    private void oneSignalInitialize() {
+        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
+        OneSignal.initWithContext(this);
+        OneSignal.setAppId(ONESIGNAL_APP_ID);
     }
 
     @Override
@@ -95,23 +122,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                   String accessLevel=(String)getData.get("accessLevel");
                   String password=(String)getData.get("password");
                   String userName=(String) getData.get("userName");
-                  User user=new User(fullName,uid,userName,password,accessLevel,company);
+                  String phoneID=(String)getData.get("phoneID");
+                  User user=new User(fullName,uid,userName,password,accessLevel,company,phoneID);
                   progressDialog.dismiss();
                   checkUserAccessLevel(user);
-                  Log.d(TAG, "onComplete: ++++++++++++++"+user.getCompany());
+                  userPhoneIdControl(OneSignal.getDeviceState().getUserId(), user);
 
-                     } catch (Exception e){
+                  } catch (Exception e){
                       Snackbar.make(findViewById(android.R.id.content), "NULL"
                           , BaseTransientBottomBar.LENGTH_SHORT).show();
                        Log.d(TAG, "onComplete:+++++++++++++ "+e.getMessage());
                         }
+                }else{
+                  Log.d(TAG, "onCompleteGetUserData: ++++++++++++++"+task.getException());
                 }
-                else{
-                Log.d(TAG, "onCompleteGetUserData: ++++++++++++++"+task.getException());
-                    }
             }
         });
     }
+
+
+
     private void checkUserAccessLevel(User user) {
         if (user.getAccessLevel().equals("admin") ){
             Intent intent=new Intent(LoginActivity.this, AdminActivity.class);
