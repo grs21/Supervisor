@@ -44,11 +44,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         binding=ActivityLoginBinding.inflate(getLayoutInflater());
         View view=binding.getRoot();
         setContentView(view);
+        oneSignalInitialize();
         toastMessage=new ToastMessage();
         binding.buttonLogin.setOnClickListener(this);
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseFirestore=FirebaseFirestore.getInstance();
-        oneSignalInitialize();
+
     }
     private void userPhoneIdControl(String userPhoneId,User currentUser) {
         if (!userPhoneId.equals(currentUser.getPhoneID())){
@@ -57,12 +58,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     .update("phoneID",userPhoneId).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-
+                    Toast.makeText(LoginActivity.this, "PhoneID değiştirildi", Toast.LENGTH_LONG).show();
                 }
             });
         }else
         {
-
+            Toast.makeText(LoginActivity.this, "PhoneID değiştilmedi", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -91,11 +92,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 firebaseAuth.signInWithEmailAndPassword(binding.editTextUserName.getText().toString().trim()
                         , binding.editTextPassword.getText().toString().trim())
                         .addOnSuccessListener(authResult -> {
-                            Log.d(TAG, "onClick:+++++++ üstloginUserID"+authResult.getUser().getUid());
                             getUserData(authResult.getUser().getUid());
-                            Log.d(TAG, "onClick:+++++++ altloginUserID"+authResult.getUser().getUid());
-
-                    Snackbar.make(findViewById(android.R.id.content), "Logged Successfully"
+                        Snackbar.make(findViewById(android.R.id.content), "Logged Successfully"
                             , BaseTransientBottomBar.LENGTH_SHORT).show();
                         }).addOnFailureListener(e -> {
                     progressDialog.dismiss();
@@ -126,7 +124,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                   User user=new User(fullName,uid,userName,password,accessLevel,company,phoneID);
                   progressDialog.dismiss();
                   checkUserAccessLevel(user);
-                  userPhoneIdControl(OneSignal.getDeviceState().getUserId(), user);
+                 // userPhoneIdControl(OneSignal.getDeviceState().getUserId(), user);
 
                   } catch (Exception e){
                       Snackbar.make(findViewById(android.R.id.content), "NULL"
@@ -143,6 +141,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void checkUserAccessLevel(User user) {
+        userPhoneIdControl(OneSignal.getDeviceState().getUserId(), user);
         if (user.getAccessLevel().equals("admin") ){
             Intent intent=new Intent(LoginActivity.this, AdminActivity.class);
             intent.putExtra("currentUser",user);
@@ -175,6 +174,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             progressDialog.setTitle(R.string.log_in);
             progressDialog.show();
             getUserData(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
         }
         super.onResume();
     }

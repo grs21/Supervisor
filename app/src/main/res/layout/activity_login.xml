@@ -36,6 +36,7 @@
         android:layout_marginTop="40dp"
         android:padding="4dp"
         android:layout_below="@+id/editTextUserName"
+        android:inputType="numberPassword"
         />
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonLogin"

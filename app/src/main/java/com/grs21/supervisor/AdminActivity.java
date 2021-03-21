@@ -58,25 +58,9 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
 
         initializeBottomNavigationBar();
         initializeNavigationMenu();
-        userPhoneIdControl(OneSignal.getDeviceState().getUserId());
-
     }
 
-    private void userPhoneIdControl(String userPhoneId) {
-        if (!userPhoneId.equals(currentUser.getPhoneID())){
-            Log.d(TAG, "userPhoneIdControl: "+firebaseAuth.getCurrentUser().getUid());
-            fireStore.collection("Users").document(firebaseAuth.getCurrentUser().getUid())
-                    .update("phoneID",userPhoneId).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(AdminActivity.this, "PhoneID değiştirildi", Toast.LENGTH_LONG).show();
-                }
-            });
-        }else
-        {
-            Toast.makeText(this, "PhoneID değiştilmedi", Toast.LENGTH_SHORT).show();
-        }
-    }
+
 
 
     private void initializeBottomNavigationBar() {

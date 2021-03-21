@@ -20,14 +20,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textColor="@color/orange"
         android:text="SuperVisor"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="16sp"
         />
     <TextView
         android:id="@+id/textViewNavigationUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="user@example.com"
+        android:textColor="@color/orange"
+        android:textSize="14sp"
         />
 
 

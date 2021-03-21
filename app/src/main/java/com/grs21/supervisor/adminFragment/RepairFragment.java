@@ -224,8 +224,7 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
     }
 
     private void sendNotification(String message){
-
-     firebaseFirestore.collection("Users").get()
+         firebaseFirestore.collection("Users").get()
              .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
          @Override
          public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -235,7 +234,7 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                  String phoneID=(String)getData.get("phoneID");
                  if (currentUser.getCompany().equals(company)){
                      try {
-                         OneSignal.postNotification(new JSONObject("{'contents': {'en':'"+message+"'}" +
+                         OneSignal.postNotification(new JSONObject("{'contents': {'en':'"+"Yeni Arıza!:"+message+"'}" +
                                          ", 'include_player_ids': ['" + phoneID + "']}"),
                          new OneSignal.PostNotificationResponseHandler() {
                              @Override
@@ -244,13 +243,11 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                                  Toast.makeText(getContext(), "tüm kullanıcılara gönderildi"
                                          , Toast.LENGTH_SHORT).show();
                              }
-
                              @Override
                              public void onFailure(JSONObject response) {
                                  Log.e("OneSignalExample", "postNotification Failure: " + response.toString());
                              }
                          });
-
                      } catch (JSONException e) {
                          e.printStackTrace();
                      }

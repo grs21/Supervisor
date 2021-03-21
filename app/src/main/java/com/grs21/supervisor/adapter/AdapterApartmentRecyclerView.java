@@ -53,11 +53,9 @@ public class AdapterApartmentRecyclerView extends RecyclerView.Adapter<AdapterAp
         boolean machineRoom=(boolean)lastService.get("machineRoom");
         boolean elevatorUp=(boolean)lastService.get("elevatorUp");
         String buildName=apartments.get(position).getApartmentName();
-        String lastServiceDate;
+        String lastServiceDate=(String)lastService.get("date");;
         if (apartments.get(position).getServiceArrayList().size()==1){
              lastServiceDate="../../.....";
-        }else{
-             lastServiceDate=(String)lastService.get("date");
         }
         holder.buildName.setText(buildName);
         holder.lastServiceDate.setText(lastServiceDate);

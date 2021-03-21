@@ -151,19 +151,17 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         if (user.getAccessLevel().equals("admin") ){
             firebaseAuth.signOut();
             firebaseAuth.signInWithEmailAndPassword(user.getUserName(), user.getPassword()).
-                    addOnSuccessListener(RegistrationActivity.this
-                            , new OnSuccessListener<AuthResult>() {
-                                @Override
-                                public void onSuccess(AuthResult authResult) {
-                                    Intent intent=new Intent(RegistrationActivity.this, AdminActivity.class);
-                                    intent.putExtra("currentUser",user);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            });
+                addOnSuccessListener(RegistrationActivity.this
+                    , new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            Intent intent=new Intent(RegistrationActivity.this, AdminActivity.class);
+                            intent.putExtra("currentUser",user);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
 
-        } else if (user.getAccessLevel().equals("user")){
-            // startActivity(new Intent(getApplicationContext(),UserActivity.class));
         }
     }
 

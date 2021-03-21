@@ -52,6 +52,9 @@ public class AdapterUserApartmentRecyclerView extends RecyclerView.Adapter<Adapt
         boolean elevatorUp=(boolean)lastService.get("elevatorUp");
         String buildName=apartments.get(position).getApartmentName();
         String lastServiceDate=(String)lastService.get("date");
+        if (apartments.get(position).getServiceArrayList().size()==1){
+            lastServiceDate="../../.....";
+        }
         holder.buildName.setText(buildName);
         holder.lastServiceDate.setText(lastServiceDate);
         holder.checkBoxWell.setChecked(well);

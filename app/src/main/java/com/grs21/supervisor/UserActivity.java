@@ -47,9 +47,6 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         initializeToolBar();
         initializeBottomNavigationBar();
         initializeNavigationMenu();
-
-
-
     }
 
     private void initializeNavigationMenu() {
@@ -86,6 +83,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         toolbar=binding.toolBarUser;
         setSupportActionBar(toolbar);
     }
+
     private void initializeBottomNavigationBar() {
         BottomNavigationView bottomNavigationView=findViewById(R.id.userBottomNavigationBar);
         bottomNavigationView.setOnNavigationItemSelectedListener(userNavigationListener);
