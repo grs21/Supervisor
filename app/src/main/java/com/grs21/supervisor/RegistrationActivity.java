@@ -49,8 +49,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         checkBoxSetting();
-
-
     }
 
     @Override
@@ -66,21 +64,23 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             }else{
                 accessLevel="admin";
             }
-
             firebaseAuth.createUserWithEmailAndPassword(binding.editTextUserNameRegistration.getText().toString()
             , binding.editTextPasswordRegistration.getText().toString())
             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
                     FirebaseUser createdUser = firebaseAuth.getCurrentUser();
-                    Log.d(TAG, "onSuccess:CREATE_ACCOUNT+++++++++++ "+user.getCompany());
-
+                    String fullName= binding.editTextFullName.getText().toString();
+                    String userName=binding.editTextUserNameRegistration.getText().toString();
+                    String password=binding.editTextPasswordRegistration.getText().toString();
+                    String company=user.getCompany();
                     Map<String,Object> userInfo=new HashMap<>();
-                    userInfo.put("fullName", binding.editTextFullName.getText().toString());
-                    userInfo.put("userName", binding.editTextUserNameRegistration.getText().toString());
-                    userInfo.put("password", binding.editTextPasswordRegistration.getText().toString());
+                    userInfo.put("fullName",fullName);
+                    userInfo.put("userName", userName);
+                    userInfo.put("password", password);
                     userInfo.put("accessLevel", accessLevel);
-                    userInfo.put("company" , user.getCompany());
+                    userInfo.put("phoneID","1234566789");
+                    userInfo.put("company" , company);
                         firebaseFirestore
                         .collection("Users")
                         .document(createdUser.getUid())

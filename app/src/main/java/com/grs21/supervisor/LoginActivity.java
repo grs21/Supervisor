@@ -124,9 +124,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                   User user=new User(fullName,uid,userName,password,accessLevel,company,phoneID);
                   progressDialog.dismiss();
                   checkUserAccessLevel(user);
-                 // userPhoneIdControl(OneSignal.getDeviceState().getUserId(), user);
-
                   } catch (Exception e){
+                      Log.e(TAG, "onComplete: ",e );
                       Snackbar.make(findViewById(android.R.id.content), "NULL"
                           , BaseTransientBottomBar.LENGTH_SHORT).show();
                        Log.d(TAG, "onComplete:+++++++++++++ "+e.getMessage());
