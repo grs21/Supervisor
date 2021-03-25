@@ -23,7 +23,7 @@
         <activity
             android:name=".ApartmentEditActivity"
             android:parentActivityName=".AdminActivity" />
-        <activity android:name=".BuildDetailActivity" />
+        <activity android:name=".AdminBuildDetailActivity" />
         <activity android:name=".UserActivity" />
         <activity android:name=".AdminActivity" />
         <activity android:name=".RegistrationActivity" />

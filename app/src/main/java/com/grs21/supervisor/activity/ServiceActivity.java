@@ -30,7 +30,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.grs21.supervisor.BuildDetailActivity;
+import com.grs21.supervisor.AdminBuildDetailActivity;
 import com.grs21.supervisor.R;
 import com.grs21.supervisor.UserBuildDetailActivity;
 import com.grs21.supervisor.databinding.ActivityServiceBinding;
@@ -231,7 +231,7 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
     void backToEditActivity(Apartment apartment){
        Intent intent;
        if (currentUser.getAccessLevel().equals("admin")) {
-           intent = new Intent(ServiceActivity.this, BuildDetailActivity.class);
+           intent = new Intent(ServiceActivity.this, AdminBuildDetailActivity.class);
        }else
        {
            intent = new Intent(ServiceActivity.this, UserBuildDetailActivity.class);
@@ -256,7 +256,7 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                                 ,(String)getData.get("employeeName"),(String)getData.get("employeeNumber")
                                 ,(String)getData.get("dateOfContract"),(String) getData.get("wellQRCOdeInfo")
                                 ,(String) getData.get("elevatorUpQRCOdeInfo"),(String) getData.get("machineQRCOdeInfo")
-                                , (ArrayList<HashMap>) getData.get("service"));
+                                ,(ArrayList<HashMap>) getData.get("service"),(ArrayList<String>)getData.get("qrCodes"));
                        toastMessage.successMessage(getResources().getString(R.string.saved)
                                , ServiceActivity.this);
                        backToEditActivity(apartment);

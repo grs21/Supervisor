@@ -195,7 +195,7 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
     }
 
     private void startDetailActivity(){
-        Intent intent=new Intent(ApartmentEditActivity.this,BuildDetailActivity.class);
+        Intent intent=new Intent(ApartmentEditActivity.this, AdminBuildDetailActivity.class);
         intent.putExtra("currentUser", currentUSer);
         intent.putExtra("apartment", apartment);
         startActivity(intent);

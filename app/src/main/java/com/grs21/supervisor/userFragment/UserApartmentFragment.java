@@ -72,7 +72,7 @@ public class UserApartmentFragment extends Fragment implements SearchView.OnQuer
                     ,(String)getData.get("employeeName"),(String)getData.get("employeeNumber")
                     ,(String)getData.get("dateOfContract"),(String) getData.get("wellQRCOdeInfo")
                     ,(String) getData.get("elevatorUpQRCOdeInfo"),(String) getData.get("machineQRCOdeInfo")
-                    , (ArrayList<HashMap>) getData.get("service"));
+                    ,(ArrayList<HashMap>) getData.get("service") ,(ArrayList<String>)getData.get("qrCodes"));
                     apartments.add(apartment);
                 }
                LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());

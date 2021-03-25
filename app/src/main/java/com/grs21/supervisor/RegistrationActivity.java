@@ -165,18 +165,5 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private void login(){
-        Log.d(TAG, "login:++++++++++++loginup");
-        firebaseAuth.signInWithEmailAndPassword(user.getUserName(), user.getPassword())
-                .addOnSuccessListener(RegistrationActivity.this, new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        Log.d(TAG, "onSuccess:++++++++++login ");
-                        Snackbar.make(findViewById(android.R.id.content)
-                                , "Account Created", BaseTransientBottomBar
-                                        .LENGTH_LONG).show();
-                        checkUserAccessLevel();
-                    }
-                });
-    }
+
 }

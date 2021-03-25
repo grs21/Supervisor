@@ -16,6 +16,7 @@ public class Apartment implements Serializable {
     private String employeeName;
     private String employeeNumber;
     private String contractDate;
+    private ArrayList<String> buildQrCodes;
     private String well;
     private String elevatorUp;
     private String machineRoom;
@@ -24,7 +25,7 @@ public class Apartment implements Serializable {
     public Apartment(String uuid, String apartmentName, String apartmentAddress, String cost
             , String managerName, String managerNumber, String managerAddress, String employeeName
             , String employeeNumber, String contractDate, String well, String elevatorUp
-            , String machineRoom,ArrayList<HashMap>services) {
+            , String machineRoom,ArrayList<HashMap>services,ArrayList<String >buildQrCodes) {
         this.uuid = uuid;
         this.apartmentName = apartmentName;
         this.apartmentAddress = apartmentAddress;
@@ -39,8 +40,14 @@ public class Apartment implements Serializable {
         this.elevatorUp = elevatorUp;
         this.machineRoom = machineRoom;
         this.serviceArrayList=services;
+        this.buildQrCodes=buildQrCodes;
 
     }
+
+    public ArrayList<String> getBuildQrCodes() {
+        return buildQrCodes;
+    }
+
 
     public String getUuid() {
         return uuid;
