@@ -147,6 +147,7 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
              if (editTextMailForQRCOde.getText().toString().isEmpty()){
                  toastMessage.warningMessage("Lütfen bir mail adresi giriniz", this);
              }else{
+                        saveImageFile.clear();
                         uriArrayList.clear();
                         ArrayList<String> qrCodes = apartment.getBuildQrCodes();
                      if (ContextCompat.checkSelfPermission(AdminBuildDetailActivity.this
@@ -162,16 +163,21 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
                          uriArrayList.add(uri);
                          }
                          sendMail(editTextMailForQRCOde.getText().toString(),uriArrayList);
-                         deleteImage(uriArrayList);
+
                          qrDialog.dismiss();
                      }
              }
                 break;
         }
     }
-    private void  deleteImage(ArrayList<Uri> uriArrayList){
-        for (Uri uri :uriArrayList) {
-            new File(String.valueOf(uri)).delete();
+    private void  deleteImage(ArrayList<File> uriArrayList){
+        for (File file :uriArrayList) {
+           // File file=new File(String.valueOf(uri));
+            if ( file.delete()){
+                Log.d("++++++++++", "deleteImage: SİLME BAŞARILI");
+            }else{
+                Log.d("++++++++++", "deleteImage: SİLME BAŞARISIZ");
+            }
         }
     }
 
@@ -276,10 +282,11 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
                     }
                     for (File file:saveImageFile) {
                         Uri uri= FileProvider.getUriForFile(this, "com.grs21.supervisor", file);
-                        ArrayList<Uri>uriArrayList=new ArrayList<>();
                         uriArrayList.add(uri);
-                        sendMail(editTextMailForQRCOde.getText().toString(),uriArrayList);
+
                     }
+                    sendMail(editTextMailForQRCOde.getText().toString(),uriArrayList);
+                    qrDialog.dismiss();
                 }
             }
         }
@@ -287,15 +294,8 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
     }
 
     @Override
-    protected void onStart() {
-        uriArrayList.clear();
-        super.onStart();
-    }
-
-    @Override
     protected void onResume() {
-        uriArrayList.clear();
         super.onResume();
-
+        deleteImage(saveImageFile);
     }
 }

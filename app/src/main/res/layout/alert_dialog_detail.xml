@@ -5,15 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/alert_dialog_background"
     >
-        <TextView
-            android:id="@+id/textViewDetailDialogEmployee"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewDetailDialogElevatorUp"
-            android:layout_toEndOf="@+id/checkboxDetailDialogElevatorMachine"
-            android:text="example Employee"
-            android:layout_marginTop="8dp"
-            />
+
         <TextView
             android:id="@+id/textViewDetailDialogDate"
             android:layout_width="wrap_content"
@@ -105,6 +97,16 @@
             android:textColor="@color/black"
 
             />
+        <TextView
+            android:id="@+id/textViewDetailDialogEmployee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewDetailDialogCost"
+            android:text="example Employee"
+            android:textColor="@color/black"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            />
        <androidx.appcompat.widget.AppCompatButton
            android:id="@+id/buttonDetailDialogCancel"
            android:layout_width="wrap_content"
@@ -112,7 +114,7 @@
            android:background="@drawable/button_background"
            android:text="cancel"
            android:layout_marginTop="10dp"
-           android:layout_below="@+id/textViewDetailDialogCost"
+           android:layout_below="@+id/textViewDetailDialogEmployee"
            android:layout_marginBottom="20dp"
            android:layout_centerHorizontal="true"
            />

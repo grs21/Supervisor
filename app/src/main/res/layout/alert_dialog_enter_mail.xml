@@ -19,8 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Mail Adresi"
-        android:textSize="22sp"
-        android:paddingStart="5dp"
+        android:textSize="27sp"
+        android:paddingStart="8dp"
         android:background="@drawable/text_background"
         android:layout_marginTop="15dp"
         />

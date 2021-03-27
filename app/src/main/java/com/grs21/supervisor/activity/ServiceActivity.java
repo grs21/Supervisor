@@ -197,9 +197,10 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
             if (result != null) {
                 if (result.getContents() != null) {
                     try {
-                        String well = apartment.getWell();
-                        String up = apartment.getElevatorUp();
-                        String machineRoom = apartment.getMachineRoom();
+                        String well = apartment.getBuildQrCodes().get(0);
+                        String up = apartment.getBuildQrCodes().get(1);
+                        String machineRoom = apartment.getBuildQrCodes().get(2);
+
                         if (well.equals(result.getContents())) {
                             binding.checkBoxServiceWell.setChecked(true);
                         } else if (up.equals(result.getContents())) {
