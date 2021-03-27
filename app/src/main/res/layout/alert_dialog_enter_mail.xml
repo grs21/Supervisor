@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:background="@drawable/alert_dialog_background"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gönderilecek mail adresini giriniz:"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        />
+    <EditText
+        android:id="@+id/editTextAlertDialogQRCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Mail Adresi"
+        android:textSize="22sp"
+        android:paddingStart="5dp"
+        android:background="@drawable/text_background"
+        android:layout_marginTop="15dp"
+        />
+    <Button
+        android:id="@+id/buttonAlertDialogQRCodeGenerate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QR Code oluştur"
+        android:background="@drawable/button_background"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        />
+
+
+</LinearLayout>
