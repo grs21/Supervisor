@@ -5,21 +5,11 @@
     android:layout_height="match_parent"
     android:background="@color/orange"
     >
-
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/lightOrange"
-
-        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/searchView"
+       android:layout_marginTop="?attr/actionBarSize"
         />
 
 </RelativeLayout>
