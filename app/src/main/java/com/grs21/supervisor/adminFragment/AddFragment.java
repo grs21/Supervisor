@@ -27,6 +27,7 @@ import com.grs21.supervisor.model.User;
 import com.grs21.supervisor.util.ToastMessage;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -82,8 +83,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
                         qrCodes.add(buildName+"Machine");
                         buildData.put("qrCodes", qrCodes);
                         Service service=new Service();
-                        service.setDate(getResources().getString(R.string.please_selected));
-                        buildData.put("service", FieldValue.arrayUnion(service));
+                        buildData.put("service", Arrays.asList());
                         fireStore.collection(currentUser.getCompany())
                                 .add(buildData)
                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -129,6 +129,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         });
         alertDialog.create().show();
     }
+
     private boolean isConnected() {
         ConnectivityManager connectivityManager=(ConnectivityManager) getActivity()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -136,6 +137,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         NetworkInfo mobileConn=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected());
     }
+
     private void itemReset(){
         binding.editTextBuildName.setText("");
         binding.editTextBuildAddress.setText("");
@@ -147,6 +149,7 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.editTextContractDate.setText("");
         binding.editTextCost.setText("");
     }
+
     private void getTextValue(){
         buildName= binding.editTextBuildName.getText().toString().trim();
         cost=binding.editTextCost.getText().toString().trim();

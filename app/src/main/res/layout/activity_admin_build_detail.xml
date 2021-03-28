@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
 
     >
@@ -30,9 +30,27 @@
      android:layout_marginBottom="15dp"
   >
   <RelativeLayout
+      android:padding="10dp"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       >
+   <com.google.android.material.textfield.TextInputLayout
+       android:id="@+id/textInputLayoutAdmin"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+       app:startIconDrawable="@drawable/ic_service"
+       android:hint="@string/please_selected"
+       >
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteSpinnerAdmin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:lines="1"
+        />
+
+   </com.google.android.material.textfield.TextInputLayout>
 
    <TextView
        android:id="@+id/textAdminBuildName"
@@ -40,6 +58,7 @@
        android:layout_height="wrap_content"
        android:text="Apartman ismi:"
        android:textSize="13sp"
+       android:layout_below="@+id/textInputLayoutAdmin"
        android:layout_marginTop="23dp"
        android:layout_marginStart="10dp"
        android:textColor="@color/black"
@@ -253,21 +272,7 @@
        android:paddingTop="3dp"
        android:paddingStart="10dp"
        />
-   <Spinner
-       android:id="@+id/spinnerDate"
-       android:layout_width="130dp"
-       android:layout_height="20dp"
-       android:layout_below="@+id/textAdminContractDate"
-       android:layout_toEndOf="@+id/textViewBuildDetailContractDate"
-       android:layout_marginTop="7dp"
-       android:layout_marginBottom="7dp"
-       android:layout_marginStart="10dp"
-       android:gravity="center"
-       android:spinnerMode="dropdown"
-       android:background="@android:color/transparent"
-       android:tooltipText="@string/please_selected"
 
-       />
    <androidx.appcompat.widget.AppCompatButton
        android:id="@+id/buttonDetailToEdit"
        android:layout_width="match_parent"

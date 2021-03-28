@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ import com.grs21.supervisor.model.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class UserBuildDetailActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class UserBuildDetailActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private static final String TAG = "UserBuildDetailActivity";
     private ActivityUserBuildDetailBinding binding;
     private Intent intent;
@@ -35,7 +36,7 @@ public class UserBuildDetailActivity extends AppCompatActivity implements View.O
     private Apartment apartment;
     private User currentUser;
     private Dialog dialog;
-    private Spinner spinner;
+    private AutoCompleteTextView spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +56,8 @@ public class UserBuildDetailActivity extends AppCompatActivity implements View.O
     }
 
     private void initializeSpinner() {
-        spinner=binding.spinnerUserDate;
-        spinner.setOnItemSelectedListener(this);
+        spinner=binding.autoCompleteSpinnerUser;
+        spinner.setOnItemClickListener(this);
         for (HashMap service:apartment.getServiceArrayList()) {
             Service generateService=new Service(
                     (boolean)service.get("well")
@@ -67,6 +68,10 @@ public class UserBuildDetailActivity extends AppCompatActivity implements View.O
                     ,(String)service.get("cost"));
             serviceArrayList.add(generateService);
         }
+        ArrayAdapter<Service> adapter = new ArrayAdapter<>(this,
+                R.layout.item_spinner, serviceArrayList);
+        spinner.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
     }
 
@@ -113,11 +118,6 @@ public class UserBuildDetailActivity extends AppCompatActivity implements View.O
     }
 
     private void initializeData(Apartment apartment) {
-        ArrayAdapter<Service> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, serviceArrayList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
         binding.textViewUserBuildDetailBuildName.setText(apartment.getApartmentName());
         binding.textViewUserBuildDetailBuildAddress.setText(apartment.getApartmentAddress());
         binding.textViewUserBuildDetailCost.setText(apartment.getCost());
@@ -129,7 +129,7 @@ public class UserBuildDetailActivity extends AppCompatActivity implements View.O
         binding.textViewUserBuildDetailContractDate.setText(apartment.getContractDate());
     }
 
-    @Override
+  /*  @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (position>0) {
             TextView textViewDialogDate,textViewDialogEmployee,textViewDialogCost;
@@ -160,5 +160,34 @@ public class UserBuildDetailActivity extends AppCompatActivity implements View.O
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }*/
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        TextView textViewDialogDate,textViewDialogEmployee,textViewDialogCost;
+        CheckBox checkBoxWell,checkBoxUp,checkBoxMachineRoom;
+
+        Service spinnerService = serviceArrayList.get(position);
+        dialog = new Dialog(UserBuildDetailActivity.this);
+        dialog.setContentView(R.layout.alert_dialog_detail);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        textViewDialogDate = dialog.findViewById(R.id.textViewDetailDialogDate);
+        textViewDialogEmployee = dialog.findViewById(R.id.textViewDetailDialogEmployee);
+        textViewDialogCost=dialog.findViewById(R.id.textViewDetailDialogCost);
+
+        checkBoxMachineRoom = dialog.findViewById(R.id.checkboxDetailDialogElevatorMachine);
+        checkBoxUp = dialog.findViewById(R.id.checkboxDetailDialogElevatorTop);
+        checkBoxWell = dialog.findViewById(R.id.checkboxDetailDialogWell);
+
+        checkBoxWell.setChecked(spinnerService.getWell());
+        checkBoxUp.setChecked(spinnerService.getElevatorUp());
+        checkBoxMachineRoom.setChecked(spinnerService.getMachineRoom());
+
+        textViewDialogEmployee.setText(spinnerService.getEmployee());
+        textViewDialogDate.setText(spinnerService.getDate());
+        textViewDialogCost.setText(spinnerService.getCost());
+        dialog.findViewById(R.id.buttonDetailDialogCancel).setOnClickListener(this);
+        dialog.show();
     }
 }

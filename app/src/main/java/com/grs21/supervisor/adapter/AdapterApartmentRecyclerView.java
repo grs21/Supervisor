@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.grs21.supervisor.AdminBuildDetailActivity;
 import com.grs21.supervisor.R;
 import com.grs21.supervisor.model.Apartment;
+import com.grs21.supervisor.model.Service;
 import com.grs21.supervisor.model.User;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class AdapterApartmentRecyclerView extends RecyclerView.Adapter<AdapterAp
     private ArrayList<Apartment> apartmentFull;
     private static final String TAG = "AdapterApartmentRecycle";
     private User currentUser;
+    private HashMap<String,Object> defaultServiceValue = new HashMap();
 
 
     public AdapterApartmentRecyclerView(ArrayList<Apartment> apartments,User currentUser) {
@@ -34,6 +36,10 @@ public class AdapterApartmentRecyclerView extends RecyclerView.Adapter<AdapterAp
         apartmentFull = new ArrayList<>();
         apartmentFull.addAll(apartments);
         this.currentUser=currentUser;
+        defaultServiceValue.put("well", false);
+        defaultServiceValue.put("machineRoom", false);
+        defaultServiceValue.put("elevatorUp", false);
+        defaultServiceValue.put("date","../../.....");
     }
 
     @NonNull
@@ -46,16 +52,16 @@ public class AdapterApartmentRecyclerView extends RecyclerView.Adapter<AdapterAp
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        int lastServiceIndex=apartments.get(position).getServiceArrayList().size()-1;
-        HashMap lastService=apartments.get(position).getServiceArrayList().get(lastServiceIndex);
+        int lastServiceArraySize=apartments.get(position).getServiceArrayList().size();
+        HashMap lastService=defaultServiceValue;
+        if (lastServiceArraySize!=0){
+            lastService=apartments.get(position).getServiceArrayList().get(lastServiceArraySize-1);
+        }
         boolean well=(boolean) lastService.get("well");
         boolean machineRoom=(boolean)lastService.get("machineRoom");
         boolean elevatorUp=(boolean)lastService.get("elevatorUp");
         String buildName=apartments.get(position).getApartmentName();
-        String lastServiceDate=(String)lastService.get("date");;
-        if (apartments.get(position).getServiceArrayList().size()==1){
-             lastServiceDate="../../.....";
-        }
+        String lastServiceDate=(String)lastService.get("date");
         holder.buildName.setText(buildName);
         holder.lastServiceDate.setText(lastServiceDate);
         holder.checkBoxWell.setChecked(well);

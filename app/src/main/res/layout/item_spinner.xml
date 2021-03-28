@@ -1,0 +1,10 @@
+<TextView
+    android:text="@string/please_selected"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textColor="@color/black"
+    android:textStyle="bold"
+    android:textSize="16sp"
+    android:padding="13dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
+

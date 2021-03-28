@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
 
 
@@ -28,11 +28,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="15dp"
+        android:padding="10dp"
         >
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                app:startIconDrawable="@drawable/ic_service"
+                android:hint="@string/please_selected"
+                >
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteSpinnerUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:lines="1"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
             <TextView
                 android:id="@+id/textUserBuildName"
                 android:layout_width="wrap_content"
@@ -42,6 +60,7 @@
                 android:layout_marginTop="23dp"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/black"
+                android:layout_below="@+id/textInputLayoutUser"
                 />
             <TextView
                 android:id="@+id/textViewUserBuildDetailBuildName"

@@ -27,12 +27,17 @@ public class AdapterUserApartmentRecyclerView extends RecyclerView.Adapter<Adapt
     private ArrayList<Apartment> apartmentFull;
     private static final String TAG = "AdapterApartmentRecycle";
     private User currentUser;
+    private HashMap<String,Object> defaultServiceValue = new HashMap();
 
     public AdapterUserApartmentRecyclerView(ArrayList<Apartment> apartments, User currentUser) {
         this.apartments = apartments;
         this.apartmentFull = new ArrayList<>();
         apartmentFull.addAll(apartments);
         this.currentUser = currentUser;
+        defaultServiceValue.put("well", false);
+        defaultServiceValue.put("machineRoom", false);
+        defaultServiceValue.put("elevatorUp", false);
+        defaultServiceValue.put("date","../../.....");
     }
 
     @NonNull
@@ -45,16 +50,16 @@ public class AdapterUserApartmentRecyclerView extends RecyclerView.Adapter<Adapt
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        int lastServiceIndex=apartments.get(position).getServiceArrayList().size()-1;
-        HashMap lastService=apartments.get(position).getServiceArrayList().get(lastServiceIndex);
+        int lastServiceArraySize=apartments.get(position).getServiceArrayList().size();
+        HashMap lastService=defaultServiceValue;
+        if (lastServiceArraySize!=0){
+            lastService=apartments.get(position).getServiceArrayList().get(lastServiceArraySize-1);
+        }
         boolean well=(boolean) lastService.get("well");
         boolean machineRoom=(boolean)lastService.get("machineRoom");
         boolean elevatorUp=(boolean)lastService.get("elevatorUp");
         String buildName=apartments.get(position).getApartmentName();
         String lastServiceDate=(String)lastService.get("date");
-        if (apartments.get(position).getServiceArrayList().size()==1){
-            lastServiceDate="../../.....";
-        }
         holder.buildName.setText(buildName);
         holder.lastServiceDate.setText(lastServiceDate);
         holder.checkBoxWell.setChecked(well);

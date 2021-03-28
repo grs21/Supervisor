@@ -44,7 +44,7 @@ import android.graphics.Bitmap;
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 
-public class AdminBuildDetailActivity extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemSelectedListener {
+public class AdminBuildDetailActivity extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemClickListener {
     private ActivityAdminBuildDetailBinding binding;
     private Intent intent;
     private Bitmap bitmap;
@@ -66,11 +66,9 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
         binding=ActivityAdminBuildDetailBinding.inflate(getLayoutInflater());
         View view=binding.getRoot();
         setContentView(view);
-        spinner=binding.spinnerDate;
-        spinner.setOnItemSelectedListener(this);
         binding.buttonDetailToEdit.setOnClickListener(this);
         binding.buttonMakeService.setOnClickListener(this);
-
+        binding.autoCompleteSpinnerAdmin.setOnItemClickListener(this);
         intent=getIntent();
         apartment=(Apartment) intent.getSerializableExtra("apartment");
         currentUser=(User)intent.getSerializableExtra("currentUser");
@@ -103,10 +101,10 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
             serviceArrayList.add(generateService);
         }
         ArrayAdapter<Service> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, serviceArrayList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+                R.layout.item_spinner, serviceArrayList);
+        binding.autoCompleteSpinnerAdmin.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
         binding.textViewBuildDetailBuildName.setText(apartment.getApartmentName());
         binding.textViewBuildDetailBuildAddress.setText(apartment.getApartmentAddress());
         binding.textViewBuildDetailCost.setText(apartment.getCost());
@@ -172,12 +170,7 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
     }
     private void  deleteImage(ArrayList<File> uriArrayList){
         for (File file :uriArrayList) {
-           // File file=new File(String.valueOf(uri));
-            if ( file.delete()){
-                Log.d("++++++++++", "deleteImage: SİLME BAŞARILI");
-            }else{
-                Log.d("++++++++++", "deleteImage: SİLME BAŞARISIZ");
-            }
+            file.delete();
         }
     }
 
@@ -226,7 +219,7 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
 
     }
 
-    @Override
+   /* @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (position>0) {
             TextView textViewDialogDate,textViewDialogEmployee,textViewDialogCost;
@@ -256,7 +249,7 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
@@ -297,5 +290,34 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
     protected void onResume() {
         super.onResume();
         deleteImage(saveImageFile);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        TextView textViewDialogDate,textViewDialogEmployee,textViewDialogCost;
+        CheckBox checkBoxWell,checkBoxUp,checkBoxMachineRoom;
+
+        Service spinnerService = serviceArrayList.get(position);
+        spinnerDialog = new Dialog(AdminBuildDetailActivity.this);
+        spinnerDialog.setContentView(R.layout.alert_dialog_detail);
+        spinnerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        textViewDialogDate = spinnerDialog.findViewById(R.id.textViewDetailDialogDate);
+        textViewDialogEmployee = spinnerDialog.findViewById(R.id.textViewDetailDialogEmployee);
+        textViewDialogCost= spinnerDialog.findViewById(R.id.textViewDetailDialogCost);
+
+        checkBoxMachineRoom = spinnerDialog.findViewById(R.id.checkboxDetailDialogElevatorMachine);
+        checkBoxUp = spinnerDialog.findViewById(R.id.checkboxDetailDialogElevatorTop);
+        checkBoxWell = spinnerDialog.findViewById(R.id.checkboxDetailDialogWell);
+
+        checkBoxWell.setChecked(spinnerService.getWell());
+        checkBoxUp.setChecked(spinnerService.getElevatorUp());
+        checkBoxMachineRoom.setChecked(spinnerService.getMachineRoom());
+
+        textViewDialogEmployee.setText(spinnerService.getEmployee());
+        textViewDialogDate.setText(spinnerService.getDate());
+        textViewDialogCost.setText(spinnerService.getCost());
+        spinnerDialog.findViewById(R.id.buttonDetailDialogCancel).setOnClickListener(this);
+        spinnerDialog.show();
     }
 }
