@@ -1,43 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
-    <ImageView
+    tools:context=".LoginActivity"
+    android:background="@drawable/login_image"
+    android:orientation="vertical"
+    >
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/elevator"
-        android:scaleType="centerCrop"
-        />
-    <EditText
-        android:id="@+id/editTextUserName"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="33dp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/app_name"
+        android:textColor="#c64756"
+        android:textSize="33sp"
+        android:textStyle="bold" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@drawable/text_background"
-        android:hint="@string/user_name"
-        android:textSize="22sp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="33dp"
         android:layout_marginEnd="33dp"
-        android:layout_marginTop="190dp"
+        android:layout_marginTop="30dp"
         android:padding="4dp"
-        />
-    <EditText
-        android:id="@+id/editTextPassword"
+        android:textColorHint="#c64756"
+        >
+        <EditText
+            android:id="@+id/editTextUserName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textEmailAddress"
+            android:drawableLeft="@drawable/ic_email"
+            android:hint="@string/e_mail"
+            android:textColorHint="#c64756"
+            android:textSize="22sp"
+            android:textColor="#c64756"
+            android:lines="1"
+            android:drawablePadding="2dp"
+            android:background="@color/zxing_transparent"
+            android:paddingStart="0dp"
+            android:paddingTop="17dp"
+
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etPasswordLayout"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@drawable/text_background"
-        android:hint="@string/password"
-        android:textSize="22sp"
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true"
         android:layout_marginStart="33dp"
         android:layout_marginEnd="33dp"
         android:layout_marginTop="40dp"
-        android:padding="4dp"
         android:layout_below="@+id/editTextUserName"
-        android:inputType="numberPassword"
-        />
+        android:textColorHint="#c64756"
+
+        >
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/password"
+            android:textSize="22sp"
+            android:textColor="#c64756"
+            android:textColorHint="#c64756"
+            android:inputType="numberPassword"
+            android:drawableStart="@drawable/ic_lock"
+            android:background="@android:color/transparent"
+            android:lines="1"
+            android:paddingStart="0dp"
+            android:drawablePadding="3dp"
+            android:paddingTop="17dp"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonLogin"
         android:layout_width="match_parent"
@@ -46,11 +93,24 @@
         android:text="@string/login"
         android:gravity="center"
         android:textSize="25sp"
-        android:textColor="#FF9800"
-        android:layout_below="@+id/editTextPassword"
+        android:textColor="@color/white"
+        android:layout_below="@+id/etPasswordLayout"
         android:layout_marginStart="33dp"
         android:layout_marginEnd="33dp"
         android:layout_marginTop="40dp"
         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="13sp"
+        android:textColor="#c64756"
+        android:textStyle="bold"
+        android:text="İletişim için supervisor.elevator@gmail.com"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="2dp"
+        android:drawableStart="@drawable/ic_baseline_mark_email_read_24"
+        />
 
-</RelativeLayout>
+</LinearLayout>

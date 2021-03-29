@@ -2,6 +2,7 @@
     <string name="app_name">Supervisor</string>
     <string name="login">Login</string>
     <string name="user_name">User name</string>
+    <string name="e_mail">E-mail</string>
     <string name="password">Password</string>
     <string name="not_match">Attention wrong building selection</string>
     <string name="create_account">create Account</string>

@@ -2,11 +2,11 @@
     <!-- Base application theme. -->
     <style name="Theme.Supervisor" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#2196F3</item>
-        <item name="colorPrimaryVariant">#03A9F4</item>
+        <item name="colorPrimary">#c64756</item>
+        <item name="colorPrimaryVariant">#184d47</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondary">#c64756</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
