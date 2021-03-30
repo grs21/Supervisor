@@ -20,7 +20,7 @@
             android:layout_height="?attr/actionBarSize"
             android:elevation="4dp"
             app:titleTextColor="@color/white"
-            android:background="@color/orange"
+            android:background="#c64756"
             />
         <FrameLayout
             android:id="@+id/admin_fragmentContainer"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             app:menu="@menu/admin_bottom_navigation"
-            app:itemIconTint="#FF9800"
+            app:itemIconTint="#c64756"
             />
 
     </RelativeLayout>
