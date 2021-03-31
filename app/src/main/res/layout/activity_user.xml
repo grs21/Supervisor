@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/userDrawerLayout"
     android:fitsSystemWindows="true"
-    tools:context=".UserActivity"
+    tools:context=".activity.UserActivity"
     tools:openDrawer="start">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
            android:layout_width="match_parent"
            android:layout_height="?attr/actionBarSize"
            app:titleTextColor="@color/white"
-           android:background="@color/orange"
+           android:background="#276678"
            android:elevation="10dp"
         />
         <FrameLayout

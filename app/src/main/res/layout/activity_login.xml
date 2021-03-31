@@ -20,7 +20,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="@string/app_name"
-        android:textColor="#c64756"
+        android:textColor="#1687a7"
         android:textSize="33sp"
         android:textStyle="bold" />
     <com.google.android.material.textfield.TextInputLayout
@@ -30,7 +30,8 @@
         android:layout_marginStart="33dp"
         android:layout_marginEnd="33dp"
         android:layout_marginTop="30dp"
-        android:textColorHint="#c64756"
+        android:textColorHint="#1687a7"
+        android:background="@drawable/custom_edittext"
 
         >
         <EditText
@@ -40,7 +41,7 @@
             android:inputType="textEmailAddress"
             android:drawableLeft="@drawable/ic_email"
             android:hint="@string/e_mail"
-            android:textColorHint="#c64756"
+            android:textColorHint="#1687a7"
             android:textSize="22sp"
             android:textColor="@color/white"
             android:lines="1"
@@ -48,7 +49,7 @@
 
             android:paddingStart="0dp"
             android:paddingTop="17dp"
-            android:background="@drawable/custom_edittext"
+            android:background="#48FFFFFF"
 
             />
 
@@ -64,7 +65,7 @@
         android:layout_marginEnd="33dp"
         android:layout_marginTop="40dp"
         android:layout_below="@+id/editTextUserName"
-        android:textColorHint="#c64756"
+        android:textColorHint="#1687a7"
         android:background="@drawable/custom_edittext"
 
         >
@@ -75,10 +76,10 @@
             android:hint="@string/password"
             android:textSize="22sp"
             android:textColor="@color/white"
-            android:textColorHint="#c64756"
+            android:textColorHint="#1687a7"
             android:inputType="numberPassword"
             android:drawableStart="@drawable/ic_lock"
-            android:background="@android:color/transparent"
+            android:background="#48FFFFFF"
             android:lines="1"
             android:paddingStart="0dp"
             android:drawablePadding="3dp"
@@ -106,13 +107,14 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="13sp"
-        android:textColor="#c64756"
+        android:textColor="#1687a7"
         android:textStyle="bold"
         android:text="İletişim için supervisor.elevator@gmail.com"
         android:layout_marginTop="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="2dp"
         android:drawableStart="@drawable/ic_baseline_mark_email_read_24"
+        android:background="#48FFFFFF"
         />
 
 </LinearLayout>

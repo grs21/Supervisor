@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.grs21.supervisor.activity.AdminActivity;
+import com.grs21.supervisor.activity.UserActivity;
 import com.grs21.supervisor.databinding.ActivityLoginBinding;
 import com.grs21.supervisor.model.User;
 import com.grs21.supervisor.util.ToastMessage;
@@ -87,7 +89,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             checkInput(binding.editTextPassword);
             if (state) {
                 progressDialog = new ProgressDialog(v.getContext());
-                progressDialog.setTitle(R.string.uploading);
+                progressDialog.setTitle(R.string.log_in);
                 progressDialog.show();
                 firebaseAuth.signInWithEmailAndPassword(binding.editTextUserName.getText().toString().trim()
                         , binding.editTextPassword.getText().toString().trim())

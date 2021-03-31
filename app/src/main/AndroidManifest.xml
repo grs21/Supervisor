@@ -24,10 +24,10 @@
         <activity android:name=".activity.ServiceActivity" />
         <activity
             android:name=".ApartmentEditActivity"
-            android:parentActivityName=".AdminActivity" />
+            android:parentActivityName=".activity.AdminActivity" />
         <activity android:name=".AdminBuildDetailActivity" />
-        <activity android:name=".UserActivity" />
-        <activity android:name=".AdminActivity" />
+        <activity android:name=".activity.UserActivity" />
+        <activity android:name=".activity.AdminActivity" />
         <activity android:name=".RegistrationActivity" />
         <activity
             android:name=".util.CaptureAct"
@@ -53,5 +53,8 @@
                 tools:replace="android:resource"
                 />
         </provider>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 </manifest>

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminActivity"
+    tools:context=".activity.AdminActivity"
     android:id="@+id/drawerLayout"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
@@ -20,7 +20,7 @@
             android:layout_height="?attr/actionBarSize"
             android:elevation="4dp"
             app:titleTextColor="@color/white"
-            android:background="#c64756"
+            android:background="#1687a7"
             />
         <FrameLayout
             android:id="@+id/admin_fragmentContainer"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             app:menu="@menu/admin_bottom_navigation"
-            app:itemIconTint="#c64756"
+            app:itemIconTint="#276678"
             />
 
     </RelativeLayout>
@@ -45,6 +45,7 @@
         app:menu="@menu/admin_drawer_menu"
         app:itemIconPadding="15dp"
         android:layout_gravity="start"
+        android:background="#d3e0ea"
         />
 
 

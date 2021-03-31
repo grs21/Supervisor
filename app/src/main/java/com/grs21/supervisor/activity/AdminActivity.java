@@ -1,4 +1,4 @@
-package com.grs21.supervisor;
+package com.grs21.supervisor.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -20,6 +20,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.grs21.supervisor.LoginActivity;
+import com.grs21.supervisor.R;
+import com.grs21.supervisor.RegistrationActivity;
 import com.grs21.supervisor.databinding.ActivityAdminBinding;
 import com.grs21.supervisor.adminFragment.AddFragment;
 import com.grs21.supervisor.adminFragment.ApartmentFragment;

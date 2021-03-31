@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.grs21.supervisor.activity.AdminActivity;
 import com.grs21.supervisor.databinding.ActivityAppartmentEditBinding;
 import com.grs21.supervisor.model.Apartment;
 import com.grs21.supervisor.model.User;
@@ -202,7 +203,7 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
     }
 
     private void startAdminActivity(){
-        Intent intent=new Intent(ApartmentEditActivity.this,AdminActivity.class);
+        Intent intent=new Intent(ApartmentEditActivity.this, AdminActivity.class);
         intent.putExtra("currentUser", currentUSer);
         startActivity(intent);
     }
