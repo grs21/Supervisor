@@ -89,7 +89,6 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                 ,R.string.navigation_drawer_open,R.string.navigation_drawer_close );
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
     }
 
     @Override
@@ -150,6 +149,4 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         }
         return true;
     }
-
-
 }

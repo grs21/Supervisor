@@ -26,6 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.grs21.supervisor.R;
 import com.grs21.supervisor.adapter.AdapterApartmentRecyclerView;
 import com.grs21.supervisor.databinding.FragmentAdminApartmentBinding;
+import com.grs21.supervisor.databinding.FragmentAdminApartmentBinding;
 import com.grs21.supervisor.model.Apartment;
 import com.grs21.supervisor.model.User;
 import java.util.ArrayList;

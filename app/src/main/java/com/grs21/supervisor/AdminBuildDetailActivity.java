@@ -59,8 +59,6 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
     private static final String TAG = "AdminBuildDetailActivity";
     private ToastMessage toastMessage=new ToastMessage();
     private ArrayList<Uri>uriArrayList=new ArrayList<>();
-
-
     private User currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

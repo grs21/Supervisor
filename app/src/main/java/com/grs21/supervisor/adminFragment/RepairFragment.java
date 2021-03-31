@@ -14,6 +14,9 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -50,7 +53,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
-import java.text.Format;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -79,12 +81,12 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding=FragmentAdminRepairBinding.inflate(inflater,container,false);
+        setHasOptionsMenu(true);
         toastMessage=new ToastMessage();
          Date currentDate=Calendar.getInstance().getTime();
          date= DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(currentDate);
         repairRecyclerView=binding.recyclerViewRepair;
         repairRecyclerView.setOnClickListener(this);
-        binding.imageButtonRepairAdd.setOnClickListener(this);
 
          firebaseFirestore=FirebaseFirestore.getInstance();
 
@@ -95,11 +97,25 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.admin_add_menu,menu);
+        MenuItem menuItem=menu.findItem(R.id.menuItemRepairAdd);
+        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                initializeAddAlertDialog();
+                return false;
+            }
+        });
+         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
     public void onClick(View v) {
          final int detailDialogSave=R.id.buttonRepairDetailDialogSave;
          final int detailDialogDelete=R.id.buttonRepairDetailDialogDelete;
          final int detailDialogCancel=R.id.buttonRepairDetailDialogCancel;
-         final int addRepair=R.id.imageButtonRepairAdd;
+         final int addRepair=R.id.menuItemRepairAdd;
          final int dialogSave=R.id.buttonRepairDialogSave;
          final int dialogCancel=R.id.buttonRepairDialogCancel;
         switch (v.getId()){

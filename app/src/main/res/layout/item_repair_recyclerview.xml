@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:background="@color/orange"
+    android:background="#d3e0ea"
     android:layout_marginTop="3dp"
     >
 
@@ -15,7 +15,7 @@
         android:layout_marginTop="10dp"
         android:textSize="22sp"
         android:text="@string/buildName"
-        android:textColor="@color/black"
+        android:textColor="#1687a7"
         />
     <TextView
         android:id="@+id/textVİewRepairItemDate"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewRepairRecyclerViewItemBuildName"
         android:text="@string/date"
-        android:textColor="@color/black"
+        android:textColor="#1687a7"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         />
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="realDate"
-        android:textColor="@color/black"
+        android:textColor="#1687a7"
         android:layout_marginTop="20dp"
         android:layout_marginStart="7dp"
         android:layout_toEndOf="@+id/textVİewRepairItemDate"

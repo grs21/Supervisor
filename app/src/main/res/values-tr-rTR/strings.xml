@@ -24,7 +24,7 @@
     <string name="well">kuyu</string>
     <string name="next">ileri</string>
     <string name="previous">önceki</string>
-    <string name="log_in">Sisteme giriliyor ...</string>
+    <string name="log_in">Sisteme giriş yapılıyor ...</string>
     <string name="navigation_drawer_open">menu aç</string>
     <string name="navigation_drawer_close">menu kapa</string>
     <string name="buildName">Bina Adı</string>
