@@ -1,6 +1,7 @@
 package com.grs21.supervisor;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -9,6 +10,7 @@ import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -26,9 +28,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.grs21.supervisor.activity.AdminActivity;
 import com.grs21.supervisor.activity.ServiceActivity;
 import com.grs21.supervisor.databinding.ActivityAdminBuildDetailBinding;
@@ -46,13 +52,13 @@ import android.graphics.Bitmap;
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 
-public class AdminBuildDetailActivity extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemClickListener {
+public class    AdminBuildDetailActivity extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemClickListener {
     private ActivityAdminBuildDetailBinding binding;
     private Intent intent;
     private Bitmap bitmap;
     private Apartment apartment;
     private Dialog spinnerDialog,qrDialog;
-    private Spinner spinner;
+    private FirebaseFirestore fireStore;
     private ArrayList<Service> serviceArrayList=new ArrayList<>();
     private ArrayList<File> saveImageFile=new ArrayList<>();
     private EditText editTextMailForQRCOde;
@@ -66,6 +72,7 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
         binding=ActivityAdminBuildDetailBinding.inflate(getLayoutInflater());
         View view=binding.getRoot();
         setContentView(view);
+        fireStore=FirebaseFirestore.getInstance();
         binding.buttonDetailToEdit.setOnClickListener(this);
         binding.buttonMakeService.setOnClickListener(this);
         binding.autoCompleteSpinnerAdmin.setOnItemClickListener(this);
@@ -119,9 +126,10 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
     @Override
     public void onClick(View v) {
         final int buttonGotoEdit=R.id.buttonDetailToEdit;
-        final int buttonDialogCancel=R.id.buttonDetailDialogCancel;
+        final int buttonServiceDetailDialogCancel=R.id.buttonAdminDetailDialogCancel;
         final int buttonMakeService=R.id.buttonMakeService;
         final int buttonAlertDialogSend=R.id.buttonAlertDialogQRCodeGenerate;
+
 
         switch (v.getId()){
             case buttonGotoEdit:
@@ -131,7 +139,7 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
                 startActivity(intent);
                 finish();
                 break;
-            case buttonDialogCancel:
+            case buttonServiceDetailDialogCancel:
                 spinnerDialog.dismiss();
                 break;
             case buttonMakeService:
@@ -161,7 +169,6 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
                          uriArrayList.add(uri);
                          }
                          sendMail(editTextMailForQRCOde.getText().toString(),uriArrayList);
-
                          qrDialog.dismiss();
                      }
              }
@@ -216,40 +223,7 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
         }catch (Exception e){
             Log.e("+++++++", "imageSave: ",e );
         }
-
     }
-
-   /* @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (position>0) {
-            TextView textViewDialogDate,textViewDialogEmployee,textViewDialogCost;
-            CheckBox checkBoxWell,checkBoxUp,checkBoxMachineRoom;
-            Service spinnerService = (Service) parent.getSelectedItem();
-            spinnerDialog = new Dialog(AdminBuildDetailActivity.this);
-            spinnerDialog.setContentView(R.layout.alert_dialog_detail);
-            spinnerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            textViewDialogDate = spinnerDialog.findViewById(R.id.textViewDetailDialogDate);
-            textViewDialogEmployee = spinnerDialog.findViewById(R.id.textViewDetailDialogEmployee);
-            textViewDialogCost= spinnerDialog.findViewById(R.id.textViewDetailDialogCost);
-            checkBoxMachineRoom = spinnerDialog.findViewById(R.id.checkboxDetailDialogElevatorMachine);
-            checkBoxUp = spinnerDialog.findViewById(R.id.checkboxDetailDialogElevatorTop);
-            checkBoxWell = spinnerDialog.findViewById(R.id.checkboxDetailDialogWell);
-
-            checkBoxWell.setChecked(spinnerService.getWell());
-            checkBoxUp.setChecked(spinnerService.getElevatorUp());
-            checkBoxMachineRoom.setChecked(spinnerService.getMachineRoom());
-
-            textViewDialogEmployee.setText(spinnerService.getEmployee());
-            textViewDialogDate.setText(spinnerService.getDate());
-            textViewDialogCost.setText(spinnerService.getCost());
-            spinnerDialog.findViewById(R.id.buttonDetailDialogCancel).setOnClickListener(this);
-            spinnerDialog.show();
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-    }*/
 
     @Override
     public void onBackPressed() {
@@ -299,16 +273,16 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
 
         Service spinnerService = serviceArrayList.get(position);
         spinnerDialog = new Dialog(AdminBuildDetailActivity.this);
-        spinnerDialog.setContentView(R.layout.alert_dialog_detail);
+        spinnerDialog.setContentView(R.layout.alert_dialog_admin_service_detail);
         spinnerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        textViewDialogDate = spinnerDialog.findViewById(R.id.textViewDetailDialogDate);
-        textViewDialogEmployee = spinnerDialog.findViewById(R.id.textViewDetailDialogEmployee);
-        textViewDialogCost= spinnerDialog.findViewById(R.id.textViewDetailDialogCost);
+        textViewDialogDate = spinnerDialog.findViewById(R.id.textViewAdminDetailDialogDate);
+        textViewDialogEmployee = spinnerDialog.findViewById(R.id.textViewAdminDetailDialogEmployee);
+        textViewDialogCost= spinnerDialog.findViewById(R.id.textViewAdminDetailDialogCost);
 
-        checkBoxMachineRoom = spinnerDialog.findViewById(R.id.checkboxDetailDialogElevatorMachine);
-        checkBoxUp = spinnerDialog.findViewById(R.id.checkboxDetailDialogElevatorTop);
-        checkBoxWell = spinnerDialog.findViewById(R.id.checkboxDetailDialogWell);
+        checkBoxMachineRoom = spinnerDialog.findViewById(R.id.checkboxAdminDetailDialogElevatorMachine);
+        checkBoxUp = spinnerDialog.findViewById(R.id.checkboxAdminDetailDialogElevatorTop);
+        checkBoxWell = spinnerDialog.findViewById(R.id.checkboxAdminDetailDialogWell);
 
         checkBoxWell.setChecked(spinnerService.getWell());
         checkBoxUp.setChecked(spinnerService.getElevatorUp());
@@ -317,7 +291,43 @@ public class AdminBuildDetailActivity extends AppCompatActivity implements View.
         textViewDialogEmployee.setText(spinnerService.getEmployee());
         textViewDialogDate.setText(spinnerService.getDate());
         textViewDialogCost.setText(spinnerService.getCost());
-        spinnerDialog.findViewById(R.id.buttonDetailDialogCancel).setOnClickListener(this);
+        spinnerDialog.findViewById(R.id.buttonAdminDetailDialogCancel).setOnClickListener(this);
+        spinnerDialog.findViewById(R.id.buttonAdminDetailAdminDelete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(AdminBuildDetailActivity.this);
+                alertDialog.setTitle(getResources().getString(R.string.do_you_want_delete));
+                alertDialog.setPositiveButton("Sil", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        serviceArrayList.remove(position);
+                        DocumentReference apRef = fireStore.collection(currentUser.getCompany()).document(apartment.getUuid());
+                        apRef.update("service",serviceArrayList).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    toastMessage.successMessage("Silindi ", AdminBuildDetailActivity.this);
+                                    spinnerDialog.dismiss();
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                toastMessage.errorMessage("Silme başarısız", AdminBuildDetailActivity.this);
+                                Log.e("+++++++++++++++", "onFailure: ",e );
+                            }
+                        });
+                    }
+                });
+                alertDialog.setNegativeButton("İptal", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        spinnerDialog.dismiss();
+                    }
+                });
+                alertDialog.create().show();
+            }
+        });
         spinnerDialog.show();
     }
 }

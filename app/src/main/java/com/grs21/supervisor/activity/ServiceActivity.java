@@ -151,7 +151,7 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                                 service.setElevatorUp(elevatorUpBoolean);
                                 service.setDate(dateString);
                                 service.setEmployee(user.getEmail());
-                                service.setCost(cost.getText().toString().trim());
+                                service.setCost(cost.getText().toString().trim()+"TL");
                                 DocumentReference docRef = fireStore.collection(company)
                                         .document(apartment.getUuid());
                                 docRef.update("service", FieldValue.arrayUnion(service));
@@ -177,7 +177,7 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
         integrator.setCaptureActivity(CaptureAct.class);
         integrator.setOrientationLocked(false);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        integrator.setPrompt("Scanning Code");
+        integrator.setPrompt("Flaş için ses tuşuna basın !!");
         integrator.initiateScan();
     }
 

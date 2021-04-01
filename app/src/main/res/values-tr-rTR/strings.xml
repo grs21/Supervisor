@@ -46,7 +46,7 @@
     <string name="failure_delete">silme Başarılı !!</string>
     <string name="logout">Çıkış</string>
     <string name="new_account">Yeni Hesap OLuştur</string>
-    <string name="do_you_want_delete">Silmek İstiyor musun !!</string>
+    <string name="do_you_want_delete">Kalıcı olarak silmek istediğinden emin misin !!</string>
     <string name="connect">bağlantı</string>
     <string name="repair_save">Arıza Kaydedildi</string>
     <string name="search_build">Bina Ara</string>

@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,7 +26,6 @@ import com.grs21.supervisor.databinding.ActivityAppartmentEditBinding;
 import com.grs21.supervisor.model.Apartment;
 import com.grs21.supervisor.model.User;
 import com.grs21.supervisor.util.ToastMessage;
-
 import java.util.HashMap;
 import es.dmoral.toasty.Toasty;
 
@@ -62,8 +60,6 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
         initializeData(apartment);
     }
 
-
-
     @Override
     public void onClick(View v) {
 
@@ -71,7 +67,6 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
         final int buttonDetailEditDelete=R.id.buttonDetailEditDelete;
         final int imageButtonEditToDetailBackButton=R.id.imageButtonEditToDetailBackButton;
         switch (v.getId()) {
-
             case buttonDetailEditApartmentSave:
                 if (!isConnected()){
                     customDialog();
@@ -132,7 +127,6 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
                                  toastMessage.successMessage(toastMessageSuccessfullyDelete, v.getContext());
                                  startAdminActivity();
                                     finish();
-
                                 } else {
                                     toastMessage.warningMessage(toastMessageFailureDelete, v.getContext());
                                 }

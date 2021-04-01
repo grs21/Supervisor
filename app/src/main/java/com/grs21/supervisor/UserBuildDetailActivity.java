@@ -166,7 +166,7 @@ public class UserBuildDetailActivity extends AppCompatActivity implements View.O
 
         Service spinnerService = serviceArrayList.get(position);
         dialog = new Dialog(UserBuildDetailActivity.this);
-        dialog.setContentView(R.layout.alert_dialog_detail);
+        dialog.setContentView(R.layout.alert_dialog_user_service_detail);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         textViewDialogDate = dialog.findViewById(R.id.textViewDetailDialogDate);

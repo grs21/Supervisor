@@ -7,7 +7,7 @@
     >
 
         <TextView
-            android:id="@+id/textViewDetailDialogDate"
+            android:id="@+id/textViewAdminDetailDialogDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
@@ -18,79 +18,79 @@
             />
 
         <TextView
-            android:id="@+id/textViewDetailDialogWell"
+            android:id="@+id/textViewAdminDetailDialogWell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kuyu"
             android:textSize="15sp"
             android:textColor="@color/black"
-            android:layout_below="@+id/textViewDetailDialogDate"
+            android:layout_below="@+id/textViewAdminDetailDialogDate"
             android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
 
             />
 
         <CheckBox
-            android:id="@+id/checkboxDetailDialogWell"
+            android:id="@+id/checkboxAdminDetailDialogWell"
             android:layout_width="34dp"
             android:layout_height="21dp"
-            android:layout_toEndOf="@+id/textViewDetailDialogWell"
+            android:layout_toEndOf="@+id/textViewAdminDetailDialogWell"
             android:layout_marginStart="1dp"
-            android:layout_below="@id/textViewDetailDialogDate"
+            android:layout_below="@id/textViewAdminDetailDialogDate"
             android:layout_marginTop="8dp"
             android:clickable="false"
             />
         <TextView
-            android:id="@+id/textViewDetailDialogElevatorUp"
+            android:id="@+id/textViewAdminDetailDialogElevatorUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kabin Üstü"
             android:textSize="15sp"
             android:textColor="@color/black"
-            android:layout_below="@+id/textViewDetailDialogWell"
+            android:layout_below="@+id/textViewAdminDetailDialogWell"
             android:layout_marginTop="10dp"
             android:layout_marginStart="8dp"
 
 
             />
         <CheckBox
-            android:id="@+id/checkboxDetailDialogElevatorTop"
+            android:id="@+id/checkboxAdminDetailDialogElevatorTop"
             android:layout_width="34dp"
             android:layout_height="21dp"
-            android:layout_below="@+id/textViewDetailDialogWell"
-            android:layout_toEndOf="@+id/textViewDetailDialogElevatorUp"
+            android:layout_below="@+id/textViewAdminDetailDialogWell"
+            android:layout_toEndOf="@+id/textViewAdminDetailDialogElevatorUp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="8dp"
             android:clickable="false"
             />
         <TextView
-            android:id="@+id/textViewDetailDialogMachineRoom"
+            android:id="@+id/textViewAdminDetailDialogMachineRoom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Makina Dairesi"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:layout_below="@+id/textViewDetailDialogElevatorUp"
+            android:layout_below="@+id/textViewAdminDetailDialogElevatorUp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="8dp"
 
 
             />
         <CheckBox
-            android:id="@+id/checkboxDetailDialogElevatorMachine"
+            android:id="@+id/checkboxAdminDetailDialogElevatorMachine"
             android:layout_width="34dp"
             android:layout_height="21dp"
-            android:layout_toEndOf="@+id/textViewDetailDialogMachineRoom"
-            android:layout_below="@+id/textViewDetailDialogElevatorUp"
+            android:layout_toEndOf="@+id/textViewAdminDetailDialogMachineRoom"
+            android:layout_below="@+id/textViewAdminDetailDialogElevatorUp"
             android:clickable="false"
             android:layout_marginStart="1dp"
             android:layout_marginTop="8dp"
             />
         <TextView
-            android:id="@+id/textViewDetailDialogCost"
+            android:id="@+id/textViewAdminDetailDialogCost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewDetailDialogMachineRoom"
+            android:layout_below="@+id/textViewAdminDetailDialogMachineRoom"
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
             android:textSize="15sp"
@@ -98,24 +98,38 @@
 
             />
         <TextView
-            android:id="@+id/textViewDetailDialogEmployee"
+            android:id="@+id/textViewAdminDetailDialogEmployee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewDetailDialogCost"
+            android:layout_below="@+id/textViewAdminDetailDialogCost"
             android:text="example Employee"
             android:textColor="@color/black"
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
             />
-       <androidx.appcompat.widget.AppCompatButton
-           android:id="@+id/buttonDetailDialogCancel"
+       <Button
+           android:id="@+id/buttonAdminDetailDialogCancel"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:background="@drawable/button_background"
            android:text="cancel"
            android:layout_marginTop="10dp"
-           android:layout_below="@+id/textViewDetailDialogEmployee"
+           android:layout_below="@+id/textViewAdminDetailDialogEmployee"
            android:layout_marginBottom="20dp"
-           android:layout_centerHorizontal="true"
+           android:layout_marginStart="55dp"
            />
+       <Button
+           android:id="@+id/buttonAdminDetailAdminDelete"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/delete"
+           android:layout_marginTop="10dp"
+           android:layout_below="@+id/textViewAdminDetailDialogEmployee"
+           android:layout_toRightOf="@+id/buttonAdminDetailDialogCancel"
+           android:layout_marginBottom="20dp"
+           android:layout_marginStart="25dp"
+           android:layout_marginEnd="15dp"
+
+
+           />
+
 </RelativeLayout>

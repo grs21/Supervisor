@@ -83,13 +83,11 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
         binding=FragmentAdminRepairBinding.inflate(inflater,container,false);
         setHasOptionsMenu(true);
         toastMessage=new ToastMessage();
-         Date currentDate=Calendar.getInstance().getTime();
-         date= DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(currentDate);
+        Date currentDate=Calendar.getInstance().getTime();
+        date= DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(currentDate);
         repairRecyclerView=binding.recyclerViewRepair;
         repairRecyclerView.setOnClickListener(this);
-
-         firebaseFirestore=FirebaseFirestore.getInstance();
-
+        firebaseFirestore=FirebaseFirestore.getInstance();
         Bundle bundleCurrentUser=getArguments();
         currentUser=(User)bundleCurrentUser.getSerializable("currentUser");
         getRepairsFromFirebase();
@@ -188,12 +186,9 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                 initializeAddAlertDialog();
                 break;
             case dialogSave:
-
                 String buildName= editTextAddBuildName.getText().toString();
                 String note= editTextAddRepairNote.getText().toString();
-
                 if (!buildName.isEmpty() && !note.isEmpty()) {
-
                     if (isConnected()) {
                         ProgressDialog progressDialog=new ProgressDialog(getContext());
                         progressDialog.setTitle(R.string.save);
@@ -211,7 +206,6 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                                 dialog.dismiss();
                                 refreshPage();
                                 sendNotification(buildName);
-
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -226,7 +220,6 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                         customConnectionDialog();
                          }
                 }else {
-
                     toastMessage.warningMessage(getResources().getString(R.string.cannot_be_space)
                             , v.getContext());
                 }
@@ -234,10 +227,8 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
             case dialogCancel:
                 dialog.dismiss();
                 break;
-
         }
-
-    }
+     }
 
     private void sendNotification(String message){
          firebaseFirestore.collection("Users").get()
@@ -267,10 +258,7 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                      } catch (JSONException e) {
                          e.printStackTrace();
                      }
-
-
                  }
-
              }
          }
      });
@@ -296,8 +284,7 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
           buttonCancel.setOnClickListener(this);
           buttonSave.setOnClickListener(this);
          dialog.show();
-
-    }
+     }
 
     private void setAdapter(ArrayList<Repair> repairArrayList) {
         repairListener(repairArrayList);
@@ -351,7 +338,6 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                         Log.d(TAG, "onEvent: "+repair.getApartmentName());
                     }
                     setAdapter(repairArrayList);
-
                 }
             });
      }

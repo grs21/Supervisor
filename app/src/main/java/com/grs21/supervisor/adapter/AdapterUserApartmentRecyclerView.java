@@ -60,11 +60,13 @@ public class AdapterUserApartmentRecyclerView extends RecyclerView.Adapter<Adapt
         boolean elevatorUp=(boolean)lastService.get("elevatorUp");
         String buildName=apartments.get(position).getApartmentName();
         String lastServiceDate=(String)lastService.get("date");
+        String cost=(String)lastService.get("cost");
         holder.buildName.setText(buildName);
         holder.lastServiceDate.setText(lastServiceDate);
         holder.checkBoxWell.setChecked(well);
         holder.checkBoxMachineRoom.setChecked(machineRoom);
         holder.checkBoxElevatorUp.setChecked(elevatorUp);
+        holder.editTextCost.setText(cost);
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +89,7 @@ public class AdapterUserApartmentRecyclerView extends RecyclerView.Adapter<Adapt
     }
 
     public class UserViewHolder extends RecyclerView.ViewHolder{
-        TextView buildName, lastServiceDate;
+        TextView buildName, lastServiceDate,editTextCost;
         RelativeLayout relativeLayout;
         CheckBox checkBoxWell,checkBoxElevatorUp,checkBoxMachineRoom;
         public UserViewHolder(@NonNull View itemView) {
@@ -98,6 +100,7 @@ public class AdapterUserApartmentRecyclerView extends RecyclerView.Adapter<Adapt
             buildName = itemView.findViewById(R.id.textViewRecyclerViewBuildName);
             lastServiceDate = itemView.findViewById(R.id.textViewRecyclerViewMostLastServiceDate);
             relativeLayout=itemView.findViewById(R.id.relativeLayout);
+            editTextCost=itemView.findViewById(R.id.textViewRecyclerViewWellCost);
         }
     }
 

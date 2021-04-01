@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/alert_dialog_background"
+    >
+
+        <TextView
+            android:id="@+id/textViewDetailDialogDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Month"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:padding="4dp"
+            />
+
+        <TextView
+            android:id="@+id/textViewDetailDialogWell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kuyu"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_below="@+id/textViewDetailDialogDate"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+
+            />
+
+        <CheckBox
+            android:id="@+id/checkboxDetailDialogWell"
+            android:layout_width="34dp"
+            android:layout_height="21dp"
+            android:layout_toEndOf="@+id/textViewDetailDialogWell"
+            android:layout_marginStart="1dp"
+            android:layout_below="@id/textViewDetailDialogDate"
+            android:layout_marginTop="8dp"
+            android:clickable="false"
+            />
+        <TextView
+            android:id="@+id/textViewDetailDialogElevatorUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kabin Üstü"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_below="@+id/textViewDetailDialogWell"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="8dp"
+
+
+            />
+        <CheckBox
+            android:id="@+id/checkboxDetailDialogElevatorTop"
+            android:layout_width="34dp"
+            android:layout_height="21dp"
+            android:layout_below="@+id/textViewDetailDialogWell"
+            android:layout_toEndOf="@+id/textViewDetailDialogElevatorUp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:clickable="false"
+            />
+        <TextView
+            android:id="@+id/textViewDetailDialogMachineRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Makina Dairesi"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:layout_below="@+id/textViewDetailDialogElevatorUp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="8dp"
+
+
+            />
+        <CheckBox
+            android:id="@+id/checkboxDetailDialogElevatorMachine"
+            android:layout_width="34dp"
+            android:layout_height="21dp"
+            android:layout_toEndOf="@+id/textViewDetailDialogMachineRoom"
+            android:layout_below="@+id/textViewDetailDialogElevatorUp"
+            android:clickable="false"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="8dp"
+            />
+        <TextView
+            android:id="@+id/textViewDetailDialogCost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewDetailDialogMachineRoom"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+
+            />
+        <TextView
+            android:id="@+id/textViewDetailDialogEmployee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewDetailDialogCost"
+            android:text="example Employee"
+            android:textColor="@color/black"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            />
+       <androidx.appcompat.widget.AppCompatButton
+           android:id="@+id/buttonDetailDialogCancel"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:background="#1687a7"
+           android:text="cancel"
+           android:layout_marginTop="10dp"
+           android:layout_below="@+id/textViewDetailDialogEmployee"
+           android:layout_marginBottom="20dp"
+           android:layout_centerHorizontal="true"
+           />
+</RelativeLayout>
