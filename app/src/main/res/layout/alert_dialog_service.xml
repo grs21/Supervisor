@@ -16,6 +16,9 @@
         android:hint="Alınan ücreti giriniz"
         android:layout_marginEnd="50dp"
         android:maxLength="4"
+        android:background="@drawable/custom_edittext"
+        android:padding="7dp"
+        android:layout_marginTop="3dp"
 
         />
     <TextView

@@ -11,7 +11,8 @@
      android:id="@+id/toolbarBuildDetail"
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
-     android:background="#FF5722"
+     android:background="#1687a7"
+     app:titleMarginStart="15dp"
      />
 
  <androidx.appcompat.widget.AppCompatButton
@@ -21,8 +22,11 @@
      android:layout_marginStart="15dp"
      android:layout_marginTop="10dp"
      android:layout_marginEnd="15dp"
+     android:background="@drawable/button_background"
+     android:drawableStart="@drawable/ic_service"
+     android:paddingStart="20dp"
      android:text="@string/make_service"
-     android:background="@drawable/button_background"/>
+     />
 
  <ScrollView
      android:layout_width="match_parent"
@@ -104,7 +108,7 @@
        android:id="@+id/textAdminCost"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:text="Aidat :"
+       android:text="Aylık Ücret :"
        android:layout_below="@+id/textViewBuildDetailBuildAddress"
        android:textSize="13sp"
        android:layout_marginTop="5dp"
@@ -227,7 +231,7 @@
        android:id="@+id/textAdminEmployeeNumber"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:text="Görevli TelefonNumarası:"
+       android:text="Görevli Telefon Numarası:"
        android:layout_below="@+id/textViewBuildDetailEmployeeName"
        android:textSize="13sp"
        android:layout_marginTop="5dp"
@@ -284,6 +288,10 @@
        android:layout_marginBottom="10dp"
        android:layout_marginEnd="20dp"
        android:layout_marginStart="20dp"
+       android:drawableStart="@drawable/ic_edit"
+       android:paddingStart="20dp"
+
+
        />
   </RelativeLayout>
  </ScrollView>

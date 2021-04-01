@@ -11,7 +11,7 @@
         android:id="@+id/toolbarUserBuildDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FF5722"
+        android:background="#1687a7"
         />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -22,7 +22,10 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="15dp"
         android:text="@string/make_service"
-        android:background="@drawable/button_background"/>
+        android:background="@drawable/button_background"
+        android:drawableLeft="@drawable/ic_service"
+        android:paddingStart="20dp"
+        />
 
     <ScrollView
         android:layout_width="match_parent"

@@ -21,7 +21,7 @@
         android:hint="Mail Adresi"
         android:textSize="18sp"
         android:paddingStart="8dp"
-        android:background="@drawable/text_background"
+        android:background="@drawable/custom_edittext"
         android:layout_marginTop="15dp"
         />
     <Button

@@ -150,7 +150,7 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                                 service.setMachineRoom(machineRoomBoolean);
                                 service.setElevatorUp(elevatorUpBoolean);
                                 service.setDate(dateString);
-                                service.setEmployee(user.getEmail());
+                                service.setEmployee(currentUser.getFullName());
                                 service.setCost(cost.getText().toString().trim()+"TL");
                                 DocumentReference docRef = fireStore.collection(company)
                                         .document(apartment.getUuid());

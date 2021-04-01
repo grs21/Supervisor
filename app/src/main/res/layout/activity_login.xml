@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
     android:background="@drawable/login_image"
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over"
     android:orientation="vertical"
     >
 
@@ -41,15 +43,16 @@
             android:inputType="textEmailAddress"
             android:drawableLeft="@drawable/ic_email"
             android:hint="@string/e_mail"
+            android:textColorHighlight="#1687a7"
             android:textColorHint="#1687a7"
             android:textSize="22sp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:lines="1"
             android:drawablePadding="3dp"
 
             android:paddingStart="0dp"
             android:paddingTop="17dp"
-            android:background="#48FFFFFF"
+            android:background="@color/zxing_transparent"
 
             />
 
@@ -75,11 +78,11 @@
             android:layout_height="match_parent"
             android:hint="@string/password"
             android:textSize="22sp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textColorHint="#1687a7"
             android:inputType="numberPassword"
             android:drawableStart="@drawable/ic_lock"
-            android:background="#48FFFFFF"
+            android:background="@color/zxing_transparent"
             android:lines="1"
             android:paddingStart="0dp"
             android:drawablePadding="3dp"
@@ -93,7 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_background"
-        android:text="@string/sing_in"
+        android:text="@string/sign_in"
         android:gravity="center"
         android:textSize="25sp"
         android:textColor="@color/white"
@@ -106,7 +109,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="13sp"
+        android:textSize="15sp"
         android:textColor="#1687a7"
         android:textStyle="bold"
         android:text="İletişim için supervisor.elevator@gmail.com"
@@ -114,7 +117,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="2dp"
         android:drawableStart="@drawable/ic_baseline_mark_email_read_24"
-        android:background="#48FFFFFF"
+        android:background="@color/zxing_transparent"
         />
 
 </LinearLayout>

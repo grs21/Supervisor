@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Supervisor</string>
-    <string name="sing_in">sıng ın</string>
+    <string name="sign_in" translatable="false">sıgn ın</string>
     <string name="user_name">User name</string>
     <string name="e_mail">E-mail</string>
     <string name="password">Password</string>

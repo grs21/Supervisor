@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Supervisor</string>
-    <string name="sing_in">giriş yap</string>
+    <string name="sign_in">giriş yap</string>
     <string name="user_name">Kullanıcı adı</string>
     <string name="e_mail">E-posta</string>
     <string name="password">şifre</string>
