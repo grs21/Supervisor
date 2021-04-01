@@ -10,9 +10,10 @@
         android:id="@+id/textViewRepairDetailDialogBuildName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/buildName"
+        android:text="Bina Adı:"
         android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
+        android:textColor="@color/black"
         />
     <EditText
         android:id="@+id/editTextRepairDetailDialogBuildName"
@@ -20,16 +21,17 @@
         android:layout_height="30dp"
         android:layout_toEndOf="@+id/textViewRepairDetailDialogBuildName"
         android:layout_marginEnd="15dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
         android:paddingStart="15dp"
-        android:background="@drawable/text_background"
+        android:background="@drawable/custom_edittext"
         />
     <TextView
         android:id="@+id/textViewRepairDetailDialogNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Note:"
+        android:textColor="@color/black"
         android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
         android:layout_below="@+id/textViewRepairDetailDialogBuildName"
@@ -42,13 +44,13 @@
         android:lines="10"
         android:layout_below="@+id/editTextRepairDetailDialogBuildName"
         android:layout_toEndOf="@+id/textViewRepairDetailDialogNote"
-        android:background="@drawable/text_background"
+        android:background="@drawable/custom_edittext"
         android:layout_marginTop="10dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="20dp"
         android:gravity="top"
-        android:paddingStart="15dp"
-        android:paddingTop="4dp"
+        android:padding="15dp"
+
         />
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonRepairDetailDialogSave"
@@ -68,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonRepairDetailDialogSave"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/button_background"

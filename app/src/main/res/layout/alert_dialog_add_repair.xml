@@ -10,7 +10,8 @@
         android:id="@+id/textViewRepairDialogBuildName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/buildName"
+        android:text="Bina Adı:"
+        android:textColor="@color/black"
         android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
         />
@@ -20,9 +21,9 @@
         android:layout_height="30dp"
         android:layout_toEndOf="@+id/textViewRepairDialogBuildName"
         android:layout_marginEnd="15dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="17dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/text_background"
+        android:background="@drawable/custom_edittext"
         android:paddingStart="15dp"
         android:paddingTop="4dp"
         />
@@ -31,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Note:"
+        android:textColor="@color/black"
         android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
         android:layout_below="@+id/textViewRepairDialogBuildName"
@@ -42,15 +44,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/editTextRepairDialogBuildName"
         android:layout_toEndOf="@+id/textViewRepairDialogNote"
-        android:background="@drawable/text_background"
+        android:background="@drawable/custom_edittext"
         android:layout_marginTop="10dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="20dp"
         android:gravity="top"
-        android:paddingStart="15dp"
+        android:padding="15dp"
         android:lines="10"
-
-
         />
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonRepairDialogSave"
