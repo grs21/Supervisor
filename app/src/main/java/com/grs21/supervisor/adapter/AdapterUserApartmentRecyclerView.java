@@ -9,15 +9,12 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.grs21.supervisor.R;
 import com.grs21.supervisor.UserBuildDetailActivity;
 import com.grs21.supervisor.model.Apartment;
 import com.grs21.supervisor.model.User;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +36,6 @@ public class AdapterUserApartmentRecyclerView extends RecyclerView.Adapter<Adapt
         defaultServiceValue.put("elevatorUp", false);
         defaultServiceValue.put("date","../../.....");
     }
-
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -47,7 +43,6 @@ public class AdapterUserApartmentRecyclerView extends RecyclerView.Adapter<Adapt
                .inflate(R.layout.item_build_recyclerview, parent,false);
        return new UserViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         int lastServiceArraySize=apartments.get(position).getServiceArrayList().size();
@@ -103,11 +98,9 @@ public class AdapterUserApartmentRecyclerView extends RecyclerView.Adapter<Adapt
             editTextCost=itemView.findViewById(R.id.textViewRecyclerViewWellCost);
         }
     }
-
     private Filter filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-
             List<Apartment> filteredList = new ArrayList<>();
             if (constraint == null || constraint.length() == 0) {
                 filteredList.addAll(apartmentFull);
@@ -124,7 +117,6 @@ public class AdapterUserApartmentRecyclerView extends RecyclerView.Adapter<Adapt
             results.values = filteredList;
             return results;
         }
-
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             apartments.clear();
@@ -132,5 +124,4 @@ public class AdapterUserApartmentRecyclerView extends RecyclerView.Adapter<Adapt
             notifyDataSetChanged();
         }
     };
-
 }

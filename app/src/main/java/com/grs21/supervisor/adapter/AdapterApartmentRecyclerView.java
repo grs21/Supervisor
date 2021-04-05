@@ -11,13 +11,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.grs21.supervisor.AdminBuildDetailActivity;
 import com.grs21.supervisor.R;
 import com.grs21.supervisor.model.Apartment;
-import com.grs21.supervisor.model.Service;
 import com.grs21.supervisor.model.User;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -79,12 +76,10 @@ public class AdapterApartmentRecyclerView extends RecyclerView.Adapter<AdapterAp
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return apartments.size();
     }
-
     class ViewHolder extends RecyclerView.ViewHolder  {
         TextView buildName, lastServiceDate,textViewCost;
         RelativeLayout relativeLayout;
@@ -98,15 +93,12 @@ public class AdapterApartmentRecyclerView extends RecyclerView.Adapter<AdapterAp
             lastServiceDate = itemView.findViewById(R.id.textViewRecyclerViewMostLastServiceDate);
             relativeLayout=itemView.findViewById(R.id.relativeLayout);
             textViewCost=itemView.findViewById(R.id.textViewRecyclerViewWellCost);
-
         }
     }
-
     @Override
     public Filter getFilter() {
         return filter;
     }
-
     private Filter filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -127,7 +119,6 @@ public class AdapterApartmentRecyclerView extends RecyclerView.Adapter<AdapterAp
             results.values = filteredList;
             return results;
         }
-
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             apartments.clear();
@@ -135,5 +126,4 @@ public class AdapterApartmentRecyclerView extends RecyclerView.Adapter<AdapterAp
             notifyDataSetChanged();
         }
     };
-
 }

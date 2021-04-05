@@ -9,13 +9,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,8 +24,6 @@ import com.grs21.supervisor.adminFragment.AddFragment;
 import com.grs21.supervisor.adminFragment.ApartmentFragment;
 import com.grs21.supervisor.adminFragment.RepairFragment;
 import com.grs21.supervisor.model.User;
-import com.onesignal.OneSignal;
-
 
 public class AdminActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ActivityAdminBinding binding;
@@ -62,15 +56,9 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         initializeBottomNavigationBar();
         initializeNavigationMenu();
     }
-
-
-
-
     private void initializeBottomNavigationBar() {
         BottomNavigationView bottomNavigationView=findViewById(R.id.admin_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(adminNavigationListener);
-
-
         ApartmentFragment apartmentFragment=new ApartmentFragment();
         apartmentFragment.setArguments(bundleCurrentUserData);
         getSupportFragmentManager().beginTransaction().replace(R.id.admin_fragmentContainer,apartmentFragment)
@@ -84,13 +72,11 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         TextView textViewAccessLevel= headerLayout.findViewById(R.id.textViewNavigationAccessLwl);
         textViewAccessLevel.setText(currentUser.getAccessLevel());
         navigationView.setNavigationItemSelectedListener(this);
-
         toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar
                 ,R.string.navigation_drawer_open,R.string.navigation_drawer_close );
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
     }
-
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)){
@@ -100,7 +86,6 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
             super.onBackPressed();
         }
     }
-
     private BottomNavigationView.OnNavigationItemSelectedListener adminNavigationListener
             =new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -128,7 +113,6 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
             return true;
         }
     };
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         final int logOut=R.id.logOut;
@@ -136,9 +120,9 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         switch (item.getItemId()){
             case logOut:
                 if (firebaseAuth!=null){
-                    firebaseAuth.signOut();
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                     finish();
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    firebaseAuth.signOut();
                 }
                 break;
             case registration:

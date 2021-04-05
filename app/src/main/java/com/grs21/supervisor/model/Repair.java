@@ -8,16 +8,15 @@ public class Repair {
     private String notes;
     private String date;
 
-
-    public Repair() {
-    }
-
     public Repair(String apartmentName, User user, String notes,String date) {
 
         this.date=date;
         this.apartmentName = apartmentName;
         this.user = user;
         this.notes = notes;
+    }
+
+    public Repair() {
     }
 
     public String getDate() {

@@ -26,7 +26,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.grs21.supervisor.R;
 import com.grs21.supervisor.adapter.AdapterApartmentRecyclerView;
 import com.grs21.supervisor.databinding.FragmentAdminApartmentBinding;
-import com.grs21.supervisor.databinding.FragmentAdminApartmentBinding;
 import com.grs21.supervisor.model.Apartment;
 import com.grs21.supervisor.model.User;
 import java.util.ArrayList;
@@ -36,10 +35,7 @@ import es.dmoral.toasty.Toasty;
 
 public class ApartmentFragment extends Fragment {
     private static final String TAG = "ApartmentFragment";
-
     private FragmentAdminApartmentBinding binding;
-    private ArrayList<String> apartmentName=new ArrayList<>();
-    private ArrayList<String> apartmentContract=new ArrayList<>();
     private ArrayList<Apartment> apartments=new ArrayList<>();
     private FirebaseFirestore fireStore;
     private AdapterApartmentRecyclerView adapter;
@@ -53,9 +49,9 @@ public class ApartmentFragment extends Fragment {
         currentUser=(User) bundle.getSerializable("currentUser");
         fireStore=FirebaseFirestore.getInstance();
         getDataFromFireStore();
+
         return binding.getRoot();
     }
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.builds_search_menu, menu);
@@ -67,7 +63,6 @@ public class ApartmentFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 adapter.getFilter().filter(newText);
@@ -76,7 +71,6 @@ public class ApartmentFragment extends Fragment {
         });
         super.onCreateOptionsMenu(menu, inflater);
     }
-
     private void getDataFromFireStore() {
         CollectionReference collectionReference = fireStore.collection(currentUser.getCompany());
         collectionReference.orderBy("dateOfContract", Query.Direction.DESCENDING)
@@ -84,10 +78,8 @@ public class ApartmentFragment extends Fragment {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                     if (error != null) {
-                        Toast toastSuccess = Toasty.success(getActivity(), R.string.saved
-                                , Toast.LENGTH_SHORT, true);
-                        toastSuccess.setGravity(Gravity.CENTER, 0, 0);
-                        toastSuccess.show();
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+
                     }
                     if (value != null) {
                         apartments.clear();

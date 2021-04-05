@@ -7,11 +7,9 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -21,12 +19,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.grs21.supervisor.activity.AdminActivity;
 import com.grs21.supervisor.databinding.ActivityRegistrationBinding;
 import com.grs21.supervisor.model.User;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
-
     private ActivityRegistrationBinding binding;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
@@ -41,8 +37,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         binding = ActivityRegistrationBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        Intent intent=getIntent();
-        user=(User)intent.getSerializableExtra("currentUser");
+        Intent intent = getIntent();
+        user = (User) intent.getSerializableExtra("currentUser");
         binding.buttonRegistration.setOnClickListener(this);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -56,55 +52,55 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         checkInput(binding.editTextPasswordRegistration);
         checkInput(binding.editTextFullName);
         checkBoxIsCheck();
-        if (state&& checkBoxIsCheck()) {
-           final String accessLevel;
-            if (binding.checkboxUser.isChecked()){
-                accessLevel="user";
-            }else{
-                accessLevel="admin";
+        if (state && checkBoxIsCheck()) {
+            final String accessLevel;
+            if (binding.checkboxUser.isChecked()) {
+                accessLevel = "user";
+            } else {
+                accessLevel = "admin";
             }
             firebaseAuth.createUserWithEmailAndPassword(binding.editTextUserNameRegistration.getText().toString()
-            , binding.editTextPasswordRegistration.getText().toString())
-            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                    FirebaseUser createdUser = firebaseAuth.getCurrentUser();
-                    String fullName= binding.editTextFullName.getText().toString();
-                    String userName=binding.editTextUserNameRegistration.getText().toString();
-                    String password=binding.editTextPasswordRegistration.getText().toString();
-                    String company=user.getCompany();
-                    Map<String,Object> userInfo=new HashMap<>();
-                    userInfo.put("fullName",fullName);
-                    userInfo.put("userName", userName);
-                    userInfo.put("password", password);
-                    userInfo.put("accessLevel", accessLevel);
-                    userInfo.put("phoneID","1234566789");
-                    userInfo.put("company" , company);
-                        firebaseFirestore
-                        .collection("Users")
-                        .document(createdUser.getUid())
-                        .set(userInfo)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    , binding.editTextPasswordRegistration.getText().toString())
+                    .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
-                        public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully written!++++++++++++++++++");
-                        firebaseAuth.signOut();
-                        checkUserAccessLevel();
+                        public void onSuccess(AuthResult authResult) {
+                            FirebaseUser createdUser = firebaseAuth.getCurrentUser();
+                            String fullName = binding.editTextFullName.getText().toString();
+                            String userName = binding.editTextUserNameRegistration.getText().toString();
+                            String password = binding.editTextPasswordRegistration.getText().toString();
+                            String company = user.getCompany();
+                            Map<String, Object> userInfo = new HashMap<>();
+                            userInfo.put("fullName", fullName);
+                            userInfo.put("userName", userName);
+                            userInfo.put("password", password);
+                            userInfo.put("accessLevel", accessLevel);
+                            userInfo.put("phoneID", "1234566789");
+                            userInfo.put("company", company);
+                            firebaseFirestore
+                                    .collection("Users")
+                                    .document(createdUser.getUid())
+                                    .set(userInfo)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            firebaseAuth.signOut();
+                                            checkUserAccessLevel();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error writing document", e);
+                                        }
+                                    });
                         }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error writing document+++++++++++++++++++", e);
-                            }
-                        });
-            }}).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "onFailure: " + e.getMessage());
-                Toast.makeText(RegistrationActivity.this, e.getMessage()
-                        , Toast.LENGTH_SHORT).show();
-            }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, "onFailure: " + e.getMessage());
+                    Toast.makeText(RegistrationActivity.this, e.getMessage()
+                            , Toast.LENGTH_SHORT).show();
+                }
             });
         }
     }
@@ -145,24 +141,20 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             }
         });
     }
-
     private void checkUserAccessLevel() {
-        if (user.getAccessLevel().equals("admin") ){
+        if (user.getAccessLevel().equals("admin")) {
             firebaseAuth.signOut();
             firebaseAuth.signInWithEmailAndPassword(user.getUserName(), user.getPassword()).
                 addOnSuccessListener(RegistrationActivity.this
                     , new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            Intent intent=new Intent(RegistrationActivity.this, AdminActivity.class);
-                            intent.putExtra("currentUser",user);
+                            Intent intent = new Intent(RegistrationActivity.this, AdminActivity.class);
+                            intent.putExtra("currentUser", user);
                             startActivity(intent);
                             finish();
                         }
                     });
-
         }
     }
-
-
 }

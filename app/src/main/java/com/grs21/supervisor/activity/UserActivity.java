@@ -6,23 +6,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.grs21.supervisor.LoginActivity;
 import com.grs21.supervisor.R;
-import com.grs21.supervisor.adminFragment.AddFragment;
-import com.grs21.supervisor.adminFragment.ApartmentFragment;
-import com.grs21.supervisor.adminFragment.RepairFragment;
 import com.grs21.supervisor.databinding.ActivityUserBinding;
 import com.grs21.supervisor.model.User;
 import com.grs21.supervisor.userFragment.UserApartmentFragment;
 import com.grs21.supervisor.userFragment.UserRepairFragment;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -69,34 +63,29 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         final int logOut=R.id.logOut;
-        switch (item.getItemId()){
-            case logOut:
-                if (firebaseAuth!=null){
-                    firebaseAuth.signOut();
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                    finish();
-                }
-                break;
+        if (item.getItemId() == logOut) {
+            if (firebaseAuth != null) {
+
+                finish();
+                firebaseAuth.signOut();
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }
         }
         return true;
     }
-
     private void initializeToolBar() {
         toolbar=binding.toolBarUser;
         setSupportActionBar(toolbar);
     }
-
     private void initializeBottomNavigationBar() {
         BottomNavigationView bottomNavigationView=findViewById(R.id.userBottomNavigationBar);
         bottomNavigationView.setOnNavigationItemSelectedListener(userNavigationListener);
-
         bundle.putSerializable("currentUser",currentUser);
         UserApartmentFragment apartmentFragment=new UserApartmentFragment();
         apartmentFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.userFragmentContainer,apartmentFragment)
                 .commit();
     }
-
     private BottomNavigationView.OnNavigationItemSelectedListener userNavigationListener
             =new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -105,7 +94,6 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
             final int menuRepair=R.id.menuItemUserRepair;
             Fragment selectedFragment=null;
             switch (item.getItemId()){
-
                 case menuApartmentList:
                     selectedFragment= new UserApartmentFragment();
                     selectedFragment.setArguments(bundle);
@@ -120,10 +108,7 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
             return true;
         }
     };
-
-
     @Override
     public void onClick(View v) {
-
     }
 }

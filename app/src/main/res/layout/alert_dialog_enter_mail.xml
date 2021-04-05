@@ -23,6 +23,7 @@
         android:paddingStart="8dp"
         android:background="@drawable/custom_edittext"
         android:layout_marginTop="15dp"
+        android:inputType="textEmailAddress"
         />
     <Button
         android:id="@+id/buttonAlertDialogQRCodeGenerate"

@@ -95,7 +95,7 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:lines="5"
-       android:background="@drawable/text_background"
+       android:background="#7AD8D3D3"
        android:hint="@string/address"
        android:textSize="22sp"
        android:layout_marginStart="10dp"

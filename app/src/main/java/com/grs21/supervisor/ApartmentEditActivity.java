@@ -30,7 +30,6 @@ import java.util.HashMap;
 import es.dmoral.toasty.Toasty;
 
 public class ApartmentEditActivity extends AppCompatActivity implements View.OnClickListener {
-
     private ActivityAppartmentEditBinding binding;
     private Apartment apartment;
     private User currentUSer;
@@ -41,8 +40,6 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
     private  String buildName,address,cost,managerName,managerNumber
             ,managerAddress, employeeName,employeeNumber,contractDate;
     private ToastMessage toastMessage;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,10 +56,8 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
         binding.imageButtonEditToDetailBackButton.setOnClickListener(this);
         initializeData(apartment);
     }
-
     @Override
     public void onClick(View v) {
-
         final int buttonDetailEditApartmentSave = R.id.buttonDetailEditApartmentSave;
         final int buttonDetailEditDelete=R.id.buttonDetailEditDelete;
         final int imageButtonEditToDetailBackButton=R.id.imageButtonEditToDetailBackButton;
@@ -160,7 +155,6 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
         NetworkInfo mobileConn=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected());
     }
-
     private void customDialog() {
         AlertDialog.Builder alertDialog=new AlertDialog.Builder(ApartmentEditActivity.this);
         alertDialog.setMessage("Please connect to internet to proceed further").setCancelable(true)
@@ -176,7 +170,6 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
         });
         alertDialog.create().show();
     }
-
     private void initializeData(Apartment apartment) {
         binding.editTextEditBuildName.setText(apartment.getApartmentName());
         binding.editTextEditBuildAddress.setText(apartment.getApartmentAddress());
@@ -188,22 +181,18 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
         binding.editTextEditEmployeeNumber.setText(apartment.getEmployeeNumber());
         binding.editTextEditContractDate.setText(apartment.getContractDate());
     }
-
     private void startDetailActivity(){
         Intent intent=new Intent(ApartmentEditActivity.this, AdminBuildDetailActivity.class);
         intent.putExtra("currentUser", currentUSer);
         intent.putExtra("apartment", apartment);
         startActivity(intent);
     }
-
     private void startAdminActivity(){
         Intent intent=new Intent(ApartmentEditActivity.this, AdminActivity.class);
         intent.putExtra("currentUser", currentUSer);
         startActivity(intent);
     }
-
     private void updatedApartment(){
-
         apartment.setApartmentName(buildName);
         apartment.setApartmentAddress(address);
         apartment.setCost(cost);
@@ -213,9 +202,7 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
         apartment.setManagerAddress(managerAddress);
         apartment.setManagerNumber(managerNumber);
         apartment.setContractDate(contractDate);
-
     }
-
     private void getTextValue(){
         buildName= binding.editTextEditBuildName.getText().toString().trim();
         cost=binding.editTextEditCost.getText().toString().trim();
@@ -226,9 +213,7 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
         employeeName =  binding.editTextEditEmployeeName.getText().toString().trim();
         employeeNumber=binding.editTextEditEmployeeNumber.getText().toString().trim();
         contractDate=binding.editTextEditContractDate.getText().toString().trim();
-
     }
-
     private void setMessageData(){
         toastMessageFailureDelete=getResources().getString(R.string.failure_delete);
         toastMessageSuccessfullyDelete=getResources().getString(R.string.successfully_delete);
@@ -239,7 +224,6 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
         alertDialogConnect=getResources().getString(R.string.connect);
         alertDialogDelete=getResources().getString(R.string.delete);
     }
-
     private void initializeToolBar(){
         Toolbar toolbar=binding.toolBarEditActivity;
         fireStore = FirebaseFirestore.getInstance();
@@ -247,12 +231,9 @@ public class ApartmentEditActivity extends AppCompatActivity implements View.OnC
         getSupportActionBar().setTitle("");
         binding.textViewEditToolBarTitle.setText(apartment.getApartmentName());
     }
-
     private void getIntentData() {
         Intent intent=getIntent();
         apartment=(Apartment) intent.getSerializableExtra("apartment");
         currentUSer=(User)intent.getSerializableExtra("currentUser");
     }
-
-
 }

@@ -3,7 +3,6 @@ package com.grs21.supervisor.model;
 import java.io.Serializable;
 
 public class User implements Serializable {
-
         private String fullName;
         private String id;
         private String userName;
@@ -11,7 +10,6 @@ public class User implements Serializable {
         private String accessLevel;
         private String company;
         private String phoneID;
-
     public User(String fullName, String id, String userName, String password, String accessLevel, String company
     ,String phoneID) {
         this.fullName = fullName;

@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +26,9 @@ import com.grs21.supervisor.model.User;
 import com.grs21.supervisor.util.ToastMessage;
 import com.onesignal.OneSignal;
 
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private ActivityLoginBinding binding;
@@ -38,8 +39,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ToastMessage toastMessage;
     private ProgressDialog progressDialog;
     private static final String ONESIGNAL_APP_ID = "6e682d9f-2ec1-49a6-ac16-6943f69621c0";
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         firebaseFirestore=FirebaseFirestore.getInstance();
 
     }
+
     private void userPhoneIdControl(String userPhoneId,User currentUser) {
         if (!userPhoneId.equals(currentUser.getPhoneID())){
             Log.d(TAG, "userPhoneIdControl: "+firebaseAuth.getCurrentUser().getUid());
@@ -68,18 +68,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(LoginActivity.this, "PhoneID değiştilmedi", Toast.LENGTH_SHORT).show();
         }
     }
-
     private void oneSignalInitialize() {
         OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
-
     @Override
     public void onClick(View v) {
         final int buttonLogin=R.id.buttonLogin;
@@ -102,8 +99,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Snackbar.make(findViewById(android.R.id.content), e.getMessage()
                             , BaseTransientBottomBar.LENGTH_SHORT).show();
                     Log.d(TAG, "onClick: ++++++++++++++++"+e.getMessage());
-
-                });
+                    });
             }
             break;
         }
@@ -139,23 +135,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
     }
 
-
-
     private void checkUserAccessLevel(User user) {
         userPhoneIdControl(OneSignal.getDeviceState().getUserId(), user);
-        if (user.getAccessLevel().equals("admin") ){
-            Intent intent=new Intent(LoginActivity.this, AdminActivity.class);
-            intent.putExtra("currentUser",user);
-            startActivity(intent);
-            finish();
-        } else if (user.getAccessLevel().equals("user")){
-            Intent intent=new Intent(LoginActivity.this, UserActivity.class);
-            intent.putExtra("currentUser",user);
-            startActivity(intent);
-            finish();
-        }
-        else{
-            toastMessage.warningMessage("AccessLevel", LoginActivity.this);
+        switch (user.getAccessLevel()){
+            case "admin":
+                Intent intentAdmin=new Intent(LoginActivity.this, AdminActivity.class);
+                intentAdmin.putExtra("currentUser",user);
+                startActivity(intentAdmin);
+                finish();
+                break;
+            case "user":
+                Intent intentUser=new Intent(LoginActivity.this, UserActivity.class);
+                intentUser.putExtra("currentUser",user);
+                startActivity(intentUser);
+                finish();
+                break;
         }
     }
 
@@ -171,11 +165,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onResume() {
         if (FirebaseAuth.getInstance().getCurrentUser()!=null){
-             progressDialog = new ProgressDialog(LoginActivity.this);
+            getUserData(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            progressDialog = new ProgressDialog(LoginActivity.this);
             progressDialog.setTitle(R.string.log_in);
             progressDialog.show();
-            getUserData(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
         }
         super.onResume();
     }

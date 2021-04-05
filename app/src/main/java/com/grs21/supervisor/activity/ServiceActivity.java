@@ -19,11 +19,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -39,7 +36,6 @@ import com.grs21.supervisor.model.Service;
 import com.grs21.supervisor.model.User;
 import com.grs21.supervisor.util.CaptureAct;
 import com.grs21.supervisor.util.ToastMessage;
-
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -54,15 +50,9 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
     private Apartment apartment;
     private static  Intent intent;
     private FirebaseFirestore fireStore;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseUser user;
     private static final String TAG = "ServiceActivity";
     private User currentUser;
     private String company;
-    private String senderClassName;
-    private ToastMessage toastMessage=new ToastMessage();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +67,6 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
         company=currentUser.getCompany();
 
         initializeToolbar();
-
-        firebaseAuth= FirebaseAuth.getInstance();
-        user=firebaseAuth.getCurrentUser();
         fireStore=FirebaseFirestore.getInstance();
 
         binding.buttonServiceScan.setOnClickListener(this);
@@ -87,25 +74,23 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
         binding.textViewServiceBuildName.setText(apartment.getApartmentName());
         binding.imageButtonBackButton.setOnClickListener(this);
     }
-
-
     @Override
     public void onClick(View v) {
+        final int backButton=R.id.imageButtonBackButton;
+        final int scanButton=R.id.buttonServiceScan;
+        final int serviceSaveButton=R.id.buttonServiceSave;
         switch (v.getId()){
-            case R.id.imageButtonBackButton:
-
+            case backButton:
                 backToEditActivity(apartment);
-
                 break;
-            case R.id.buttonServiceScan:
+            case scanButton:
                 scanCode();
                 break;
-            case  R.id.buttonServiceSave:
-                Boolean wellBoolean,elevatorUpBoolean,machineRoomBoolean;
+            case  serviceSaveButton:
+                boolean wellBoolean,elevatorUpBoolean,machineRoomBoolean;
                 wellBoolean=binding.checkBoxServiceWell.isChecked();
                 elevatorUpBoolean=binding.checkBoxServiceFragmentElevatorUp.isChecked();
                 machineRoomBoolean=binding.checkBoxServiceMachineRoom.isChecked();
-
                 if (wellBoolean|| elevatorUpBoolean || machineRoomBoolean){
                     CheckBox well,elevatorUp,machineRoom;
                     EditText cost;
@@ -165,11 +150,10 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                     });
                     dialog.show();
                 }else{
-                    toastMessage.errorMessage(getResources().getString(R.string.please_make_a_service)
-                            , ServiceActivity.this);
+                    Toast toast=Toasty.error(this, getResources().getString(R.string.please_make_a_service));
+                    toast.show();
                 }
                 break;
-
         }
     }
     private void scanCode() {
@@ -180,7 +164,6 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
         integrator.setPrompt("Flaş için ses tuşuna basın !!");
         integrator.initiateScan();
     }
-
     void initializeToolbar(){
         Toolbar toolbar=findViewById(R.id.toolbarService);
         setSupportActionBar(toolbar);
@@ -188,12 +171,10 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
         getSupportActionBar().setTitle("");
         binding.textViewServiceToolBarTitle.setText(apartment.getApartmentName());
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         try {
-
             if (result != null) {
                 if (result.getContents() != null) {
                     try {
@@ -221,10 +202,12 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                     }
                 }
             } else {
-                toastMessage.errorMessage("LÜTFEN TEKRAR OKUTUN", this);
+               Toast toast=Toasty.error(this,"LÜTFEN TEKRAR OKUTUN");
+               toast.show();
             }
         }catch (Exception e){
-            toastMessage.errorMessage("LÜTFEN TEKRAR OKUTUN", this);
+            Toast toast=Toasty.error(this,"LÜTFEN TEKRAR OKUTUN");
+            toast.show();
             Log.d(TAG, "onActivityResult: "+e.getMessage());
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -242,7 +225,6 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
        startActivity(intent);
        finish();
     }
-
     private void apartmentGetDataAfterScan(){
         DocumentReference documentReference=fireStore.collection(company).document(apartment.getUuid());
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -252,14 +234,14 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                     if (documentSnapshot.exists()){
                        Map<String,Object> getData=documentSnapshot.getData();
                         Apartment apartment=new Apartment(documentSnapshot.getId(),(String)getData.get("buildName")
-                                ,(String)getData.get("address"),(String)getData.get("cost"),(String)getData.get("managerName")
-                                ,(String)getData.get("managerNumber"),(String)getData.get("managerAddress")
-                                ,(String)getData.get("employeeName"),(String)getData.get("employeeNumber")
-                                ,(String)getData.get("dateOfContract"),(String) getData.get("wellQRCOdeInfo")
-                                ,(String) getData.get("elevatorUpQRCOdeInfo"),(String) getData.get("machineQRCOdeInfo")
-                                ,(ArrayList<HashMap>) getData.get("service"),(ArrayList<String>)getData.get("qrCodes"));
-                       toastMessage.successMessage(getResources().getString(R.string.saved)
-                               , ServiceActivity.this);
+                        ,(String)getData.get("address"),(String)getData.get("cost"),(String)getData.get("managerName")
+                        ,(String)getData.get("managerNumber"),(String)getData.get("managerAddress")
+                        ,(String)getData.get("employeeName"),(String)getData.get("employeeNumber")
+                        ,(String)getData.get("dateOfContract"),(String) getData.get("wellQRCOdeInfo")
+                        ,(String) getData.get("elevatorUpQRCOdeInfo"),(String) getData.get("machineQRCOdeInfo")
+                        ,(ArrayList<HashMap>) getData.get("service"),(ArrayList<String>)getData.get("qrCodes"));
+                       Toast toast=Toasty.success(ServiceActivity.this,getResources().getString(R.string.saved));
+                       toast.show();
                        backToEditActivity(apartment);
                     }
             }

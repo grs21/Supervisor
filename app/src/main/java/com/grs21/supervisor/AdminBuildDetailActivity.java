@@ -7,7 +7,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
-
 import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -29,7 +28,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -42,7 +40,6 @@ import com.grs21.supervisor.model.Apartment;
 import com.grs21.supervisor.model.Service;
 import com.grs21.supervisor.model.User;
 import com.grs21.supervisor.util.ToastMessage;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.Serializable;
@@ -82,20 +79,17 @@ public class    AdminBuildDetailActivity extends AppCompatActivity implements Vi
         initializeToolbar();
         initializeData(apartment);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater=getMenuInflater();
         menuInflater.inflate(R.menu.admin_qrgenerator, menu);
         return true;
     }
-
     private void initializeToolbar(){
         Toolbar toolbar=binding.toolbarBuildDetail;
         toolbar.setTitle(apartment.getApartmentName());
         setSupportActionBar(toolbar);
     }
-
     private void initializeData(Apartment apartment) {
         for (HashMap service:apartment.getServiceArrayList()) {
             Service generateService=new Service(
@@ -111,7 +105,6 @@ public class    AdminBuildDetailActivity extends AppCompatActivity implements Vi
                 R.layout.item_spinner, serviceArrayList);
         binding.autoCompleteSpinnerAdmin.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
         binding.textViewBuildDetailBuildName.setText(apartment.getApartmentName());
         binding.textViewBuildDetailBuildAddress.setText(apartment.getApartmentAddress());
         binding.textViewBuildDetailCost.setText(apartment.getCost());
@@ -122,15 +115,12 @@ public class    AdminBuildDetailActivity extends AppCompatActivity implements Vi
         binding.textViewBuildDetailEmployeeNumber.setText(apartment.getEmployeeNumber());
         binding.textViewBuildDetailContractDate.setText(apartment.getContractDate());
     }
-
     @Override
     public void onClick(View v) {
         final int buttonGotoEdit=R.id.buttonDetailToEdit;
         final int buttonServiceDetailDialogCancel=R.id.buttonAdminDetailDialogCancel;
         final int buttonMakeService=R.id.buttonMakeService;
         final int buttonAlertDialogSend=R.id.buttonAlertDialogQRCodeGenerate;
-
-
         switch (v.getId()){
             case buttonGotoEdit:
                 Intent intent=new Intent(AdminBuildDetailActivity.this, ApartmentEditActivity.class);
@@ -180,7 +170,6 @@ public class    AdminBuildDetailActivity extends AppCompatActivity implements Vi
             file.delete();
         }
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         final int qrCodeGenerate=R.id.menuItemQrGenerate;
@@ -196,7 +185,6 @@ public class    AdminBuildDetailActivity extends AppCompatActivity implements Vi
         }
         return super.onOptionsItemSelected(item);
     }
-
     private void sendMail(String mailAddress, ArrayList<Uri> uris){
         Intent mailIntent=new Intent(Intent.ACTION_SEND_MULTIPLE);
         mailIntent.setType("plain/text");
@@ -205,8 +193,6 @@ public class    AdminBuildDetailActivity extends AppCompatActivity implements Vi
         mailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM,uris);
         startActivity(mailIntent);
     }
-
-
     private void saveImage( String fileName){
         try {
             QRGEncoder qrGenerator=new QRGEncoder(fileName,null,QRGContents.Type.TEXT,500);
@@ -224,7 +210,6 @@ public class    AdminBuildDetailActivity extends AppCompatActivity implements Vi
             Log.e("+++++++", "imageSave: ",e );
         }
     }
-
     @Override
     public void onBackPressed() {
         Intent intent=new Intent(AdminBuildDetailActivity.this, AdminActivity.class);
@@ -233,7 +218,6 @@ public class    AdminBuildDetailActivity extends AppCompatActivity implements Vi
         startActivity(intent);
         super.onBackPressed();
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode==1){
@@ -259,13 +243,11 @@ public class    AdminBuildDetailActivity extends AppCompatActivity implements Vi
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-
     @Override
     protected void onResume() {
         super.onResume();
         deleteImage(saveImageFile);
     }
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TextView textViewDialogDate,textViewDialogEmployee,textViewDialogCost;

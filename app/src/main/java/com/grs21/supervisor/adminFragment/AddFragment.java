@@ -18,7 +18,6 @@ import androidx.fragment.app.Fragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.grs21.supervisor.R;
 import com.grs21.supervisor.databinding.FragmentAdminAddBinding;
@@ -32,9 +31,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-
 public class AddFragment extends Fragment implements View.OnClickListener {
-
     private FragmentAdminAddBinding binding;
     private FirebaseFirestore fireStore;
     private User currentUser;
@@ -50,11 +47,8 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.buttonBuildSave.setOnClickListener(this);
         fireStore=FirebaseFirestore.getInstance();
         currentUser=(User)getArguments().getSerializable("currentUser");
-
         return binding.getRoot();
     }
-
-
     @Override
     public void onClick(View v) {
         final int save=R.id.buttonBuildSave;
@@ -129,7 +123,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         });
         alertDialog.create().show();
     }
-
     private boolean isConnected() {
         ConnectivityManager connectivityManager=(ConnectivityManager) getActivity()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -137,7 +130,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         NetworkInfo mobileConn=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         return (wifiConn != null && wifiConn.isConnected()) || (mobileConn != null && mobileConn.isConnected());
     }
-
     private void itemReset(){
         binding.editTextBuildName.setText("");
         binding.editTextBuildAddress.setText("");
@@ -149,7 +141,6 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         binding.editTextContractDate.setText("");
         binding.editTextCost.setText("");
     }
-
     private void getTextValue(){
         buildName= binding.editTextBuildName.getText().toString().trim();
         cost=binding.editTextCost.getText().toString().trim();
@@ -160,6 +151,5 @@ public class AddFragment extends Fragment implements View.OnClickListener {
         employeeName =  binding.editTextEmployeeName.getText().toString().trim();
         employeeNumber=binding.editTextEmployeeNumber.getText().toString().trim();
         contractDate=binding.editTextContractDate.getText().toString().trim();
-
     }
 }

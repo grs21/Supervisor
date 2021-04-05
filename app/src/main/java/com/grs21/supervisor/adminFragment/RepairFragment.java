@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
@@ -22,14 +21,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -48,22 +45,17 @@ import com.grs21.supervisor.model.Repair;
 import com.grs21.supervisor.model.User;
 import com.grs21.supervisor.util.ToastMessage;
 import com.onesignal.OneSignal;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import es.dmoral.toasty.Toasty;
 
-
 public class RepairFragment extends Fragment implements View.OnClickListener {
-
     private FragmentAdminRepairBinding binding;
     private EditText editTextAddBuildName, editTextAddRepairNote,editTextDetailBuildName
             ,editTextDetailNote;
@@ -93,7 +85,6 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
         getRepairsFromFirebase();
         return binding.getRoot();
     }
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.admin_add_menu,menu);
@@ -107,7 +98,6 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
         });
          super.onCreateOptionsMenu(menu, inflater);
     }
-
     @Override
     public void onClick(View v) {
          final int detailDialogSave=R.id.buttonRepairDetailDialogSave;
@@ -141,8 +131,7 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast toast = Toasty.error(getContext(), R.string.notSaved);
-                                toast.show();
+                                toastMessage.errorMessage(getResources().getString(R.string.notSaved),getContext());
                             }
                         });
                     }else{
@@ -231,8 +220,8 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
      }
 
     private void sendNotification(String message){
-         firebaseFirestore.collection("Users").get()
-             .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+       firebaseFirestore.collection("Users").get()
+         .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
          @Override
          public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
              for (DocumentSnapshot documentSnapshot:queryDocumentSnapshots.getDocuments()){
@@ -261,7 +250,7 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                  }
              }
          }
-     });
+       });
      }
 
     private void refreshPage() {
@@ -272,7 +261,6 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.admin_fragmentContainer, repairFragment).commit();
     }
-
     private void initializeAddAlertDialog() {
          dialog=new Dialog(getContext());
          dialog.setContentView(R.layout.alert_dialog_add_repair);
@@ -285,7 +273,6 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
           buttonSave.setOnClickListener(this);
          dialog.show();
      }
-
     private void setAdapter(ArrayList<Repair> repairArrayList) {
         repairListener(repairArrayList);
         AdapterRepairRecyclerview adapterRepair= new AdapterRepairRecyclerview(repairArrayList,repairListener);
@@ -306,7 +293,6 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
             }
         };
     }
-
     private void initializeDetailAlertDialog() {
         dialog=new Dialog(getContext());
         dialog.setContentView(R.layout.alert_dialog_repair_detail);
@@ -323,23 +309,27 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
     }
 
     private void getRepairsFromFirebase() {
+        try {
+            firebaseFirestore.document(currentUser.getCompany()+"/Repairs")
+                    .collection("repair").orderBy("date", Query.Direction.DESCENDING)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            repairArrayList.clear();
+                            for (DocumentSnapshot snapshot:value.getDocuments()){
+                                Repair repair = snapshot.toObject(Repair.class);
+                                repair.setId(snapshot.getId());
+                                repairArrayList.add(repair);
+                            }
+                            setAdapter(repairArrayList);
+                        }
+                    });
 
-        firebaseFirestore.document(currentUser.getCompany()+"/Repairs")
-            .collection("repair").orderBy("date", Query.Direction.DESCENDING)
-            .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                @Override
-                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                    repairArrayList.clear();
-                    for (DocumentSnapshot snapshot:value.getDocuments()){
+        }catch (Exception e){
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
 
-                        Repair repair = snapshot.toObject(Repair.class);
-                        repair.setId(snapshot.getId());
-                        repairArrayList.add(repair);
-                        Log.d(TAG, "onEvent: "+repair.getApartmentName());
-                    }
-                    setAdapter(repairArrayList);
-                }
-            });
      }
 
     private void customConnectionDialog() {

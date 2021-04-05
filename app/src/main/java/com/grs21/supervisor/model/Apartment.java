@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 public class Apartment implements Serializable {
     private String uuid;
     private String apartmentName;
@@ -21,7 +20,6 @@ public class Apartment implements Serializable {
     private String elevatorUp;
     private String machineRoom;
     private ArrayList<HashMap> serviceArrayList=new ArrayList<>();
-
     public Apartment(String uuid, String apartmentName, String apartmentAddress, String cost
             , String managerName, String managerNumber, String managerAddress, String employeeName
             , String employeeNumber, String contractDate, String well, String elevatorUp
@@ -43,11 +41,9 @@ public class Apartment implements Serializable {
         this.buildQrCodes=buildQrCodes;
 
     }
-
     public ArrayList<String> getBuildQrCodes() {
         return buildQrCodes;
     }
-
 
     public String getUuid() {
         return uuid;

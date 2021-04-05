@@ -9,15 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -28,7 +25,6 @@ import com.grs21.supervisor.adapter.AdapterUserRepairRecyclerView;
 import com.grs21.supervisor.databinding.FragmentUserRepairBinding;
 import com.grs21.supervisor.model.Repair;
 import com.grs21.supervisor.model.User;
-
 import java.util.ArrayList;
 
 public class UserRepairFragment extends Fragment implements View.OnClickListener{
@@ -43,8 +39,7 @@ public class UserRepairFragment extends Fragment implements View.OnClickListener
     private RecyclerView repairRecyclerView;
     private Repair clickedRepair;
     private Dialog dialog;
-    private TextView editTextAddBuildName, editTextAddRepairNote,editTextDetailBuildName
-            ,editTextDetailNote;
+    private TextView editTextDetailBuildName,editTextDetailNote;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -1,16 +1,12 @@
 package com.grs21.supervisor.model;
 
-import java.util.function.BinaryOperator;
-
 public class Service {
-
     private boolean well;
     private boolean elevatorUp;
     private boolean machineRoom;
     private String date;
     private String employee;
     private String cost;
-
     public Service(boolean well, boolean elevatorUp, boolean machineRoom, String date, String employee,String cost) {
         this.well = well;
         this.elevatorUp = elevatorUp;

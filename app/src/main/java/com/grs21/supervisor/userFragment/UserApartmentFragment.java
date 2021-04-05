@@ -1,6 +1,7 @@
 package com.grs21.supervisor.userFragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -8,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -80,7 +83,8 @@ public class UserApartmentFragment extends Fragment {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                   if (error!=null){
-                      toastMessage.warningMessage(error.getMessage(), getContext());
+                      Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                      Log.d(TAG, "onEvent: "+error.getMessage());
                   }
                  if (value!=null){
                      for (DocumentSnapshot snapshot:value.getDocuments()){
@@ -103,5 +107,4 @@ public class UserApartmentFragment extends Fragment {
             }
         });
     }
-
 }
