@@ -26,7 +26,7 @@
                 android:layout_marginEnd="33dp"
                 android:layout_marginTop="?attr/actionBarSize"
                 android:padding="4dp"
-
+                android:lines="1"
                 android:drawableLeft="@drawable/ic_build_name"
                 android:drawablePadding="3dp"
                 />
@@ -61,6 +61,7 @@
                 android:layout_marginTop="10dp"
                 android:padding="4dp"
                 android:layout_below="@+id/editTextBuildAddress"
+                android:lines="1"
 
                 android:drawableLeft="@drawable/ic_cost"
                 android:drawablePadding="3dp"
@@ -75,6 +76,7 @@
                 android:layout_marginStart="33dp"
                 android:layout_marginEnd="33dp"
                 android:layout_marginTop="10dp"
+                android:lines="1"
                 android:padding="4dp"
                 android:layout_below="@+id/editTextCost"
 
@@ -92,6 +94,7 @@
                 android:layout_marginEnd="33dp"
                 android:layout_marginTop="10dp"
                 android:padding="4dp"
+                android:lines="1"
                 android:layout_below="@+id/editTextManagerName"
                 android:drawableLeft="@drawable/ic_phone"
                 android:drawablePadding="3dp"
@@ -111,6 +114,7 @@
                 android:layout_below="@+id/editTextManagerNumber"
                 android:drawableLeft="@drawable/ic_house"
                 android:drawablePadding="3dp"
+                android:lines="1"
                 />
             <EditText
                 android:id="@+id/editTextEmployeeName"
@@ -126,6 +130,7 @@
                 android:layout_below="@+id/editTextManagerAddress"
                 android:drawableLeft="@drawable/ic_user"
                 android:drawablePadding="3dp"
+                android:lines="1"
                 />
             <EditText
                 android:id="@+id/editTextEmployeeNumber"
@@ -141,6 +146,7 @@
                 android:layout_below="@+id/editTextEmployeeName"
                 android:drawableLeft="@drawable/ic_phone"
                 android:drawablePadding="3dp"
+                android:lines="1"
                 />
 
             <EditText
@@ -156,12 +162,14 @@
                 android:layout_marginTop="10dp"
                 android:padding="4dp"
                 android:drawableLeft="@drawable/ic_build_name"
+                android:lines="1"
                 />
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonBuildSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/editTextContractDate"
+                android:background="@drawable/button_background"
                 android:text="@string/save"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="33dp"
@@ -174,6 +182,7 @@
                 android:layout_below="@+id/editTextEmployeeNumber"
                 android:layout_toRightOf="@+id/editTextContractDate"
                 android:text="@string/date"
+                android:background="@drawable/button_background"
                 android:layout_marginTop="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="2dp"

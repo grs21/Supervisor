@@ -58,7 +58,6 @@ public class UserRepairFragment extends Fragment implements View.OnClickListener
     }
 
     private void getRepairsFromFirebase() {
-
         firebaseFirestore.document(currentUser.getCompany()+"/Repairs")
                 .collection("repair")
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -72,7 +71,6 @@ public class UserRepairFragment extends Fragment implements View.OnClickListener
                     Repair repair= documentSnapshot.toObject(Repair.class);
                     repair.setId(id);
                     repairArrayList.add(repair);
-                    Log.d(TAG, "onSuccess: "+id);
                 }
                 setAdapter(repairArrayList);
             }

@@ -195,7 +195,7 @@ public class    AdminBuildDetailActivity extends AppCompatActivity implements Vi
     }
     private void saveImage( String fileName){
         try {
-            QRGEncoder qrGenerator=new QRGEncoder(fileName,null,QRGContents.Type.TEXT,500);
+            QRGEncoder qrGenerator=new QRGEncoder(fileName,null,QRGContents.Type.TEXT,350);
             bitmap=qrGenerator.getBitmap();
             File filePath= Environment.getExternalStorageDirectory();
             File parentPath=new File(filePath.getAbsolutePath()+"/Supervisor");

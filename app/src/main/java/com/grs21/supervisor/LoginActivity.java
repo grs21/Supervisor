@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,12 +59,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     .update("phoneID",userPhoneId).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(LoginActivity.this, "PhoneID değiştirildi", Toast.LENGTH_LONG).show();
+
                 }
             });
-        }else
-        {
-            Toast.makeText(LoginActivity.this, "PhoneID değiştilmedi", Toast.LENGTH_SHORT).show();
         }
     }
     private void oneSignalInitialize() {

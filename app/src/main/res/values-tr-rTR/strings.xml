@@ -15,7 +15,7 @@
     <string name="please_enter_cost">Ücreti giriniz....</string>
     <string name="failure">Başarısız</string>
     <string name="notSaved">Kaydedilmedi!!</string>
-    <string name="cannot_be_space">Bina adı boş bırakılamaz !!</string>
+    <string name="cannot_be_space">Bina adı veya arıza bilgileri boş bırakılamaz !!</string>
     <string name="apartment">apartmanlar</string>
     <string name="add">ekle</string>
     <string name="service">bakım</string>

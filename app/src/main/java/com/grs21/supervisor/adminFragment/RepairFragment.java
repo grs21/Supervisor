@@ -117,7 +117,8 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                         editData.put("notes", repairNote);
                         editData.put("date", date);
                         DocumentReference reference = firebaseFirestore.document(currentUser
-                                .getCompany() + "/Repairs").collection("repair")
+                                .getCompany() + "/Repairs")
+                                .collection("repair")
                                 .document(clickedRepair.getId());
                         reference.update(editData).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -132,6 +133,7 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 toastMessage.errorMessage(getResources().getString(R.string.notSaved),getContext());
+                                Log.e(TAG, "onFailure: ",e );
                             }
                         });
                     }else{
@@ -312,19 +314,23 @@ public class RepairFragment extends Fragment implements View.OnClickListener {
         try {
             firebaseFirestore.document(currentUser.getCompany()+"/Repairs")
                     .collection("repair").orderBy("date", Query.Direction.DESCENDING)
-                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                            repairArrayList.clear();
-                            for (DocumentSnapshot snapshot:value.getDocuments()){
-                                Repair repair = snapshot.toObject(Repair.class);
-                                repair.setId(snapshot.getId());
-                                repairArrayList.add(repair);
-                            }
-                            setAdapter(repairArrayList);
-                        }
-                    });
-
+                    .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    repairArrayList.clear();
+                    for (DocumentSnapshot snapshot:queryDocumentSnapshots){
+                        Repair repair = snapshot.toObject(Repair.class);
+                        repair.setId(snapshot.getId());
+                        repairArrayList.add(repair);
+                    }
+                    setAdapter(repairArrayList);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
         }catch (Exception e){
             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();

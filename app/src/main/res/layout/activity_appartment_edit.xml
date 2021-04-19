@@ -40,10 +40,7 @@
                 />
 
         </RelativeLayout>
-
-
     </com.google.android.material.appbar.AppBarLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -51,18 +48,15 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-
-
             <TextView
+                android:id="@+id/textApartmentName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Apt.İsim:"
+                android:text="Apartman İsmi:"
                 android:textSize="19sp"
                 android:layout_marginTop="23dp"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/black"
-
                 />
             <EditText
                 android:id="@+id/editTextEditBuildName"
@@ -71,19 +65,22 @@
                 android:background="#7AD8D3D3"
                 android:hint="@string/buildName"
                 android:textSize="22sp"
-                android:layout_marginStart="90dp"
-                android:layout_marginEnd="33dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
                 android:paddingStart="6dp"
+                android:layout_below="@+id/textApartmentName"
+                android:lines="1"
 
                 />
             <TextView
+                android:id="@+id/textApartmentAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Adres:"
                 android:layout_below="@+id/editTextEditBuildName"
                 android:textSize="19sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/black"
                 />
@@ -96,19 +93,20 @@
                 android:hint="@string/address"
                 android:textSize="22sp"
                 android:gravity="top"
-                android:layout_marginStart="90dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="33dp"
                 android:layout_marginTop="10dp"
                 android:paddingStart="15dp"
-                android:layout_below="@+id/editTextEditBuildName"
+                android:layout_below="@+id/textApartmentAddress"
                 />
             <TextView
+                android:id="@+id/textCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Aidat :"
                 android:layout_below="@+id/editTextEditBuildAddress"
                 android:textSize="19sp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/black"
 
@@ -120,19 +118,21 @@
                 android:background="#7AD8D3D3"
                 android:hint="@string/cost"
                 android:textSize="22sp"
-                android:layout_marginStart="90dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="33dp"
                 android:layout_marginTop="10dp"
                 android:padding="4dp"
-                android:layout_below="@+id/editTextEditBuildAddress"
+                android:layout_below="@+id/textCost"
+                android:lines="1"
                 />
             <TextView
+                android:id="@+id/textManager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Yönetici:"
+                android:text="Yönetici Adı:"
                 android:layout_below="@+id/editTextEditCost"
                 android:textSize="19sp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/black"
                 />
@@ -143,16 +143,18 @@
                 android:background="#7AD8D3D3"
                 android:hint="@string/manager_name"
                 android:textSize="22sp"
-                android:layout_marginStart="90dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="33dp"
                 android:layout_marginTop="10dp"
                 android:padding="4dp"
-                android:layout_below="@+id/editTextEditCost"
+                android:layout_below="@+id/textManager"
+                android:lines="1"
                 />
             <TextView
+                android:id="@+id/textManagerPhoneNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Y.Tel:"
+                android:text="Yönetici Telefon:"
                 android:layout_below="@+id/editTextEditManagerName"
                 android:textSize="19sp"
                 android:layout_marginTop="15dp"
@@ -166,19 +168,21 @@
                 android:background="#7AD8D3D3"
                 android:hint="@string/manager_number"
                 android:textSize="22sp"
-                android:layout_marginStart="90dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="33dp"
                 android:layout_marginTop="10dp"
                 android:padding="4dp"
-                android:layout_below="@+id/editTextEditManagerName"
+                android:layout_below="@+id/textManagerPhoneNumber"
+                android:lines="1"
                 />
             <TextView
+                android:id="@+id/textManagerAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Y.Adres:"
+                android:text="Yönetici Adres:"
                 android:layout_below="@+id/editTextEditManagerNumber"
                 android:textSize="19sp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/black"
                 />
@@ -190,19 +194,21 @@
                 android:background="#7AD8D3D3"
                 android:hint="@string/manager_address"
                 android:textSize="22sp"
-                android:layout_marginStart="90dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="33dp"
                 android:layout_marginTop="10dp"
                 android:padding="4dp"
-                android:layout_below="@+id/editTextEditManagerNumber"
+                android:layout_below="@+id/textManagerAddress"
+                android:lines="1"
                 />
             <TextView
+                android:id="@+id/textEmployeeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gö.İsim:"
+                android:text="Görevli Adı:"
                 android:layout_below="@+id/editTextEditManagerAddress"
                 android:textSize="19sp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/black"
                 />
@@ -213,19 +219,21 @@
                 android:background="#7AD8D3D3"
                 android:hint="@string/employee_name"
                 android:textSize="22sp"
-                android:layout_marginStart="90dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="33dp"
                 android:layout_marginTop="10dp"
                 android:padding="4dp"
-                android:layout_below="@+id/editTextEditManagerAddress"
+                android:layout_below="@+id/textEmployeeName"
+                android:lines="1"
                 />
             <TextView
+                android:id="@+id/textEmployeePhoneNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gö.Tel:"
+                android:text="Görevli Telefon:"
                 android:layout_below="@+id/editTextEditEmployeeName"
                 android:textSize="19sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/black"
                 />
@@ -236,11 +244,12 @@
                 android:background="#7AD8D3D3"
                 android:hint="@string/employee_number"
                 android:textSize="22sp"
-                android:layout_marginStart="90dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="33dp"
                 android:layout_marginTop="10dp"
                 android:padding="4dp"
-                android:layout_below="@+id/editTextEditEmployeeName"
+                android:layout_below="@+id/textEmployeePhoneNumber"
+                android:lines="1"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -265,8 +274,9 @@
                 android:layout_marginStart="100dp"
                 android:layout_marginTop="10dp"
                 android:padding="4dp"
+                android:lines="1"
                 />
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/buttonDetailEditApartmentSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -276,7 +286,7 @@
                 android:text="@string/save"
                 android:layout_marginTop="5dp"
                 />
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/buttonDetailEditDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -286,6 +296,7 @@
                 android:text="@string/delete"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="5dp"
+
                 />
         </RelativeLayout>
     </ScrollView>

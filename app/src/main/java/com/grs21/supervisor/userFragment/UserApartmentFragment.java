@@ -16,6 +16,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -35,13 +40,13 @@ import java.util.Map;
 
 public class UserApartmentFragment extends Fragment {
     private FragmentUserApartmentBinding binding;
-    private FirebaseFirestore fireStore =FirebaseFirestore.getInstance();
+    private final FirebaseFirestore fireStore =FirebaseFirestore.getInstance();
     private User currentUser;
     private Bundle bundle;
     public final String bundleKeyCurrentUser="currentUser";
     private CollectionReference collectionReference;
     private static final String TAG = "UserApartmentFragment";
-    private ToastMessage toastMessage;
+
     private ArrayList<Apartment> apartments=new ArrayList<>();
     private AdapterUserApartmentRecyclerView adapter;
     @Nullable
@@ -49,7 +54,6 @@ public class UserApartmentFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
       binding=FragmentUserApartmentBinding.inflate(inflater,container,false);
       setHasOptionsMenu(true);
-      toastMessage=new ToastMessage();
       bundle=getArguments();
       currentUser=(User) bundle.getSerializable(bundleKeyCurrentUser);
       getDataFromFireStore();
@@ -79,31 +83,31 @@ public class UserApartmentFragment extends Fragment {
     private void getDataFromFireStore() {
         collectionReference=fireStore.collection(currentUser.getCompany());
         collectionReference.orderBy("dateOfContract", Query.Direction.DESCENDING)
-        .addSnapshotListener(new EventListener<QuerySnapshot>() {
+        .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                  if (error!=null){
-                      Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
-                      Log.d(TAG, "onEvent: "+error.getMessage());
-                  }
-                 if (value!=null){
-                     for (DocumentSnapshot snapshot:value.getDocuments()){
-                          Map<String,Object> getData=snapshot.getData();
-                          Apartment apartment=new Apartment( snapshot.getId(),(String)getData.get("buildName")
-                         ,(String)getData.get("address"),(String)getData.get("cost"),(String)getData.get("managerName")
-                         ,(String)getData.get("managerNumber"),(String)getData.get("managerAddress")
-                         ,(String)getData.get("employeeName"),(String)getData.get("employeeNumber")
-                         ,(String)getData.get("dateOfContract"),(String) getData.get("wellQRCOdeInfo")
-                         ,(String) getData.get("elevatorUpQRCOdeInfo"),(String) getData.get("machineQRCOdeInfo")
-                         ,(ArrayList<HashMap>) getData.get("service") ,(ArrayList<String>)getData.get("qrCodes"));
-                         apartments.add(apartment);
-                     }
-                     LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
-                     adapter=new AdapterUserApartmentRecyclerView(apartments,currentUser);
-                     binding.recyclerViewUserApartment.setAdapter(adapter);
-                     binding.recyclerViewUserApartment.setLayoutManager(linearLayoutManager);
-                     adapter.notifyDataSetChanged();
-                 }
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (DocumentSnapshot snapshot:queryDocumentSnapshots){
+                    Map<String,Object> getData=snapshot.getData();
+                    Apartment apartment=new Apartment( snapshot.getId(),(String)getData.get("buildName")
+                    ,(String)getData.get("address"),(String)getData.get("cost"),(String)getData.get("managerName")
+                    ,(String)getData.get("managerNumber"),(String)getData.get("managerAddress")
+                    ,(String)getData.get("employeeName"),(String)getData.get("employeeNumber")
+                    ,(String)getData.get("dateOfContract"),(String) getData.get("wellQRCOdeInfo")
+                    ,(String) getData.get("elevatorUpQRCOdeInfo"),(String) getData.get("machineQRCOdeInfo")
+                    ,(ArrayList<HashMap>) getData.get("service") ,(ArrayList<String>)getData.get("qrCodes"));
+                    apartments.add(apartment);
+                }
+                LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
+                adapter=new AdapterUserApartmentRecyclerView(apartments,currentUser);
+                binding.recyclerViewUserApartment.setAdapter(adapter);
+                binding.recyclerViewUserApartment.setLayoutManager(linearLayoutManager);
+                adapter.notifyDataSetChanged();
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -120,9 +120,10 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         switch (item.getItemId()){
             case logOut:
                 if (firebaseAuth!=null){
+
                     finish();
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                     firebaseAuth.signOut();
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 }
                 break;
             case registration:
