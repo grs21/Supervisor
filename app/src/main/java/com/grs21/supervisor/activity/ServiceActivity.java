@@ -35,7 +35,7 @@ import com.grs21.supervisor.model.Apartment;
 import com.grs21.supervisor.model.Service;
 import com.grs21.supervisor.model.User;
 import com.grs21.supervisor.util.CaptureAct;
-import com.grs21.supervisor.util.ToastMessage;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -92,69 +92,75 @@ public class ServiceActivity extends AppCompatActivity implements View.OnClickLi
                 elevatorUpBoolean=binding.checkBoxServiceFragmentElevatorUp.isChecked();
                 machineRoomBoolean=binding.checkBoxServiceMachineRoom.isChecked();
                 if (wellBoolean|| elevatorUpBoolean || machineRoomBoolean){
-                    CheckBox well,elevatorUp,machineRoom;
-                    EditText cost;
-                    Dialog dialog=new Dialog(ServiceActivity.this);
-                    dialog.setContentView(R.layout.alert_dialog_service);
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    cost=dialog.findViewById(R.id.editTextServiceDialogCost);
-                    elevatorUp=dialog.findViewById(R.id.checkboxServiceDialogElevatorTop);
-                    machineRoom=dialog.findViewById(R.id.checkboxServiceDialogElevatorMachine);
-                    well=dialog.findViewById(R.id.checkboxServiceDialogWell);
-
-                    well.setChecked(wellBoolean);
-                    elevatorUp.setChecked(elevatorUpBoolean);
-                    machineRoom.setChecked(machineRoomBoolean);
-
-                    TextView textViewName=dialog.findViewById(R.id.textViewServiceDialogApartmentName);
-                    textViewName.setText(apartment.getApartmentName());
-                    TextView textViewEmployee=dialog.findViewById(R.id.textViewServiceDialogEmployee);
-                    textViewEmployee.setText(currentUser.getFullName());
-
-                    Button buttonCancel,buttonSave;
-                    buttonCancel=dialog.findViewById(R.id.buttonServiceDialogCancel);
-                    buttonSave=dialog.findViewById(R.id.buttonServiceDialogSave);
-                    buttonCancel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
-                    buttonSave.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (!cost.getText().toString().isEmpty()) {
-                                final ProgressDialog progressDialog = new ProgressDialog(v.getContext());
-                                progressDialog.setTitle(R.string.uploading);
-                                progressDialog.show();
-                                Date date = Calendar.getInstance().getTime();
-                                String dateString = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(date);
-                                Service service = new Service();
-                                service.setWell(wellBoolean);
-                                service.setMachineRoom(machineRoomBoolean);
-                                service.setElevatorUp(elevatorUpBoolean);
-                                service.setDate(dateString);
-                                service.setEmployee(currentUser.getFullName());
-                                service.setCost(cost.getText().toString().trim()+"TL");
-                                DocumentReference docRef = fireStore.collection(company)
-                                        .document(apartment.getUuid());
-                                docRef.update("service", FieldValue.arrayUnion(service));
-                                dialog.dismiss();
-                                progressDialog.dismiss();
-                                apartmentGetDataAfterScan();
-                            }else {
-                                cost.setError(getResources().getString(R.string.please_enter_cost));
-                            }
-                        }
-                    });
-                    dialog.show();
+                   makeService(wellBoolean, elevatorUpBoolean, machineRoomBoolean);
                 }else{
-                    Toast toast=Toasty.error(this, getResources().getString(R.string.please_make_a_service));
-                    toast.show();
+                    Dialog dialogWarningMessage=new Dialog(ServiceActivity.this);
+                    dialogWarningMessage.setContentView(R.layout.alert_dialog_when_empty_service);
+                    dialogWarningMessage.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialogWarningMessage.findViewById(R.id.buttonAlertDialogWhenEmptyServiceNo).setOnClickListener(v1 -> {
+                        dialogWarningMessage.dismiss();
+                    });
+                    dialogWarningMessage.findViewById(R.id.buttonAlertDialogWhenEmptyServiceYes).setOnClickListener(v1 -> {
+                        makeService(wellBoolean,elevatorUpBoolean,machineRoomBoolean );
+                        dialogWarningMessage.dismiss();
+                    });
+                    dialogWarningMessage.show();
+
                 }
                 break;
         }
+    }
+
+    private void makeService(boolean wellBoolean,boolean elevatorUpBoolean,boolean machineRoomBoolean){
+        CheckBox checkBoxWell,checkBoxElevatorUp,checkBoxMachineRoom;
+        EditText editTextCost;
+        Dialog dialog=new Dialog(ServiceActivity.this);
+        dialog.setContentView(R.layout.alert_dialog_service);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        editTextCost=dialog.findViewById(R.id.editTextServiceDialogCost);
+        checkBoxElevatorUp=dialog.findViewById(R.id.checkboxServiceDialogElevatorTop);
+        checkBoxMachineRoom=dialog.findViewById(R.id.checkboxServiceDialogElevatorMachine);
+        checkBoxWell =dialog.findViewById(R.id.checkboxServiceDialogWell);
+
+        checkBoxWell.setChecked(wellBoolean);
+        checkBoxElevatorUp.setChecked(elevatorUpBoolean);
+        checkBoxMachineRoom.setChecked(machineRoomBoolean);
+
+        TextView textViewName=dialog.findViewById(R.id.textViewServiceDialogApartmentName);
+        textViewName.setText(apartment.getApartmentName());
+        TextView textViewEmployee=dialog.findViewById(R.id.textViewServiceDialogEmployee);
+        textViewEmployee.setText(currentUser.getFullName());
+
+        Button buttonCancel,buttonSave;
+        buttonCancel=dialog.findViewById(R.id.buttonServiceDialogCancel);
+        buttonSave=dialog.findViewById(R.id.buttonServiceDialogSave);
+        buttonCancel.setOnClickListener(v -> dialog.dismiss());
+        buttonSave.setOnClickListener(v -> {
+            if (!editTextCost.getText().toString().isEmpty()) {
+                final ProgressDialog progressDialog = new ProgressDialog(v.getContext());
+                progressDialog.setTitle(R.string.uploading);
+                progressDialog.show();
+                Date date = Calendar.getInstance().getTime();
+                String dateString = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(date);
+                Service service = new Service();
+                service.setWell(wellBoolean);
+                service.setMachineRoom(machineRoomBoolean);
+                service.setElevatorUp(elevatorUpBoolean);
+                service.setDate(dateString);
+                service.setEmployee(currentUser.getFullName());
+                service.setCost(editTextCost.getText().toString().trim()+"TL");
+                DocumentReference docRef = fireStore.collection(company)
+                        .document(apartment.getUuid());
+                docRef.update("service", FieldValue.arrayUnion(service));
+                dialog.dismiss();
+                progressDialog.dismiss();
+                apartmentGetDataAfterScan();
+            }else {
+                editTextCost.setError(getResources().getString(R.string.please_enter_cost));
+            }
+        });
+        dialog.show();
     }
     private void scanCode() {
         IntentIntegrator integrator=new IntentIntegrator(ServiceActivity.this );

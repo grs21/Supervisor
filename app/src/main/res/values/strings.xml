@@ -9,29 +9,27 @@
     <string name="full_name">Full Name</string>
     <string name="user">User</string>
     <string name="admin">Admin</string>
-    <string name="uploading">Uploading build...</string>
+    <string name="uploading">Uploading build…</string>
     <string name="saved">Saved</string>
     <string name="please_enter_cost">Enter Cost..</string>
     <string name="failure">Failure</string>
     <string name="notSaved">Not Saved!!</string>
     <string name="cannot_be_space">Build name or note cannot be left blank!!</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="apartment">apartment</string>
     <string name="add">add</string>
     <string name="service">service</string>
     <string name="please_make_a_service">Please make a service!!</string>
     <string name="repair">repair</string>
     <string name="well">well</string>
-    <string name="title_activity_build_detail">BuildDetailActivity</string>
+    <string name="title_activity_build_detail" translatable="false">BuildDetailActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="log_in">logging into the system..</string>
+    <string name="log_in">Process continues..</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="buildName">Build Name</string>
     <string name="address">Address</string>
     <string name="cost">Cost</string>
@@ -53,7 +51,7 @@
     <string name="new_account">New Account</string>
     <string name="do_you_want_delete">Do you want delete !!</string>
     <string name="connect">connect</string>
-    <string name="repair_save">Repair saving...</string>
+    <string name="repair_save">Repair saving…</string>
     <string name="search_build">Search Build</string>
     <string name="scan">Scan</string>
     <string name="wel">Kuyu:</string>
@@ -64,21 +62,8 @@
     <string name="check_connecting">Please connect to internet to proceed further</string>
     <string name="make_service">Make Service</string>
     <string name="please_selected">Select please</string>
-
-
-    <string-array name="month">
-        <item>---</item>
-        <item>January</item>
-        <item>February</item>
-        <item>March</item>
-        <item>April</item>
-        <item>May</item>
-        <item>June</item>
-        <item>July</item>
-        <item>August</item>
-        <item>September</item>
-        <item>October</item>
-        <item>November</item>
-        <item>December</item>
-    </string-array>
+    <string name="debt">Debt</string>
+    <string name="dikkat_hi_bir_service_yapmad_n_z_devam_etmek_istiyor_musunuz">Dikkat hiç bir service yapmadınız devam etmek istiyor musunuz?</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
 </resources>

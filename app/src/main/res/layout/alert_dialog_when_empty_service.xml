@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:background="@drawable/alert_dialog_background"
+    >
+
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    >
+       <TextView
+        android:id="@+id/textViewAlertDialogWhenEmptyServiceMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dikkat_hi_bir_service_yapmad_n_z_devam_etmek_istiyor_musunuz"
+        android:textColor="@color/black"
+        />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonAlertDialogWhenEmptyServiceYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:text="@string/yes"
+            android:layout_below="@+id/textViewAlertDialogWhenEmptyServiceMessage"
+            android:layout_margin="25dp"
+        />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonAlertDialogWhenEmptyServiceNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:text="@string/no"
+            android:layout_below="@+id/textViewAlertDialogWhenEmptyServiceMessage"
+            android:layout_margin="25dp"
+            android:layout_toEndOf="@+id/buttonAlertDialogWhenEmptyServiceYes"
+            />
+    </RelativeLayout>
+</LinearLayout>

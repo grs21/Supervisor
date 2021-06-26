@@ -20,9 +20,9 @@ import com.grs21.supervisor.LoginActivity;
 import com.grs21.supervisor.R;
 import com.grs21.supervisor.RegistrationActivity;
 import com.grs21.supervisor.databinding.ActivityAdminBinding;
-import com.grs21.supervisor.adminFragment.AddFragment;
-import com.grs21.supervisor.adminFragment.ApartmentFragment;
-import com.grs21.supervisor.adminFragment.RepairFragment;
+import com.grs21.supervisor.adminFragment.AdminAddFragment;
+import com.grs21.supervisor.adminFragment.AdminApartmentFragment;
+import com.grs21.supervisor.adminFragment.AdminRepairFragment;
 import com.grs21.supervisor.model.User;
 
 public class AdminActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -59,7 +59,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
     private void initializeBottomNavigationBar() {
         BottomNavigationView bottomNavigationView=findViewById(R.id.admin_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(adminNavigationListener);
-        ApartmentFragment apartmentFragment=new ApartmentFragment();
+        AdminApartmentFragment apartmentFragment=new AdminApartmentFragment();
         apartmentFragment.setArguments(bundleCurrentUserData);
         getSupportFragmentManager().beginTransaction().replace(R.id.admin_fragmentContainer,apartmentFragment)
                 .commit();
@@ -96,15 +96,15 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
             Fragment selectedFragment=null;
             switch (item.getItemId()){
                 case menuBuildAdd:
-                    selectedFragment=new AddFragment();
+                    selectedFragment=new AdminAddFragment();
                     selectedFragment.setArguments(bundleCurrentUserData);
                     break;
                 case menuApartmentList:
-                    selectedFragment= new ApartmentFragment();
+                    selectedFragment= new AdminApartmentFragment();
                     selectedFragment.setArguments(bundleCurrentUserData);
                     break;
                 case menuRepair:
-                    selectedFragment=new RepairFragment();
+                    selectedFragment=new AdminRepairFragment();
                     selectedFragment.setArguments(bundleCurrentUserData);
                     break;
             }
